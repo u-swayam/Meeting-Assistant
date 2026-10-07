@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 10,
+  "label": "chunk_10",
+  "requested_indices": [
+    50,
+    51,
+    52,
+    53,
+    54
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 50,\n      \"refined_text\": \"That sounds good. The task is to update the retry documentation; the tomorrow timing is conditional on sandbox stability, so it is not a hard deadline.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 51,\n      \"refined_text\": \"We should record that the current architecture decision is to keep PostgreSQL as the source of truth for the ledger. The Kafka events are transport and workflow coordination, not the authoritative balance store.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 52,\n      \"refined_text\": \"Agreed. That is the decision. The deployment strategy, final SLO, production canary date, and 30-day retention change are still open.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 53,\n      \"refined_text\": \"For the documentation, please don't turn my recommendation about keeping the old path for 48 hours into a confirmed decision. It is still a recommendation.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 54,\n      \"refined_text\": \"And don't assign the migration review to Swayam. I said I would review it after Arjun opens the pull request, which is a conditional statement, not a transfer of ownership.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1015,
+      "completion_tokens": 292,
+      "total_tokens": 1307
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 50,
+        "refined_text": "That sounds good. The task is to update the retry documentation; the tomorrow timing is conditional on sandbox stability, so it is not a hard deadline.",
+        "changes": []
+      },
+      {
+        "index": 51,
+        "refined_text": "We should record that the current architecture decision is to keep PostgreSQL as the source of truth for the ledger. The Kafka events are transport and workflow coordination, not the authoritative balance store.",
+        "changes": []
+      },
+      {
+        "index": 52,
+        "refined_text": "Agreed. That is the decision. The deployment strategy, final SLO, production canary date, and 30-day retention change are still open.",
+        "changes": []
+      },
+      {
+        "index": 53,
+        "refined_text": "For the documentation, please don't turn my recommendation about keeping the old path for 48 hours into a confirmed decision. It is still a recommendation.",
+        "changes": []
+      },
+      {
+        "index": 54,
+        "refined_text": "And don't assign the migration review to Swayam. I said I would review it after Arjun opens the pull request, which is a conditional statement, not a transfer of ownership.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 50,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 51,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 52,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 53,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 54,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

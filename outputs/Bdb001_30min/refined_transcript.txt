@@ -1,0 +1,581 @@
+Yeah. We had a long discussion about how much... How easy we wanna make it for people to bleep things out. So... Okay. So this... Morgan wants to make it hard.
+
+It it doesn't. Did
+
+it did it... I didn't even check yesterday. It didn't move yesterday
+
+either when I started it. Okay. So I don't know if it doesn't like both. Channel
+
+three. Channel three?
+
+You know, I discovered something yesterday on these wireless ones. Mhmm. You can tell if it's picking up breath noise and stuff.
+
+Yeah. It has a little indicator on it Mhmm. On the AF.
+
+So if you... Yeah. If you breathe under... Breathe and then you see AF go off, then you know. K. Picking up your mouth nice.
+
+Well, that's good. Because we have a lot of Yep. Test. In fact, if you listen to just the channels of people not talk, it's like,
+
+very disconcerting. What? Did
+
+you see Hannibal
+
+recently or something? Exactly. Very disconcerting. Okay. So I was gonna try to get out of here, like, in half an hour because I really appreciate people coming. And the main thing that I was
+
+going to ask people to help with today is to give input on what kinds of database format we should use in starting to link up things like word transcripts and annotations of word transcripts, so anything that transcribers or discourse coders would ever put in the signal, with time marks for words and phone boundaries and all the stuff we get out of the forced alignments in the recognizer. So we have this... I think a starting point is clearly the channelized output of Dave Gelbart's program, which John brought a copy of.
+
+Yeah. I'm I'm familiar with that.
+
+Mean,
+
+I sort of already have developed an XML format for this sort of stuff. And so the only question, is it the sort of thing that you want to use or not? Have you looked at that? I mean, I had a web page up.
+
+Right. So I actually mostly need to be able to link up or You mean this? It's a question both of what the representation I guess
+
+I am gonna be standing up and
+
+drawing Yeah. Up So you should definitely.
+
+So so it definitely had that as a concept so that it has a single timeline. Mhmm. And then you can have lots of different sections, each of which have IDs attached to it. And then you can refer from other sections to those IDs if you want to. So that
+
+so that you start with with a timeline tag.
+
+Timeline. And then you have a bunch of times. I don't I don't remember exactly what my notation was. Oh, remember
+
+something outside of this. Yeah.
+
+Yeah. T equals 1.32. And then I I also had optional things like accuracy, and then ID equals t one And then I also wanted to to be to be able to not specify specifically what the time was and just have a stamp.
+
+Yeah. So these are arbitrary assigned by a program, not not by users.
+
+Then somewhere further down, you might have something like an utterance tag, which has start
+
+equals t 17, end equals t 18. So what that's saying is we know it starts at this particular time. We don't know when it ends.
+
+Okay.
+
+Right? But it ends at this T18, which which may be somewhere else, we say there's another utterance. We don't know what the time actually is, but we know that it's the same time as this end time.
+
+Yeah, thirty eight, whatever you want. So
+
+you're essentially defining a lattice.
+
+Yes, exactly. And then, and then these also have IDs.
+
+Right? So you could you could have some sort of other other tag later in the file that would be something like,
+
+oh, don't know.
+
+Noise type equals
+
+door slam, you know.
+
+And then, you could either say time equals a particular time mark, or you could do other sorts of references. So... Or or you might have a prosody. Prosody. Right? D? T?
+
+It's an o instead of an I, but the d is good. You
+
+like the d? Yeah. It's a good d. You know, so you could have some sort of type here, and then you could have,
+
+the utterance that it's referring to could be u 17 or something like that.
+
+Okay. So that
+
+seems great for all of the
+
+encoding of things with time. And
+
+guess my question is more,
+
+what do you do with, say, a forced alignment when you've got all these phone labels? And what do you do if you, just conceptually, if you get transcriptions where the words are staying but the time boundaries are changing because you've got a new recognition outpouring? Of what's the sequence of going from the waveforms that stay the same, the transcripts that may or may not change, and then the utterance
+
+which are
+
+the time boundaries that may or may not change.
+
+That's actually very nicely handled here because all you'd have to change is the
+
+time stamps in the timeline without But you'd be able to propagate all that.
+
+Right. That's that's why you do that extra level of indirection.
+
+So that you can just change the timeline.
+
+Except the timeline is gonna be huge.
+
+Yes.
+
+Yeah. Especially at phone level.
+
+We
+
+we have
+
+phone I don't think I would do this for phone level. I think for phone level, you wanna use some sort of binary representation because it'll be too
+
+dense So if you were doing that and you had this sort of companion thing that gets called up for phone level, what would that look like? How would
+
+you I would use just an existing
+
+existing
+
+way of doing it. For follow. It's just a matter of it being bigger. But if you have, you know, barring memory limitations, mean, this is still It's
+
+parsing limitations. I don't want to have this text file that you have to read in the whole thing to do something very simple for.
+
+Oh, no. You would use it only for purposes where you actually want the phone level information.
+
+So you could have some file that configures how much information you want in your in your XML or something.
+
+Right. I mean, you'd... I imagine you'd have multiple versions of this depending on the information that you want. I'm just... What I'm wondering is whether... I think for word level, this would be okay. Yeah. Yeah. For word level, it's alright. Mhmm. For lower than word level, you're talking about so much data that I just I don't know. I don't know if that...
+
+I mean, actually have... So one thing that Donna's doing Bladuses are big too. We're running... For every frame, you get a pitch value. And not only one pitch value, but different kinds of pitch values depending Yeah.
+
+I for something like that, I would use or or any frame level stuff, would use p file.
+
+Meaning?
+
+That's a... Well, or something like it. It's... ICSI has a format for frame level representation of features.
+
+Okay. That you could call... That you would tie into this representation with, like, an ID.
+
+Right. Or or there's a there's a particular way in XML to refer to external resources. Okay. So you would say, refer to this external file.
+
+So that external file wouldn't be in But what what's the
+
+advantage of doing that versus just putting it to this in format? More compact, which I think is is better.
+
+Mean, if you did it this meetings and with You don't wanna do it with that. Anything at frame level, you had better encode binary or it's gonna be really painful.
+
+Or you just... I mean, I like text formats. You can always gzip them and decompress them on the fly if if space is really... I was thinking the advantage that we
+
+can share this one per frame. You're talking about gigabyte files. You're gonna actually run out of space in your file system for one file. Right? Because you have a two gigabyte limit on most OSs.
+
+I would say, okay. So frame level is probably not a good idea. But for phone level stuff, it's perfectly
+
+like phones or syllables Phones are every
+
+five frames though, so, or something like
+
+that. But most of the frames are actually not speech.
+
+So people don't
+
+Yeah, but we
+
+actually look at it, words times the average number of phones in an English word is, I don't know, five maybe? So look at a number of words times five.
+
+So you mean pause phones take up a lot of the long pause phones. Yep. Exactly. Okay. That's true. But you do have to keep them in there.
+
+So I think it's debatable whether you wanna do phone level in the same thing. But I think anything at frame level, even p file, is too verbose. I would use something tighter than p files.
+
+Do you... Are you familiar with it? I haven't seen this particular format.
+
+I've used them. I don't know what their structure is. I forgot...
+
+P file for each frame is storing a vector of MFCC or PLP values. Right? It's
+
+whatever you want Right. Actually. So that... What's nice about the p file, it it... Built into it is the concept of frames, utterances, sentences, that sort of thing, that structure. And then also attached to it is an arbitrary vector of values. Oh. And it can take different types. So they don't all have to be floats. You know, you can have integers and you can have doubles and all that sort of stuff. That sounds about
+
+what I
+
+Right. And it has a header it has a header format that describes it to some extent. So the only problem with it is it's actually storing the utterance numbers and the frame numbers in the file, even though they're always sequential. And so it does waste a lot of space. But it's still a lot tighter than than ASCII, and we have a lot of tools already to deal with it.
+
+We do. Okay. Is there some documentation? Yeah. There's a ton of it. Okay. Great.
+
+Man pages and source code and... I
+
+mean, that sounds good. I I was just looking for something... I'm not a database person, but something sort of standard enough that, you know, if we start using this, we can give it out. Other people can work It's not
+
+standard. I mean, it's something that we developed at ICSI.
+
+But
+
+But it's been used here.
+
+But it's been used here, and, you know, we have a well configured system that you can distribute for free. And
+
+I mean, it must be the equivalent of whatever you guys use to store your computed features in, right?
+
+Yeah, we have, actually we use a generalization of the sphere format.
+
+yeah, But so there's something like that. But it's And I think what does
+
+HTK do for features? Or does it even
+
+have a I concept of
+
+mean, Entropic has their own feature format. It's called like s s d or something. Yeah. So s or something like that.
+
+Yeah. I'm just wondering would it be worthwhile to use that instead?
+
+Yeah. This is exactly a decision. It's just whatever
+
+typically share this kind of stuff. Right? I mean, they generate their own
+
+Actually, I I just... You know, we... We've done this stuff on Prosodics, and three or four places have asked for those Prosodic files, and we just have an ASCII Alright. Put a frame by frame, which is fine. But it gets unwieldy to go in and and query these files with really huge files. Right. And we could do it. I was just thinking if there's something And and again, if you have a values are. Mhmm.
+
+If you have a two hour long meeting, that's
+
+gonna They're they're quite large. Yeah. Mean, are enormous. Ten minute switchboard conversations. Right. And so it's doable. It's just that you can only store a feature vector at frame by frame, and it doesn't have any kind of
+
+Is the sharing part of this a pretty important
+
+consideration or is that just sort of a nice thing to have?
+
+I don't know enough about what we're gonna do with the data, but I thought it would be good to get something that
+
+can that other people can use or adopt for their own kinds of encoding and just we to make some decision about what to do. Especially for the prosody work, what it ends up being is you get features from the signal. And of course, those change every time your alignments change. So you rerun a recognizer, you want to recompute your features and then keep the database up to date. Or you change a word or you change an utterance boundary segment, which is going to happen a lot. And so I wanted something where all of this can be done in an elegant way and that if somebody wants to try something or compute something else, that it can be done flexibly. It doesn't have to be pretty. It just has to be
+
+easy to use.
+
+Yeah. The other thing, we should look at Atlas, the NIST thing,
+
+and see if they have anything at that level. I mean, I'm not sure what to do about this with Atlas because they chose a different route. I chose something that there are sort of two choices. Your file format can know
+
+that you're talking about language and speech, which is what I chose, and time. Or your file format can just be a graph representation. And then the application has to impose the structure on top. So what it looked like Atlas chose is they chose the other way, which was their file format is just nodes and links, and you have to interpret what they mean yourself.
+
+And why did you not choose
+
+that tag? Because I knew that we were doing speech, I thought it was better if you're looking at a raw file to be... To... For the tags to say it's an utterance as opposed to the tag to say it's a link.
+
+Okay. But other than that, are they compatible? I mean, you could sort of?
+
+Yeah. They're reasonably compatible. You
+
+could
+
+probably translate between them.
+
+Yeah. That's Yep. So
+
+So... Well, the other thing is if we choose to use Atlas, which maybe we should just do, we should just throw this out before we invest a lot of time in it.
+
+So this is what the meeting's about, just sort of how to, Because we need to come up with a database like this just to do our work. I actually don't care, as long as it's something useful to other people, what we choose. Maybe it's...
+
+Do you have any idea of how to choose? Because I don't.
+
+I chose this for a couple reasons. One of them is that it's easy to parse. You don't need a full XML parser. It's very easy to just write a Perl script to parse it.
+
+As long as each tag is on one line.
+
+Exactly. Exactly. Which I always do.
+
+And you can have as much information in the tag as you want, right?
+
+Well, I have it structured, right? So each tag has only particular items that it can take.
+
+Can you... But you can add to those structures
+
+Sure.
+
+If you...
+
+If you have more information. So what
+
+Yes.
+
+What NIST would say is that instead of doing this, you would say something like link
+
+start equals, you know, some node ID end equals some other node ID,
+
+and then type would be utterance.
+
+You
+
+know, so it's very similar.
+
+So why would it be a waste to do it this way if it's similar enough that we can always
+
+translate? Probably wouldn't be a waste. It would mean that at some point if we wanted to switch, we'd just have to write a translator. Since they're developing other big don't think it's a big
+
+it is They're developing a big infrastructure. And so it seems to me that if if we wanna use that, we might as well go directly to what they're doing rather than
+
+something that's... That would be useful.
+
+Yeah. See, that's the
+
+question. I mean, how stable is their... Are they ready to go?
+
+I looked at it... The last time I looked at it was a while ago, probably a year ago
+
+Mhmm.
+
+When we first started talking about this. And at that time, at least, it was still not very complete. And so specifically, they didn't have any external format representation at that time. They just had sort of conceptual node annotated transcription graph, which I really liked, and that's exactly what this stuff is based on. Since then, they've developed their own external file format, which is this sort of thing. And apparently, they've also developed a lot of tools, but I haven't looked at them. Maybe I should. Should
+
+Maybe would the tools run on something like this, if you can translate them into another way?
+
+I guess the question What would worry me is maybe that we might miss a little detail. That would make it very difficult to translate from one to the other.
+
+It's conceptually close. And they already have or will have tools that everybody else will be using. I mean Yeah, might as well. Would be crazy to do something you know, separate that
+
+Yep. Yeah. So I'll I'll take a closer look So at
+
+it's... That that would really be the question is just what you feel is Right. In the long run the best thing because The once we start sort of doing this, I don't we don't actually have enough time to probably have to rehash it out again.
+
+Other thing, the other way that I sort of established this was as easy translation to and from the transcriber format.
+
+Right.
+
+Right. But
+
+I mean, I like this. This is sort of intuitively easy to actually read as easy as it could be. But I suppose that as long as they have a type here that specifies
+
+utt. It's almost the same. The point is with this, though, is that you can't really add any supplementary information. Right? So if you suddenly decide that you want
+
+You have to make a different
+
+type. Yeah. You'd have to make a different type.
+
+So, well, if you look at it, and I guess in my mind, I don't know enough, Jane would know better about the types of annotations. And... I imagine that those are things that would... Well, you guys mentioned this, that could span any... It could be in its own channel. It could span time boundaries of any type. It could be instantaneous, things like that. And then from the recognition side, we have back traces at the phone level. It can handle that, it could handle states or whatever. And then at the prosody level, we have frame sort of like Yep. Capsule feature files like these p files or anything like that. And that's sort of the world of things that I... And then we have the aligned channels
+
+Right. Of course. seems It to me you want to keep the frame level stuff separate.
+
+Yeah. I definitely agree and I wanted to find actually a nicer format or a maybe a more compact format than what we used before just because you've got 10 channels or whatever and two hours of a meeting. It's
+
+Now how would you how would you represent multiple speakers in this framework? Where you would just represent them as you would have like a speaker tag or something?
+
+There's a speaker tag up at the top which identifies them and then each utt, the way I had it is each churn or each utterance, I don't even remember now, had a speaker ID tag attached to it.
+
+Okay.
+
+And this format, you would have a different tag which which would, be linked to the link. Yeah. So so somewhere else, would have another thing that would be...
+
+Let's see. Would it be a note or a link?
+
+And so so this one would have, an ID. It's link link 74 or something like that. Mhmm. And then somewhere up here, would have a link that that,
+
+you know, was referencing link 74 and had speaker Adam.
+
+Actually, a channel I think that... Mean... Well,
+
+channel or speaker...
+
+Yeah. Channel is what the channelized output... This isn't quite right.
+
+Have to look at it
+
+again. But but so how in the list format do we express hierarchical relationship between,
+
+say an utterance and the words within it. So how do you tell that these are the words that belong to that utterance?
+
+You would have another structure lower down than this that would be saying they're all belonging to this ID.
+
+So each thing refers to the utterance that it belongs to. Right. It's not just
+
+sort a bottom line. Each turn could refer to something higher up.
+
+So right now what you have as utterance, the closest thing that comes out of the channelize is the stuff between the segment boundaries that the transcribers put in or that TLO put in, which may or may not actually be like... It's usually not, the beginning and end of a sentence, say. Well,
+
+that's why I didn't
+
+call it So a it's like like a segment or something. Yep. So I mean I assume this is possible that if you have someone annotates the punctuation or whatever when they transcribe, you can say, you know, from
+
+the beginning of the sentence to the end of the sentence from the annotations, this is a unit even though it never actually, it's only a unit by virtue of the annotations at the word level.
+
+Sure. I mean, so
+
+you
+
+have yet another tag
+
+somehow.
+
+You'd have another tag which says this is of typed sentence.
+
+Okay.
+
+And But
+
+it's just not overtly in the,
+
+because this is exactly the kind of So
+
+I think that should be possible as long as the... But what I don't understand is where the... Where in this type of file that would be expressed.
+
+Right. You would have another tag somewhere.
+
+Well, are two ways of doing Floating before the sentence or floating after the sentence. You could
+
+have some sort of link type type equals sentence
+
+And ID is s whatever. And then lower down, you could have an utterance. So the type is utterance
+
+equals ut. And you could either say that, no, I don't know. Think
+
+it's back. Saying. See, because it's
+
+Can you can you say that this is You would just have part of this, or do you say this is part of this? I think But that you would refer up to the
+
+sentence. They're actually overlapping each other, sort of.
+
+That some... Something be a may part of one thing for one purpose and another thing of another purpose. Have to have
+
+another type then, I guess.
+
+Well,
+
+I I better look at it again because I'm...
+
+There's one more level of indirection that I'm
+
+forgetting. Suppose you have a word sequence and you have two different segmentations of that same word sequence. Let's say one segmentation is in terms of
+
+sentences. And another segmentation is in terms of, I don't know, prosodic phrases. And let's say that they don't nest. So a prosodic phrase may cross two sentences or something. I don't know if that's true or not.
+
+Well, definitely true with the segment.
+
+That's
+
+exactly
+
+what
+
+I meant by the utterances versus the sentence. So you wanna
+
+say this word is part of that sentence and this prosodic phrase.
+
+But the phrase is not part of the sentence, and neither is the sentence part of the phrase.
+
+I'm pretty sure that you can do that, but I'm forgetting the two exact
+
+level
+
+of
+
+different pointers from the word up one level up.
+
+So so what you would end up having is a tag saying, here's a word, and it starts here and it ends And then lower down, you would say, here's a prosodic boundary, and it has these words in it. And lower down, you'd have, here's a sentence, and it has
+
+these words in it. You'd be able to go in and say, give me all the words in prosodic phrase, and give me all the words in the... Yeah.
+
+So I think that's that. Let me look at it again.
+
+Okay.
+
+The other issue that you had was how do you actually efficiently extract,
+
+find and extract information in a structure of this type. So you gave some examples like
+
+Well, and I mean you guys might, I don't know if this is premature because I suppose once you get the representation you can do this but the kinds of things I was worried about is
+
+Well that's not clear. Mean Well okay Sure so you can do it but can you do it
+
+I mean I can't You
+
+do
+
+it
+
+but
+
+gotta do this, you're gonna want to do this very quickly Presenter: or else you'll spend all your time sort of searching through
+
+very Right, you need a sort complex of a paradigm for how to do it. But an example would be
+
+find all the cases in which Adam
+
+started to talk while Andreas was talking and his pitch was rising. Andreas' pitch. That kind of thing.
+
+Right. Mean, that's going to be is the rising pitch a feature? Or is it going to be in the same file?
+
+Well, the rising pitch will never be hand annotated. So all the prosodic features are going to be automatically I mean, that's going to be hard
+
+regardless, right? Because you're going to have to write a program that goes through your feature file and looks for rising
+
+pitches. So normally what we would do is we would say, what are we gonna assign rising pitch to? Are we gonna send it to words? Are we gonna just assign it to sort of when it's rising, we have a begin and rise representation. But suppose we dump out this file. Say, for every word, we just classify it as, you know, rise or fall or neither.
+
+Okay.
+
+Well in that case
+
+you would add that to this
+
+format. So we would basically be sort of taking the format and enriching it with things that we want to query in relation to the words that are already in the file and then querying it.
+
+You want a grep that works at the structural
+
+You have that.
+
+On the structural
+
+There's a standard again in XML, specifically for searching XML documents, structured XML documents, where you can specify both the content and the structural position.
+
+Yeah. But it's it's not clear that that's It that's relative to the structure of the XML document
+
+You use it as a tool.
+
+Of what you
+
+represent. You use it as a tool, not an end user. It's not an end user thing. It's it's... You would use that to build your tool Right. To do that sort of search.
+
+Because here, you're specifying a lattice. So the underlying... That's the underlying data structure. But as long as...... To be able to search in that But... That's different from searching... It seems
+
+like as long as the feature...
+
+Well, no. No. No. The whole point is that the text and the lattice are isomorphic. They represent each other completely.
+
+That
+
+That's true if the features from your acoustics or whatever that are not explicitly in this are at the level of these types. That that if you can
+
+Yeah. But that's gonna be the trouble no matter what. Right? No matter what format you choose, you're gonna have the trouble... You're gonna have the difficulty of relating
+
+That's right. That's true. That's Frame level features. Figure out what's the best format for this representation, and it's still gonna be it's still gonna be not direct. Or
+
+another example was, you know, where in the language, where in the word sequence
+
+are people interrupting. So I guess that one's actually easier.
+
+What about what about,
+
+the idea of using a relational database to,
+
+store the information from the XML. You would have... XML basically would,
+
+you could use the XML to put the data in, and then when you get data out, you put it back in XML. So use XML as sort of transfer format, but then you store the data in the database, which allows you to do all kinds of good search things.
+
+One of the things that Atlas is doing is they're trying to define an API which is independent of the back store
+
+So that you could define a single API and the storage could be
+
+Mhmm.
+
+Flat XML files or a database. My opinion on that is for the sort of stuff that we're doing, I suspect it's overkill to do a full relational database that
+
+just a flat file and search tools, I bet, will be enough. But that's the advantage of Atlas is that if we actually take... Decide to go that route completely and we program to their API, then if we wanted to add a database later, it would be pretty easy.
+
+It seems like the kind of thing you do if, I don't know, if people start adding all kinds of bells and whistles to the data. And so that might be... I mean, it'd be good for us to know, to use a format where we know we can easily,
+
+input that to some database if other people are using it. Something like that.
+
+I guess I'm just a little hesitant to try to go whole hog on sort of
+
+the whole framework that that NIST is talking about with Atlas and the database and all that sort of stuff because it's a big learning curve just to get going. Whereas if we just do a flat file format, sure, it may not be as efficient, but everyone can program in Perl and and use it. Okay.
+
+Right? So as opposed to
+
+I'm still
+
+not convinced that you can do much at all on the flat file, the text representation.
+
+Because the text representation is gonna be
+
+not reflecting the structure of your words and annotations. It's just...
+
+Well, if it's not representing it, then how do you recover it? Of course it's
+
+representing it. the That's whole
+
+point.
+
+To do is you have to basically... Yeah. You can use Perl to read it in and construct an internal representation that is essentially a lattice.
+
+But the
+
+Yeah. Okay. Well, that was a different point. Right? So what I was saying is that
+
+But that's what you'll have to do.
+
+For Perl, if you wanna just do Perl, if you wanted to use the structured XML query language, that's a different thing. And it's a set of tools that let you specify given the DTD, DTD of the document, what sorts of structural searches you wanna do. So you wanna say that, you know, you're looking for
+
+a tag within a tag within a particular tag that has this particular text in it. And

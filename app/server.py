@@ -1,0 +1,241 @@
+"""Meeting Assistant UI server (stdlib only; reads the pipeline's existing JSON outputs).
+
+Run from the project root:   python -m app.server [--port 8000] [--outputs outputs]
+"""
+from __future__ import annotations
+import argparse, json, re, sys
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import urlparse
+
+from app.evidence import build_evidence
+from app import pipeline_runner as pr
+
+ROOT = Path(__file__).resolve().parent.parent
+STATIC = Path(__file__).resolve().parent / "static"
+OUTPUTS = ROOT / "outputs"
+UPLOADS = ROOT / "uploads"
+AUDIO_EXT = {".wav", ".mp3", ".m4a", ".flac", ".ogg", ".mp4", ".webm", ".aac"}
+
+
+def _load(p: Path):
+    return json.loads(p.read_text(encoding="utf-8")) if p.is_file() else None
+
+
+def meeting_dir(mid: str) -> Path | None:
+    d = (OUTPUTS / mid)
+    return d if re.fullmatch(r"[\w.\- ]+", mid) and d.is_dir() and d.parent == OUTPUTS else None
+
+
+def list_meetings():
+    out = []
+    for d in sorted(OUTPUTS.iterdir()) if OUTPUTS.is_dir() else []:
+        if d.is_dir():
+            out.append({
+                "id": d.name, 
+                "has_raw": (d / "raw_transcript.txt").is_file() or (d / "final_output.json").is_file(),
+                "has_refined": (d / "refined_output.json").is_file(),
+                "has_transformation": (d / "transformation_output.json").is_file(),
+                "has_documentation": (d / "documentation_output.json").is_file()
+            })
+    return out
+
+
+def bundle(mid: str):
+    d = meeting_dir(mid)
+    if not d:
+        return None
+    raw, refined, doc = (_load(d / "final_output.json"), _load(d / "refined_output.json"),
+                         _load(d / "documentation_output.json"))
+    trans = _load(d / "transformation_output.json")
+    ev = build_evidence(refined, doc, trans) if refined and doc else None
+    aligned = bool(raw and refined and len(raw.get("turns", [])) == len(refined["segments"]) and
+                   all(t["text"] == s["original_text"] for t, s in zip(raw["turns"], refined["segments"])))
+    
+    # Grab the most recent job for this meeting to show live status/errors
+    job = next((j for j in reversed(list(pr.JOBS.values())) if j["meeting_id"] == mid), None)
+    
+    return {"id": mid, "raw": raw, "refined": refined, "documentation": doc, "evidence": ev,
+            "transformation": trans,
+            "raw_text": (d / "raw_transcript.txt").read_text(encoding="utf-8") if (d / "raw_transcript.txt").is_file() else None,
+            "raw_aligned_with_refined": aligned,
+            "job": job}
+
+
+class H(BaseHTTPRequestHandler):
+    def _send(self, code, body: bytes, ctype="application/json", headers=None):
+        self.send_response(code)
+        self.send_header("Content-Type", ctype)
+        self.send_header("Content-Length", str(len(body)))
+        if headers:
+            for k, v in headers.items():
+                self.send_header(k, v)
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _json(self, obj, code=200):
+        self._send(code, json.dumps(obj, ensure_ascii=False).encode("utf-8"))
+
+    def log_message(self, fmt, *a):
+        sys.stderr.write("%s\n" % (fmt % a))
+
+    def do_GET(self):
+        path = urlparse(self.path).path
+        if path in ("/", "/index.html"):
+            return self._send(200, (STATIC / "index.html").read_bytes(), "text/html; charset=utf-8")
+        if path == "/api/meetings":
+            return self._json(list_meetings())
+        
+        m = re.fullmatch(r"/api/meetings/([^/]+)", path)
+        if m:
+            b = bundle(m.group(1))
+            return self._json(b) if b else self._json({"error": "meeting not found"}, 404)
+        
+        m = re.fullmatch(r"/api/jobs/([\w]+)", path)
+        if m:
+            j = pr.JOBS.get(m.group(1))
+            return self._json(j) if j else self._json({"error": "job not found"}, 404)
+
+        # DOWNLOAD ENDPOINTS
+        m = re.fullmatch(r"/api/download/([^/]+)/([^/]+)", path)
+        if m:
+            mid, artifact = m.groups()
+            d = meeting_dir(mid)
+            if not d:
+                return self._json({"error": "meeting not found"}, 404)
+
+            content = None
+            ctype = "text/plain; charset=utf-8"
+            filename = f"{mid}_{artifact}.txt"
+
+            if artifact == "raw":
+                f = d / "raw_transcript.txt"
+                if f.is_file(): 
+                    content = f.read_text(encoding="utf-8")
+                else:
+                    raw_json = _load(d / "final_output.json")
+                    if raw_json and "raw_transcript" in raw_json:
+                        content = raw_json["raw_transcript"]
+            elif artifact == "refined":
+                f = d / "refined_transcript.txt"
+                if f.is_file(): content = f.read_text(encoding="utf-8")
+                else:
+                    ref = _load(d / "refined_output.json")
+                    if ref and "segments" in ref:
+                        content = "\n".join(f"{s.get('speaker', 'Unknown')}: {s.get('refined_text', '')}" for s in ref["segments"])
+            elif artifact == "minutes":
+                f = d / "documentation_output.txt"
+                if f.is_file(): content = f.read_text(encoding="utf-8")
+                else:
+                    doc = _load(d / "documentation_output.json")
+                    if doc and "minutes" in doc:
+                        content = "\n\n".join(f"Minute {m.get('index', i)+1}: {m.get('title', '')}\n{m.get('body', '')}" for i, m in enumerate(doc["minutes"]))
+            elif artifact == "summary":
+                doc = _load(d / "documentation_output.json")
+                if doc and "summary" in doc: content = doc["summary"]
+            elif artifact == "decisions":
+                doc = _load(d / "documentation_output.json")
+                if doc and "decisions" in doc:
+                    lines = []
+                    for dec in doc["decisions"]:
+                        lines.append(f"DECISION: {dec.get('title', '')}")
+                        if "description" in dec and dec["description"]:
+                            lines.append(f"DETAILS: {dec['description']}")
+                    content = "\n\n".join(lines)
+            elif artifact == "actions":
+                doc = _load(d / "documentation_output.json")
+                if doc and "action_items" in doc:
+                    lines = []
+                    for a in doc["action_items"]:
+                        owner = a.get('owner') or 'Not stated'
+                        deadline = a.get('deadline') or 'Not stated'
+                        cond = f" (Condition: {a['condition']})" if a.get('condition') else ""
+                        lines.append(f"TASK: {a.get('title')}{cond}\nOWNER: {owner}\nDEADLINE: {deadline}")
+                    content = "\n\n".join(lines)
+            elif artifact == "json":
+                f = d / "documentation_output.json"
+                if f.is_file():
+                    content = f.read_text(encoding="utf-8")
+                    ctype = "application/json"
+                    filename = f"{mid}_documentation.json"
+            elif artifact == "refined_json":
+                f = d / "refined_output.json"
+                if f.is_file():
+                    content = f.read_text(encoding="utf-8")
+                    ctype = "application/json"
+                    filename = f"{mid}_refined.json"
+            elif artifact == "transformation":
+                f = d / "transformation_output.json"
+                if f.is_file():
+                    content = f.read_text(encoding="utf-8")
+                    ctype = "application/json"
+                    filename = f"{mid}_transformation.json"
+            else:
+                return self._json({"error": "invalid artifact"}, 400)
+
+            if content is not None:
+                return self._send(200, content.encode("utf-8"), ctype, {"Content-Disposition": f'attachment; filename="{filename}"'})
+            return self._json({"error": f"{artifact} not available"}, 404)
+
+        self._json({"error": "not found"}, 404)
+
+    def do_POST(self):
+        path = urlparse(self.path).path
+        
+        # RETRY ENDPOINT
+        m = re.fullmatch(r"/api/retry/([^/]+)", path)
+        if m:
+            mid = m.group(1)
+            if not UPLOADS.is_dir():
+                return self._json({"error": "Uploads directory not found"}, 404)
+            # Find the original uploaded audio file safely
+            audio = next((f for f in UPLOADS.iterdir() if f.stem == mid and f.suffix.lower() in AUDIO_EXT), None)
+            if not audio:
+                return self._json({"error": "Original audio file not found. Cannot retry."}, 404)
+            
+            job = pr.new_job(mid)
+            pr.run_pipeline(job, audio, OUTPUTS / mid)
+            return self._json({"job_id": job["id"], "meeting_id": mid})
+
+        if path != "/api/upload":
+            return self._json({"error": "not found"}, 404)
+            
+        name = Path(self.headers.get("X-Filename", "meeting.wav")).name
+        ext = Path(name).suffix.lower()
+        if ext not in AUDIO_EXT:
+            return self._json({"error": f"unsupported file type {ext!r}"}, 400)
+        length = int(self.headers.get("Content-Length", 0))
+        if length <= 0:
+            return self._json({"error": "empty upload"}, 400)
+        stem = re.sub(r"[^\w.\- ]", "_", Path(name).stem)
+        mid, n = stem, 1
+        while (OUTPUTS / mid).exists():
+            n += 1; mid = f"{stem}_{n}"
+        UPLOADS.mkdir(exist_ok=True)
+        audio = UPLOADS / f"{mid}{ext}"
+        remaining = length
+        with audio.open("wb") as f:
+            while remaining > 0:
+                chunk = self.rfile.read(min(1 << 20, remaining))
+                if not chunk:
+                    break
+                f.write(chunk); remaining -= len(chunk)
+        job = pr.new_job(mid)
+        pr.run_pipeline(job, audio, OUTPUTS / mid, language=self.headers.get("X-Language", "en"))
+        self._json({"job_id": job["id"], "meeting_id": mid})
+
+
+def main():
+    global OUTPUTS
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--outputs", default=str(OUTPUTS))
+    a = ap.parse_args()
+    OUTPUTS = Path(a.outputs).resolve()
+    sys.path.insert(0, str(ROOT))
+    print(f"Serving http://127.0.0.1:{a.port}  (outputs: {OUTPUTS})")
+    ThreadingHTTPServer(("127.0.0.1", a.port), H).serve_forever()
+
+
+if __name__ == "__main__":
+    main()

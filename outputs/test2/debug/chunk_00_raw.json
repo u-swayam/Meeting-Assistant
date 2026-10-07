@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 0,
+  "label": "chunk_00",
+  "requested_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 0,\n      \"refined_text\": \"Let's review the migration of the payment orchestration layer from the monolith to the distributed architecture. The main constraint is that we cannot introduce duplicate charges while we move traffic gradually.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 1,\n      \"refined_text\": \"The current design has the checkout service calling the payment gateway adapter synchronously. In the new design, checkout publishes a PaymentRequested event to Kafka, and the orchestration service consumes it.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 2,\n      \"refined_text\": \"For ordering, we are using Kafka partitions keyed by payment_id. That gives us ordering for events with the same key, but it does not give global ordering across all payments.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 3,\n      \"refined_text\": \"The consumer group will run three replicas initially. We should not assume that three replicas means three active leaders, because Kafka assigns partitions and only one consumer in the group owns a partition at a time.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 4,\n      \"refined_text\": \"For the database, the ledger remains on PostgreSQL. We are using serializable transactions only around the balance mutation, not around the entire request lifecycle.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1018,
+      "completion_tokens": 305,
+      "total_tokens": 1323
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 0,
+        "refined_text": "Let's review the migration of the payment orchestration layer from the monolith to the distributed architecture. The main constraint is that we cannot introduce duplicate charges while we move traffic gradually.",
+        "changes": []
+      },
+      {
+        "index": 1,
+        "refined_text": "The current design has the checkout service calling the payment gateway adapter synchronously. In the new design, checkout publishes a PaymentRequested event to Kafka, and the orchestration service consumes it.",
+        "changes": []
+      },
+      {
+        "index": 2,
+        "refined_text": "For ordering, we are using Kafka partitions keyed by payment_id. That gives us ordering for events with the same key, but it does not give global ordering across all payments.",
+        "changes": []
+      },
+      {
+        "index": 3,
+        "refined_text": "The consumer group will run three replicas initially. We should not assume that three replicas means three active leaders, because Kafka assigns partitions and only one consumer in the group owns a partition at a time.",
+        "changes": []
+      },
+      {
+        "index": 4,
+        "refined_text": "For the database, the ledger remains on PostgreSQL. We are using serializable transactions only around the balance mutation, not around the entire request lifecycle.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 0,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 1,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 2,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 3,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 4,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 2,
+  "label": "chunk_02",
+  "requested_indices": [
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 10,\n      \"refined_text\": \"The gRPC method is ProcessPayment, and the protobuf package is payments.v2. We should preserve the field name payment_id because downstream consumers already depend on it.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 11,\n      \"refined_text\": \"For consensus inside the configuration service, we use ETCD. The leader election timeout is 1000 milliseconds and the heartbeat interval is 100 milliseconds.\",\n      \"changes\": [\n        {\n          \"original\": \"E T C D\",\n          \"refined\": \"ETCD\",\n          \"reason\": \"Acronym spelled out as separate letters should be written as the product name ETCD\",\n          \"confidence\": 0.95\n        }\n      ]\n    },\n    {\n      \"index\": 12,\n      \"refined_text\": \"The rough algorithm is only relevant to the metadata cluster, not the payment ledger. I want that distinction in the documentation because people keep mixing the two consistency mechanisms.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 13,\n      \"refined_text\": \"Right, and the metadata cluster has five nodes. Losing two nodes is tolerated, but if we lose three, the cluster cannot maintain quorum and writes stop.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 14,\n      \"refined_text\": \"On observability, Prometheus is scraping the application metrics and Grafana is rendering the dashboards. The scrape interval is 15 seconds.\",\n      \"changes\": [\n        {\n          \"original\": \"promise us\",\n          \"refined\": \"Prometheus\",\n          \"reason\": \"Misrecognized tool name; context of observability and scraping metrics indicates Prometheus\",\n          \"confidence\": 0.95\n        }\n      ]\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 999,
+      "completion_tokens": 395,
+      "total_tokens": 1394
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 10,
+        "refined_text": "The gRPC method is ProcessPayment, and the protobuf package is payments.v2. We should preserve the field name payment_id because downstream consumers already depend on it.",
+        "changes": []
+      },
+      {
+        "index": 11,
+        "refined_text": "For consensus inside the configuration service, we use ETCD. The leader election timeout is 1000 milliseconds and the heartbeat interval is 100 milliseconds.",
+        "changes": [
+          {
+            "original": "E T C D",
+            "refined": "ETCD",
+            "reason": "Acronym spelled out as separate letters should be written as the product name ETCD",
+            "confidence": 0.95
+          }
+        ]
+      },
+      {
+        "index": 12,
+        "refined_text": "The rough algorithm is only relevant to the metadata cluster, not the payment ledger. I want that distinction in the documentation because people keep mixing the two consistency mechanisms.",
+        "changes": []
+      },
+      {
+        "index": 13,
+        "refined_text": "Right, and the metadata cluster has five nodes. Losing two nodes is tolerated, but if we lose three, the cluster cannot maintain quorum and writes stop.",
+        "changes": []
+      },
+      {
+        "index": 14,
+        "refined_text": "On observability, Prometheus is scraping the application metrics and Grafana is rendering the dashboards. The scrape interval is 15 seconds.",
+        "changes": [
+          {
+            "original": "promise us",
+            "refined": "Prometheus",
+            "reason": "Misrecognized tool name; context of observability and scraping metrics indicates Prometheus",
+            "confidence": 0.95
+          }
+        ]
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 2,
+    "total_itemised_changes": 2,
+    "per_segment": [
+      {
+        "index": 10,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 11,
+        "refined_text_differs_from_input": true,
+        "itemised_changes": 1
+      },
+      {
+        "index": 12,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 13,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 14,
+        "refined_text_differs_from_input": true,
+        "itemised_changes": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 7,
+  "label": "chunk_07",
+  "requested_indices": [
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 35,\n      \"refined_text\": \"Similarly, the quoted string \\\"cube net ease\\\" should remain exactly as quoted when we discuss the original STT output. It is not a request to rewrite the quote.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 36,\n      \"refined_text\": \"We need to preserve the feature flag name enable_new_ledger, the environment variable PAYMENT_GATEWAY_URL, and the header X-Idempotency-Key exactly. Those identifiers are case-sensitive.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 37,\n      \"refined_text\": \"There is a 2 GB Kafka topic retention setting in staging and 14 days in production. We are considering 30 days for production, but that is not approved.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 38,\n      \"refined_text\": \"The database migration itself should be backward compatible for at least two application releases. We cannot deploy the schema change and application change as one irreversible step.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 39,\n      \"refined_text\": \"For rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases. We should not roll back a destructive contract migration automatically.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1015,
+      "completion_tokens": 302,
+      "total_tokens": 1317
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 35,
+        "refined_text": "Similarly, the quoted string \"cube net ease\" should remain exactly as quoted when we discuss the original STT output. It is not a request to rewrite the quote.",
+        "changes": []
+      },
+      {
+        "index": 36,
+        "refined_text": "We need to preserve the feature flag name enable_new_ledger, the environment variable PAYMENT_GATEWAY_URL, and the header X-Idempotency-Key exactly. Those identifiers are case-sensitive.",
+        "changes": []
+      },
+      {
+        "index": 37,
+        "refined_text": "There is a 2 GB Kafka topic retention setting in staging and 14 days in production. We are considering 30 days for production, but that is not approved.",
+        "changes": []
+      },
+      {
+        "index": 38,
+        "refined_text": "The database migration itself should be backward compatible for at least two application releases. We cannot deploy the schema change and application change as one irreversible step.",
+        "changes": []
+      },
+      {
+        "index": 39,
+        "refined_text": "For rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases. We should not roll back a destructive contract migration automatically.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 35,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 36,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 37,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 38,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 39,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

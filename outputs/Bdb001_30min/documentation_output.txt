@@ -1,0 +1,36 @@
+MEETING SUMMARY
+
+The meeting was called to get input on what database format to use for linking word transcripts, annotations, time marks, phone boundaries, and forced-alignment output. The main discussion compared an existing ICSI XML format (with a single timeline and ID-based cross-references) against the NIST Atlas node/link representation, and considered how to handle word-level versus phone-level and frame-level data. Frame-level features were judged too dense for the XML text format, with binary formats such as p files or the ICSI frame-level format suggested instead. The group also discussed how to represent multiple speakers, hierarchical and overlapping units (utterances, sentences, prosodic phrases), and how to search the resulting structure, including the option of a relational database behind an API. No format was finalized; the choice between the existing XML format and Atlas remains open.
+
+MINUTES
+
+1. Microphone breath-noise testing
+   The wireless microphones have an AF indicator that shows when breath noise is being picked up, which was noted as useful given how much breath noise the channels contain. Channel three did not move when started, and it was unclear whether it dislikes both channels.
+
+2. Purpose: a database format for transcripts, annotations and alignments
+   The goal is to choose a format for linking word transcripts and their annotations with time marks for words and phone boundaries and with forced-alignment output from the recognizer. The channelized output of Dave Gelbart's program, a copy of which John brought, was suggested as a starting point. The format needs to accommodate transcriber and discourse-coder annotations, recognizer back traces at phone level, and prosodic frame-level features, and to stay usable and flexible as alignments and boundaries change.
+
+3. Existing ICSI XML format: timeline, IDs and indirection
+   An existing XML format was described: a single timeline tag with time stamps (optionally with accuracy and program-assigned IDs), and utterance tags with start/end references to those times, forming a lattice. Other tags (for example noise type such as door slam, or prosody) can reference utterance IDs. The extra level of indirection lets time stamps change in the timeline without changing the rest of the file. The format was designed for easy parsing without a full XML parser, and for easy translation to and from the transcriber format.
+
+4. Word level versus phone level versus frame level
+   The XML text format was judged acceptable at word level, but phone level is dense and frame level is far too verbose: a two-hour meeting at frame level would produce gigabyte files, exceeding the roughly two-gigabyte file-size limit on most operating systems. For phone level a binary representation was suggested, and for frame-level features p files or the ICSI frame-level format, referenced as an external resource from the XML. P files were noted to carry frame/utterance/sentence structure plus an arbitrary typed vector and a header, but waste space storing sequential utterance and frame numbers; they are ICSI-developed, not standard, though well documented and widely used here. The group also noted that prosodic feature files are already shared with several outside groups as ASCII frame-by-frame files, which become unwieldy to query.
+
+5. Comparison with NIST Atlas
+   Atlas was described as taking the opposite approach: a generic node-and-link graph format where the application imposes meaning, versus the ICSI choice of tags that name speech and language concepts directly. The two were judged reasonably compatible and probably translatable, though a missed detail could make translation difficult. Atlas was reported to be incomplete when last examined about a year ago (no external format then, only a conceptual node-annotated transcription graph), but it has since gained an external file format and tools that were not yet reviewed. Atlas is also defining a storage-independent API, so a flat-file or database back end could be swapped later. The concern raised was the learning curve and the risk of investing in a separate format if Atlas is the direction everyone else will use.
+
+6. Representing speakers and hierarchical or overlapping units
+   Multiple speakers would be handled with a speaker tag at the top plus a speaker ID attached to each utterance, or in the node/link style by a separate link referencing the utterance link ID with a speaker value; channel was suggested as the relevant notion for the channelized output. Hierarchical relations (words within an utterance) would be expressed by lower-level structures referring up to an ID. It was noted that transcriber segment boundaries are not sentences, so a separate sentence tag would be needed, and that segmentations such as sentences and prosodic phrases can overlap and not nest, requiring a word to point up to more than one higher-level unit. The exact mechanism was not settled and the format needs to be re-examined.
+
+7. Querying and searching the representation
+   Efficient extraction from the structure was raised as a concern, with examples such as finding cases where one speaker starts talking while another is talking and the pitch is rising, or where in the word sequence people interrupt. Prosodic features such as rising pitch are automatically derived rather than hand annotated, so they would have to be computed from feature files and then attached to words (for example classifying each word as rise, fall or neither) to be queryable. A standard XML structural query language was mentioned as a tool for building such searches, but it was argued that the text and the lattice are isomorphic, and that relating frame-level acoustic features to the representation will be difficult regardless of format.
+
+8. Relational database versus flat files
+   Using a relational database to store the data with XML as a transfer format was proposed as a way to get better search. It was argued that a full relational database is probably overkill for this work and that flat files plus search tools should suffice, and that programming to the Atlas API would make adding a database later easy. One participant remained unconvinced that much can be done directly on the flat text representation, since a program must read it in and build an internal lattice.
+
+KEY DECISIONS
+- None confirmed in the recording.
+
+ACTION ITEMS
+- Take a closer look at Atlas and its external file format and tools
+    Owner: not stated   |   Deadline: not stated

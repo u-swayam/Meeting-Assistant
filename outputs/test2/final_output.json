@@ -1,0 +1,795 @@
+{
+  "turns": [
+    {
+      "index": 0,
+      "speaker": "SPEAKER_00",
+      "start": 0.0,
+      "end": 20.0,
+      "text": "Let's review the migration of the payment orchestration layer from the monolith to the distributed architecture. The main constraint is that we cannot introduce duplicate charges while we move traffic gradually.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        0
+      ]
+    },
+    {
+      "index": 1,
+      "speaker": "SPEAKER_01",
+      "start": 20.3,
+      "end": 42.0,
+      "text": "The current design has the checkout service calling the payment gateway adapter synchronously. In the new design, checkout publishes a PaymentRequested event to Kafka, and the orchestration service consumes it.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        1
+      ]
+    },
+    {
+      "index": 2,
+      "speaker": "SPEAKER_02",
+      "start": 42.3,
+      "end": 65.7,
+      "text": "For ordering, we are using Kafka partitions keyed by payment_id. That gives us ordering for events with the same key, but it does not give global ordering across all payments.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "speaker": "SPEAKER_03",
+      "start": 66.0,
+      "end": 91.1,
+      "text": "The consumer group will run three replicas initially. We should not assume that three replicas means three active leaders, because Kafka assigns partitions and only one consumer in the group owns a partition at a time.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        3
+      ]
+    },
+    {
+      "index": 4,
+      "speaker": "SPEAKER_00",
+      "start": 91.4,
+      "end": 118.2,
+      "text": "For the database, the ledger remains on PostgreSQL. We are using serializable transactions only around the balance mutation, not around the entire request lifecycle.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        4
+      ]
+    },
+    {
+      "index": 5,
+      "speaker": "SPEAKER_01",
+      "start": 118.5,
+      "end": 138.5,
+      "text": "The idempotency table is keyed by merchant_id and idempotency_key. The STT system wrote this as item potency table in one place, but the actual identifier is idempotency_key.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        5
+      ]
+    },
+    {
+      "index": 6,
+      "speaker": "SPEAKER_02",
+      "start": 138.8,
+      "end": 160.5,
+      "text": "We also have a unique constraint on merchant_id, idempotency_key, and operation_type. If a retry arrives with the same key and a different amount, we reject it instead of silently updating the original request.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        6
+      ]
+    },
+    {
+      "index": 7,
+      "speaker": "SPEAKER_03",
+      "start": 160.8,
+      "end": 184.2,
+      "text": "For the cache, Redis is only an optimization. We must not treat a Redis hit as proof that a payment exists in the ledger, because cache eviction or failover can remove that entry.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        7
+      ]
+    },
+    {
+      "index": 8,
+      "speaker": "SPEAKER_00",
+      "start": 184.5,
+      "end": 209.6,
+      "text": "The deployment target is cube net ease on three availability zones. The namespace is payments-prod, and the service account is payment-orchestrator.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        8
+      ]
+    },
+    {
+      "index": 9,
+      "speaker": "SPEAKER_01",
+      "start": 209.9,
+      "end": 236.7,
+      "text": "For service-to-service calls, we are standardizing on G R P C with protobuf. The public API remains REST under /api/v2/payments, so clients do not need to know about the internal transport.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        9
+      ]
+    },
+    {
+      "index": 10,
+      "speaker": "SPEAKER_02",
+      "start": 237.0,
+      "end": 257.0,
+      "text": "The gRPC method is ProcessPayment, and the protobuf package is payments.v2. We should preserve the field name payment_id because downstream consumers already depend on it.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        10
+      ]
+    },
+    {
+      "index": 11,
+      "speaker": "SPEAKER_03",
+      "start": 257.3,
+      "end": 279.0,
+      "text": "For consensus inside the configuration service, we use E T C D. The leader election timeout is 1000 milliseconds and the heartbeat interval is 100 milliseconds.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        11
+      ]
+    },
+    {
+      "index": 12,
+      "speaker": "SPEAKER_00",
+      "start": 279.3,
+      "end": 302.7,
+      "text": "The rough algorithm is only relevant to the metadata cluster, not the payment ledger. I want that distinction in the documentation because people keep mixing the two consistency mechanisms.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        12
+      ]
+    },
+    {
+      "index": 13,
+      "speaker": "SPEAKER_01",
+      "start": 303.0,
+      "end": 328.1,
+      "text": "Right, and the metadata cluster has five nodes. Losing two nodes is tolerated, but if we lose three, the cluster cannot maintain quorum and writes stop.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        13
+      ]
+    },
+    {
+      "index": 14,
+      "speaker": "SPEAKER_02",
+      "start": 328.4,
+      "end": 355.2,
+      "text": "On observability, promise us is scraping the application metrics and Grafana is rendering the dashboards. The scrape interval is 15 seconds.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        14
+      ]
+    },
+    {
+      "index": 15,
+      "speaker": "SPEAKER_03",
+      "start": 355.5,
+      "end": 375.5,
+      "text": "We are also adding OpenTelemetry tracing. Trace IDs must propagate through the Kafka headers so that checkout, orchestration, and the gateway can be correlated.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        15
+      ]
+    },
+    {
+      "index": 16,
+      "speaker": "SPEAKER_00",
+      "start": 375.8,
+      "end": 397.5,
+      "text": "The alert should fire if payment processing p95 exceeds 800 milliseconds for 10 minutes, but I am not proposing that as a final SLO yet.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        16
+      ]
+    },
+    {
+      "index": 17,
+      "speaker": "SPEAKER_01",
+      "start": 397.8,
+      "end": 421.2,
+      "text": "The current p95 is 420 milliseconds and p99 is 1.8 seconds. We should not optimize only for p95 because the tail latency is where the customer-visible timeouts happen.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        17
+      ]
+    },
+    {
+      "index": 18,
+      "speaker": "SPEAKER_02",
+      "start": 421.5,
+      "end": 446.6,
+      "text": "There is another issue with retries. The gateway uses exponential backoff with a maximum of 30 seconds, while our Kafka consumer retry policy currently allows 5 attempts.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        18
+      ]
+    },
+    {
+      "index": 19,
+      "speaker": "SPEAKER_03",
+      "start": 446.9,
+      "end": 473.7,
+      "text": "If the gateway times out after sending the authorization request, we cannot assume the authorization failed. The next retry has to query the provider or use the idempotency key.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        19
+      ]
+    },
+    {
+      "index": 20,
+      "speaker": "SPEAKER_00",
+      "start": 474.0,
+      "end": 494.0,
+      "text": "Exactly. A timeout is not a negative acknowledgment. The provider may have accepted the transaction even though our HTTP client never received the response.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        20
+      ]
+    },
+    {
+      "index": 21,
+      "speaker": "SPEAKER_01",
+      "start": 494.3,
+      "end": 516.0,
+      "text": "For the state machine, CREATED moves to AUTHORIZING, then AUTHORIZED or DECLINED. An AUTHORIZED payment can move to CAPTURED, but a DECLINED payment cannot move directly to CAPTURED.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        21
+      ]
+    },
+    {
+      "index": 22,
+      "speaker": "SPEAKER_02",
+      "start": 516.3,
+      "end": 539.7,
+      "text": "Refunds are separate from the authorization state machine. The refund endpoint is POST /api/v2/refunds, and the request includes original_payment_id and refund_amount.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        22
+      ]
+    },
+    {
+      "index": 23,
+      "speaker": "SPEAKER_03",
+      "start": 540.0,
+      "end": 565.1,
+      "text": "There is a concurrency edge case when a capture and a refund arrive nearly simultaneously. PostgreSQL row locking should serialize the ledger mutation, but we need an integration test to prove the invariant.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        23
+      ]
+    },
+    {
+      "index": 24,
+      "speaker": "SPEAKER_00",
+      "start": 565.4,
+      "end": 592.2,
+      "text": "I can write that integration test this week. I am not committing to Friday because the provider sandbox has been unstable.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        24
+      ]
+    },
+    {
+      "index": 25,
+      "speaker": "SPEAKER_01",
+      "start": 592.5,
+      "end": 612.5,
+      "text": "The provider sandbox returned HTTP 409 twice yesterday. That is different from HTTP 429, which indicates rate limiting.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        25
+      ]
+    },
+    {
+      "index": 26,
+      "speaker": "SPEAKER_02",
+      "start": 612.8,
+      "end": 634.5,
+      "text": "We also saw one HTTP 500 from the provider, but we don't know whether it represents a transient provider failure or a malformed request on our side.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        26
+      ]
+    },
+    {
+      "index": 27,
+      "speaker": "SPEAKER_03",
+      "start": 634.8,
+      "end": 658.2,
+      "text": "For security, Open I D Connect will be used between the admin portal and the identity provider. Access tokens should have a 15 minute lifetime.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        27
+      ]
+    },
+    {
+      "index": 28,
+      "speaker": "SPEAKER_00",
+      "start": 658.5,
+      "end": 683.6,
+      "text": "The admin portal must not receive the provider client secret. That secret stays in the backend secret store and is injected only into the authentication service.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        28
+      ]
+    },
+    {
+      "index": 29,
+      "speaker": "SPEAKER_01",
+      "start": 683.9,
+      "end": 710.7,
+      "text": "For deployment, we can use a rolling update with maxUnavailable set to 0 and maxSurge set to 1. That is a proposal, not a final deployment decision.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        29
+      ]
+    },
+    {
+      "index": 30,
+      "speaker": "SPEAKER_02",
+      "start": 711.0,
+      "end": 731.0,
+      "text": "If the canary stays below 0.5 percent error rate for 30 minutes, we could increase traffic from 5 percent to 25 percent. Again, this is a proposed rollout policy.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        30
+      ]
+    },
+    {
+      "index": 31,
+      "speaker": "SPEAKER_03",
+      "start": 731.3,
+      "end": 753.0,
+      "text": "The final rollout threshold has not been approved yet. Priya owns the release checklist, and Arjun owns the database migration script.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        31
+      ]
+    },
+    {
+      "index": 32,
+      "speaker": "SPEAKER_00",
+      "start": 753.3,
+      "end": 776.7,
+      "text": "I will review the migration script after Arjun opens the pull request. If the PR is not open by Thursday, we should discuss the schedule rather than assuming the task moved to me.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        32
+      ]
+    },
+    {
+      "index": 33,
+      "speaker": "SPEAKER_01",
+      "start": 777.0,
+      "end": 802.1,
+      "text": "The repository is payments-platform, the migration directory is db/migrations/2026_10, and the CI workflow is .github/workflows/payment-ci.yml.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        33
+      ]
+    },
+    {
+      "index": 34,
+      "speaker": "SPEAKER_02",
+      "start": 802.4,
+      "end": 829.2,
+      "text": "One STT error worth checking is graf on a dashboards. The actual product name in the architecture is Grafana, but if someone says the phrase graph on a dashboard in ordinary English, that should not automatically become Grafana.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        34
+      ]
+    },
+    {
+      "index": 35,
+      "speaker": "SPEAKER_03",
+      "start": 829.5,
+      "end": 849.5,
+      "text": "Similarly, the quoted string \"cube net ease\" should remain exactly as quoted when we discuss the original STT output. It is not a request to rewrite the quote.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        35
+      ]
+    },
+    {
+      "index": 36,
+      "speaker": "SPEAKER_00",
+      "start": 849.8,
+      "end": 871.5,
+      "text": "We need to preserve the feature flag name enable_new_ledger, the environment variable PAYMENT_GATEWAY_URL, and the header X-Idempotency-Key exactly. Those identifiers are case-sensitive.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        36
+      ]
+    },
+    {
+      "index": 37,
+      "speaker": "SPEAKER_01",
+      "start": 871.8,
+      "end": 895.2,
+      "text": "There is a 2 GB Kafka topic retention setting in staging and 14 days in production. We are considering 30 days for production, but that is not approved.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        37
+      ]
+    },
+    {
+      "index": 38,
+      "speaker": "SPEAKER_02",
+      "start": 895.5,
+      "end": 920.6,
+      "text": "The database migration itself should be backward compatible for at least two application releases. We cannot deploy the schema change and application change as one irreversible step.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        38
+      ]
+    },
+    {
+      "index": 39,
+      "speaker": "SPEAKER_03",
+      "start": 920.9,
+      "end": 947.7,
+      "text": "For rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases. We should not roll back a destructive contract migration automatically.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        39
+      ]
+    },
+    {
+      "index": 40,
+      "speaker": "SPEAKER_00",
+      "start": 948.0,
+      "end": 968.0,
+      "text": "The rough consensus algorithm is not used for payment authorization. I want that sentence unchanged if it appears in the final transcript because it is specifically distinguishing Raft from the ledger's transaction protocol.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        40
+      ]
+    },
+    {
+      "index": 41,
+      "speaker": "SPEAKER_01",
+      "start": 968.3,
+      "end": 990.0,
+      "text": "For load testing, the target is 1,240 requests per second with 40 percent reads and 60 percent writes. The test duration is 20 minutes.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        41
+      ]
+    },
+    {
+      "index": 42,
+      "speaker": "SPEAKER_02",
+      "start": 990.3,
+      "end": 1013.7,
+      "text": "We expect the Kafka consumer lag to remain below 500 messages under normal load. If lag exceeds 2,000 for more than 5 minutes, the load test should be considered failed.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        42
+      ]
+    },
+    {
+      "index": 43,
+      "speaker": "SPEAKER_03",
+      "start": 1014.0,
+      "end": 1039.1,
+      "text": "The failure-injection test will stop one Kafka broker and one application replica. We are not planning to stop two brokers simultaneously in this test.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        43
+      ]
+    },
+    {
+      "index": 44,
+      "speaker": "SPEAKER_00",
+      "start": 1039.4,
+      "end": 1066.2,
+      "text": "We might schedule the production canary for the 15th, but that date is tentative. The release manager has not approved it yet.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        44
+      ]
+    },
+    {
+      "index": 45,
+      "speaker": "SPEAKER_01",
+      "start": 1066.5,
+      "end": 1086.5,
+      "text": "I suggest we keep the old payment path available for 48 hours after the canary. That gives us a rollback option, but it is only a recommendation at this point.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        45
+      ]
+    },
+    {
+      "index": 46,
+      "speaker": "SPEAKER_02",
+      "start": 1086.8,
+      "end": 1108.5,
+      "text": "If everyone agrees, we can document the architecture decision record after this meeting. We have not agreed on the final ADR wording yet.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        46
+      ]
+    },
+    {
+      "index": 47,
+      "speaker": "SPEAKER_03",
+      "start": 1108.8,
+      "end": 1132.2,
+      "text": "One final terminology issue: is two is the service mesh we currently have in the staging cluster. We are not evaluating a replacement during this migration.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        47
+      ]
+    },
+    {
+      "index": 48,
+      "speaker": "SPEAKER_00",
+      "start": 1132.5,
+      "end": 1157.6,
+      "text": "Right. Istio is staying for now. Also, no one should infer that the proposed 25 percent traffic step has been approved just because it is in the rollout document.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        48
+      ]
+    },
+    {
+      "index": 49,
+      "speaker": "SPEAKER_01",
+      "start": 1157.9,
+      "end": 1184.7,
+      "text": "I will update the retry documentation and add the provider HTTP 409 versus 429 examples. I can finish that tomorrow if the sandbox is stable.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        49
+      ]
+    },
+    {
+      "index": 50,
+      "speaker": "SPEAKER_02",
+      "start": 1185.0,
+      "end": 1205.0,
+      "text": "That sounds good. The task is to update the retry documentation; the tomorrow timing is conditional on sandbox stability, so it is not a hard deadline.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        50
+      ]
+    },
+    {
+      "index": 51,
+      "speaker": "SPEAKER_03",
+      "start": 1205.3,
+      "end": 1227.0,
+      "text": "We should record that the current architecture decision is to keep PostgreSQL as the source of truth for the ledger. The Kafka events are transport and workflow coordination, not the authoritative balance store.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        51
+      ]
+    },
+    {
+      "index": 52,
+      "speaker": "SPEAKER_00",
+      "start": 1227.3,
+      "end": 1250.7,
+      "text": "Agreed. That is the decision. The deployment strategy, final SLO, production canary date, and 30-day retention change are still open.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        52
+      ]
+    },
+    {
+      "index": 53,
+      "speaker": "SPEAKER_01",
+      "start": 1251.0,
+      "end": 1276.1,
+      "text": "For the documentation, please don't turn my recommendation about keeping the old path for 48 hours into a confirmed decision. It is still a recommendation.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        53
+      ]
+    },
+    {
+      "index": 54,
+      "speaker": "SPEAKER_02",
+      "start": 1276.4,
+      "end": 1303.2,
+      "text": "And don't assign the migration review to Swayam. I said I would review it after Arjun opens the pull request, which is a conditional statement, not a transfer of ownership.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        54
+      ]
+    },
+    {
+      "index": 55,
+      "speaker": "SPEAKER_03",
+      "start": 1303.5,
+      "end": 1323.5,
+      "text": "The final machine-readable record should preserve the exact endpoint names, version numbers, percentages, and conditional language. Human-readable minutes can be concise, but they must not change the meaning.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        55
+      ]
+    },
+    {
+      "index": 56,
+      "speaker": "SPEAKER_00",
+      "start": 1323.8,
+      "end": 1345.5,
+      "text": "Before we close, the confirmed action items are the integration test for the capture-refund concurrency case, the release checklist owned by Priya, the migration script owned by Arjun, and the retry documentation owned by me.",
+      "confidence": 0.96,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        56
+      ]
+    },
+    {
+      "index": 57,
+      "speaker": "SPEAKER_01",
+      "start": 1345.8,
+      "end": 1369.2,
+      "text": "The integration test does not have a confirmed deadline. The retry documentation also has no hard deadline because tomorrow depends on sandbox stability.",
+      "confidence": 0.95,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        57
+      ]
+    },
+    {
+      "index": 58,
+      "speaker": "SPEAKER_02",
+      "start": 1369.5,
+      "end": 1394.6,
+      "text": "And the production canary has no confirmed date. The 15th was only discussed as a possibility.",
+      "confidence": 0.94,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        58
+      ]
+    },
+    {
+      "index": 59,
+      "speaker": "SPEAKER_03",
+      "start": 1394.9,
+      "end": 1421.7,
+      "text": "Okay. We have enough to write the record. The only final decision is PostgreSQL remains the authoritative ledger store, while the rest of the rollout details remain pending.",
+      "confidence": 0.93,
+      "has_overlap": false,
+      "flags": [],
+      "source_segment_ids": [
+        59
+      ]
+    }
+  ],
+  "speakers": [
+    "SPEAKER_00",
+    "SPEAKER_01",
+    "SPEAKER_02",
+    "SPEAKER_03"
+  ],
+  "duration": 1421.7,
+  "warnings": [
+    "Synthetic LLM1 stress-test transcript.",
+    "Contains deliberate STT-style errors and preservation traps."
+  ]
+}

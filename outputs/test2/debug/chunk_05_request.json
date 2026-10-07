@@ -1,0 +1,59 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 5,
+  "label": "chunk_05",
+  "requested_indices": [
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a domain-aware meeting transcript refinement system. Correct only plausible speech-to-text errors while preserving the meaning of what was actually said. If uncertain, preserve the original wording.\n\nYou receive numbered transcript segments (speaker-labelled, from automatic speech recognition). For each segment return the refined text and a list of the exact changes you made.\n\nWHAT YOU MAY FIX (only when the surrounding transcript strongly supports it):\n- misrecognised technical, scientific, engineering and programming terminology\n- acronyms and initialisms (e.g. \"em are\" -> \"MR\" when the discussion is clearly about MRs)\n- product, company and tool names\n- spelling, capitalisation, punctuation\n- obvious speech-recognition errors and obvious STT-caused duplicated words (stutter duplicates like \"the the\")\nUse the whole transcript as context: a term used correctly elsewhere is strong evidence for how a garbled instance should be written.\n\nWHAT YOU MUST PRESERVE EXACTLY (never alter):\n- speaker identity, speaker order, timestamps, chronology (you are not given the means to change them; do not try)\n- names of people, organisations and places unless it is an unambiguous spelling fix of a name used elsewhere in the transcript\n- numbers, dates, times, quantities, units, versions, identifiers, code tokens\n- negation (not, no, never, n't ...)\n- uncertainty and hedging (think, maybe, might, probably, perhaps, I guess ...)\n- questions, commitments, proposals, suggestions and conditional statements\n- the overall meaning and the speaker's register\n\nYOU MUST NOT:\n- summarise, paraphrase, shorten, rewrite for style, or \"improve\" grammar of natural speech\n- add, invent or infer information, owners, deadlines, tasks or context\n- guess ambiguous words; resolve nothing that the context does not clearly resolve\n- turn a suggestion into a decision (\"I think we should probably change this\" must NOT become \"We should change this\"); turn \"might\" into \"will\"; remove negation\n- remove filler words, false starts or disfluencies unless they are an obvious STT duplicate\n- merge, split, drop, reorder or add segments\n- add commentary inside refined_text\n\nIf you are not sure a correction is right, keep the original wording. Returning a segment unchanged is correct and expected for most segments.\n\nOUTPUT FORMAT (strict JSON matching the provided schema):\n{\"segments\":[{\"index\":<int, same as input>,\"refined_text\":\"<full refined segment text>\",\"changes\":[{\"original\":\"<exact original words>\",\"refined\":\"<replacement words>\",\"reason\":\"<short reason>\",\"confidence\":<0..1>}]}]}\n- Return exactly one entry per input segment, with the same index.\n- If nothing changed: refined_text equals the original text exactly and changes is [].\n- Each change's \"original\" must be copied exactly from the segment's original text. Keep each change minimal (only the words that differ). List every difference between original and refined text, including punctuation or capitalisation fixes.\n- confidence is a conservative 0-1 indication of how strongly context supports the correction (not a probability). Use below 0.7 for anything doubtful - such changes will be discarded.\n"
+    },
+    {
+      "role": "user",
+      "content": "Refine the following 5 segments (of 60 in the meeting). Speaker and timing are shown for context only.\n\n### index=25 speaker=SPEAKER_01 [592.5s-612.5s]\nThe provider sandbox returned HTTP 409 twice yesterday. That is different from HTTP 429, which indicates rate limiting.\n\n### index=26 speaker=SPEAKER_02 [612.8s-634.5s]\nWe also saw one HTTP 500 from the provider, but we don't know whether it represents a transient provider failure or a malformed request on our side.\n\n### index=27 speaker=SPEAKER_03 [634.8s-658.2s]\nFor security, Open I D Connect will be used between the admin portal and the identity provider. Access tokens should have a 15 minute lifetime.\n\n### index=28 speaker=SPEAKER_00 [658.5s-683.6s]\nThe admin portal must not receive the provider client secret. That secret stays in the backend secret store and is injected only into the authentication service.\n\n### index=29 speaker=SPEAKER_01 [683.9s-710.7s]\nFor deployment, we can use a rolling update with maxUnavailable set to 0 and maxSurge set to 1. That is a proposal, not a final deployment decision.\n"
+    }
+  ],
+  "requested_segments": [
+    {
+      "index": 25,
+      "speaker": "SPEAKER_01",
+      "start": 592.5,
+      "end": 612.5,
+      "text": "The provider sandbox returned HTTP 409 twice yesterday. That is different from HTTP 429, which indicates rate limiting."
+    },
+    {
+      "index": 26,
+      "speaker": "SPEAKER_02",
+      "start": 612.8,
+      "end": 634.5,
+      "text": "We also saw one HTTP 500 from the provider, but we don't know whether it represents a transient provider failure or a malformed request on our side."
+    },
+    {
+      "index": 27,
+      "speaker": "SPEAKER_03",
+      "start": 634.8,
+      "end": 658.2,
+      "text": "For security, Open I D Connect will be used between the admin portal and the identity provider. Access tokens should have a 15 minute lifetime."
+    },
+    {
+      "index": 28,
+      "speaker": "SPEAKER_00",
+      "start": 658.5,
+      "end": 683.6,
+      "text": "The admin portal must not receive the provider client secret. That secret stays in the backend secret store and is injected only into the authentication service."
+    },
+    {
+      "index": 29,
+      "speaker": "SPEAKER_01",
+      "start": 683.9,
+      "end": 710.7,
+      "text": "For deployment, we can use a rolling update with maxUnavailable set to 0 and maxSurge set to 1. That is a proposal, not a final deployment decision."
+    }
+  ]
+}

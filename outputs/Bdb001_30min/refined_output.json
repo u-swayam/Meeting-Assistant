@@ -1,0 +1,6021 @@
+{
+  "stage": "llm1_transcript_refinement",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "source_file": "final_output.json",
+  "total_segments": 291,
+  "changed_segments": 14,
+  "total_changes": 15,
+  "rejected_changes": 6,
+  "speakers": [
+    "SPEAKER_00",
+    "SPEAKER_01",
+    "SPEAKER_02",
+    "SPEAKER_03"
+  ],
+  "duration": 1800.0,
+  "warnings": [
+    "segment 65: reverted 'values depending' -> 'values.': confidence 0.00 below threshold 0.70",
+    "segment 165: reverted '' -> 'It': confidence 0.00 below threshold 0.70",
+    "segment 165: reverted 'It' -> '': confidence 0.00 below threshold 0.70",
+    "segment 261: reverted 'Frame' -> 'frame': confidence 0.60 below threshold 0.70",
+    "segment 283: reverted '' -> 'That's': confidence 0.00 below threshold 0.70",
+    "segment 283: reverted 'That's' -> '': confidence 0.00 below threshold 0.70"
+  ],
+  "confidence_note": "Change confidence is a conservative indication of how strongly context supports the correction; it is not a mathematical probability. The change log documents the model's interventions, not that each one is correct.",
+  "segments": [
+    {
+      "start": 0.08,
+      "end": 9.5199995,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. We had a long discussion about how much... How easy we wanna make it for people to bleep things out. So... Okay. So this... Morgan wants to make it hard.",
+      "refined_text": "Yeah. We had a long discussion about how much... How easy we wanna make it for people to bleep things out. So... Okay. So this... Morgan wants to make it hard.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.869,
+        "has_overlap": false,
+        "flags": [
+          "nearest_speaker"
+        ],
+        "source_segment_ids": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "start": 13.345,
+      "end": 15.265,
+      "speaker": "SPEAKER_01",
+      "original_text": "It it doesn't. Did",
+      "refined_text": "It it doesn't. Did",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.36,
+        "has_overlap": false,
+        "flags": [
+          "nearest_speaker"
+        ],
+        "source_segment_ids": [
+          3
+        ]
+      }
+    },
+    {
+      "start": 16.625,
+      "end": 19.025,
+      "speaker": "SPEAKER_02",
+      "original_text": "it did it... I didn't even check yesterday. It didn't move yesterday",
+      "refined_text": "it did it... I didn't even check yesterday. It didn't move yesterday",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          4
+        ]
+      }
+    },
+    {
+      "start": 19.025,
+      "end": 21.744999,
+      "speaker": "SPEAKER_01",
+      "original_text": "either when I started it. Okay. So I don't know if it doesn't like both. Channel",
+      "refined_text": "either when I started it. Okay. So I don't know if it doesn't like both. Channel",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          4
+        ]
+      }
+    },
+    {
+      "start": 21.744999,
+      "end": 23.185001,
+      "speaker": "SPEAKER_02",
+      "original_text": "three. Channel three?",
+      "refined_text": "three. Channel three?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.954,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "start": 25.77,
+      "end": 32.89,
+      "speaker": "SPEAKER_01",
+      "original_text": "You know, I discovered something yesterday on these wireless ones. Mhmm. You can tell if it's picking up breath noise and stuff.",
+      "refined_text": "You know, I discovered something yesterday on these wireless ones. Mhmm. You can tell if it's picking up breath noise and stuff.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.973,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          6
+        ]
+      }
+    },
+    {
+      "start": 32.89,
+      "end": 35.45,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. It has a little indicator on it Mhmm. On the AF.",
+      "refined_text": "Yeah. It has a little indicator on it Mhmm. On the AF.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.887,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          6
+        ]
+      }
+    },
+    {
+      "start": 36.010002,
+      "end": 44.845,
+      "speaker": "SPEAKER_01",
+      "original_text": "So if you... Yeah. If you breathe under... Breathe and then you see AF go off, then you know. K. Picking up your mouth nice.",
+      "refined_text": "So if you... Yeah. If you breathe under... Breathe and then you see AF go off, then you know. K. Picking up your mouth nice.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.884,
+        "has_overlap": false,
+        "flags": [
+          "nearest_speaker",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    },
+    {
+      "start": 44.845,
+      "end": 51.965,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well, that's good. Because we have a lot of Yep. Test. In fact, if you listen to just the channels of people not talk, it's like,",
+      "refined_text": "Well, that's good. Because we have a lot of Yep. Test. In fact, if you listen to just the channels of people not talk, it's like,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.911,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "smoothed",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          10,
+          11
+        ]
+      }
+    },
+    {
+      "start": 56.02,
+      "end": 57.06,
+      "speaker": "SPEAKER_03",
+      "original_text": "very disconcerting. What? Did",
+      "refined_text": "very disconcerting. What? Did",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.854,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          12
+        ]
+      }
+    },
+    {
+      "start": 57.06,
+      "end": 57.78,
+      "speaker": "SPEAKER_02",
+      "original_text": "you see Hannibal",
+      "refined_text": "you see Hannibal",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.942,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          12
+        ]
+      }
+    },
+    {
+      "start": 57.78,
+      "end": 72.034996,
+      "speaker": "SPEAKER_03",
+      "original_text": "recently or something? Exactly. Very disconcerting. Okay. So I was gonna try to get out of here, like, in half an hour because I really appreciate people coming. And the main thing that I was",
+      "refined_text": "recently or something? Exactly. Very disconcerting. Okay. So I was gonna try to get out of here, like, in half an hour because I really appreciate people coming. And the main thing that I was",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.984,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          12,
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "start": 73.075,
+      "end": 112.1,
+      "speaker": "SPEAKER_03",
+      "original_text": "going to ask people to help with today is to give input on what kinds of database format we should use in starting to link up things like word transcripts and annotations of word transcripts, so anything that transcribers or discourse coders would ever put in the signal, with time marks for words and phone boundaries and all the stuff we get out of the forced alignments in the recognizer. So we have this... I think a starting point is clearly the channelized output of Dave Gelbart's program, which John brought a copy of.",
+      "refined_text": "going to ask people to help with today is to give input on what kinds of database format we should use in starting to link up things like word transcripts and annotations of word transcripts, so anything that transcribers or discourse coders would ever put in the signal, with time marks for words and phone boundaries and all the stuff we get out of the forced alignments in the recognizer. So we have this... I think a starting point is clearly the channelized output of Dave Gelbart's program, which John brought a copy of.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.993,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ]
+      }
+    },
+    {
+      "start": 112.1,
+      "end": 113.299995,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. I'm I'm familiar with that.",
+      "refined_text": "Yeah. I'm I'm familiar with that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.928,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          26
+        ]
+      }
+    },
+    {
+      "start": 113.22,
+      "end": 113.619995,
+      "speaker": "SPEAKER_03",
+      "original_text": "Mean,",
+      "refined_text": "Mean,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.98,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          26
+        ]
+      }
+    },
+    {
+      "start": 113.78,
+      "end": 125.745,
+      "speaker": "SPEAKER_02",
+      "original_text": "I sort of already have developed an XML format for this sort of stuff. And so the only question, is it the sort of thing that you want to use or not? Have you looked at that? I mean, I had a web page up.",
+      "refined_text": "I sort of already have developed an XML format for this sort of stuff. And so the only question, is it the sort of thing that you want to use or not? Have you looked at that? I mean, I had a web page up.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.986,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          26,
+          27,
+          28
+        ]
+      }
+    },
+    {
+      "start": 125.745,
+      "end": 134.065,
+      "speaker": "SPEAKER_03",
+      "original_text": "Right. So I actually mostly need to be able to link up or You mean this? It's a question both of what the representation I guess",
+      "refined_text": "Right. So I actually mostly need to be able to link up or You mean this? It's a question both of what the representation I guess",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.996,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          28,
+          29,
+          30
+        ]
+      }
+    },
+    {
+      "start": 134.065,
+      "end": 135.10501,
+      "speaker": "SPEAKER_02",
+      "original_text": "I am gonna be standing up and",
+      "refined_text": "I am gonna be standing up and",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          30
+        ]
+      }
+    },
+    {
+      "start": 135.10501,
+      "end": 137.02501,
+      "speaker": "SPEAKER_03",
+      "original_text": "drawing Yeah. Up So you should definitely.",
+      "refined_text": "drawing Yeah. Up So you should definitely.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.809,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          30
+        ]
+      }
+    },
+    {
+      "start": 137.265,
+      "end": 151.52,
+      "speaker": "SPEAKER_02",
+      "original_text": "So so it definitely had that as a concept so that it has a single timeline. Mhmm. And then you can have lots of different sections, each of which have IDs attached to it. And then you can refer from other sections to those IDs if you want to. So that",
+      "refined_text": "So so it definitely had that as a concept so that it has a single timeline. Mhmm. And then you can have lots of different sections, each of which have IDs attached to it. And then you can refer from other sections to those IDs if you want to. So that",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.979,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          31,
+          32,
+          33
+        ]
+      }
+    },
+    {
+      "start": 152.565,
+      "end": 155.365,
+      "speaker": "SPEAKER_02",
+      "original_text": "so that you start with with a timeline tag.",
+      "refined_text": "so that you start with with a timeline tag.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.922,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          34
+        ]
+      }
+    },
+    {
+      "start": 157.685,
+      "end": 164.80501,
+      "speaker": "SPEAKER_02",
+      "original_text": "Timeline. And then you have a bunch of times. I don't I don't remember exactly what my notation was. Oh, remember",
+      "refined_text": "Timeline. And then you have a bunch of times. I don't I don't remember exactly what my notation was. Oh, remember",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.941,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          35,
+          36,
+          37
+        ]
+      }
+    },
+    {
+      "start": 164.80501,
+      "end": 166.245,
+      "speaker": "SPEAKER_00",
+      "original_text": "something outside of this. Yeah.",
+      "refined_text": "something outside of this. Yeah.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.902,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          37
+        ]
+      }
+    },
+    {
+      "start": 166.49,
+      "end": 187.41501,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. T equals 1.32. And then I I also had optional things like accuracy, and then ID equals t one And then I also wanted to to be to be able to not specify specifically what the time was and just have a stamp.",
+      "refined_text": "Yeah. T equals 1.32. And then I I also had optional things like accuracy, and then ID equals t one And then I also wanted to to be to be able to not specify specifically what the time was and just have a stamp.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.919,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43
+        ]
+      }
+    },
+    {
+      "start": 189.735,
+      "end": 193.64001,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. So these are arbitrary assigned by a program, not not by users.",
+      "refined_text": "Yeah. So these are arbitrary assigned by a program, not not by users.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.97,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          44
+        ]
+      }
+    },
+    {
+      "start": 195.0,
+      "end": 200.68001,
+      "speaker": "SPEAKER_02",
+      "original_text": "Then somewhere further down, you might have something like an utterance tag, which has start",
+      "refined_text": "Then somewhere further down, you might have something like an utterance tag, which has start",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.972,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          45,
+          46
+        ]
+      }
+    },
+    {
+      "start": 201.8,
+      "end": 210.49501,
+      "speaker": "SPEAKER_02",
+      "original_text": "equals t 17, end equals t 18. So what that's saying is we know it starts at this particular time. We don't know when it ends.",
+      "refined_text": "equals t 17, end equals t 18. So what that's saying is we know it starts at this particular time. We don't know when it ends.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.973,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          47,
+          48,
+          49
+        ]
+      }
+    },
+    {
+      "start": 210.815,
+      "end": 211.535,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay.",
+      "refined_text": "Okay.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.633,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          50
+        ]
+      }
+    },
+    {
+      "start": 211.535,
+      "end": 222.77002,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right? But it ends at this T18, which which may be somewhere else, we say there's another utterance. We don't know what the time actually is, but we know that it's the same time as this end time.",
+      "refined_text": "Right? But it ends at this T18, which which may be somewhere else, we say there's another utterance. We don't know what the time actually is, but we know that it's the same time as this end time.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          50,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "start": 226.05,
+      "end": 228.53,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah, thirty eight, whatever you want. So",
+      "refined_text": "Yeah, thirty eight, whatever you want. So",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.902,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          53
+        ]
+      }
+    },
+    {
+      "start": 228.53,
+      "end": 230.69002,
+      "speaker": "SPEAKER_00",
+      "original_text": "you're essentially defining a lattice.",
+      "refined_text": "you're essentially defining a lattice.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.925,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          53
+        ]
+      }
+    },
+    {
+      "start": 230.93001,
+      "end": 236.725,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yes, exactly. And then, and then these also have IDs.",
+      "refined_text": "Yes, exactly. And then, and then these also have IDs.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.877,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          54,
+          55
+        ]
+      }
+    },
+    {
+      "start": 240.325,
+      "end": 246.68,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right? So you could you could have some sort of other other tag later in the file that would be something like,",
+      "refined_text": "Right? So you could you could have some sort of other other tag later in the file that would be something like,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          56
+        ]
+      }
+    },
+    {
+      "start": 248.52,
+      "end": 249.64,
+      "speaker": "SPEAKER_02",
+      "original_text": "oh, don't know.",
+      "refined_text": "oh, don't know.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.899,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          57
+        ]
+      }
+    },
+    {
+      "start": 253.72,
+      "end": 255.40001,
+      "speaker": "SPEAKER_02",
+      "original_text": "Noise type equals",
+      "refined_text": "Noise type equals",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          58
+        ]
+      }
+    },
+    {
+      "start": 257.8,
+      "end": 259.08,
+      "speaker": "SPEAKER_02",
+      "original_text": "door slam, you know.",
+      "refined_text": "door slam, you know.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          59
+        ]
+      }
+    },
+    {
+      "start": 260.875,
+      "end": 273.35498,
+      "speaker": "SPEAKER_02",
+      "original_text": "And then, you could either say time equals a particular time mark, or you could do other sorts of references. So... Or or you might have a prosody. Prosody. Right? D? T?",
+      "refined_text": "And then, you could either say time equals a particular time mark, or you could do other sorts of references. So... Or or you might have a prosody. Prosody. Right? D? T?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.99,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          60,
+          61,
+          62,
+          63,
+          64,
+          65
+        ]
+      }
+    },
+    {
+      "start": 273.35498,
+      "end": 276.66,
+      "speaker": "SPEAKER_03",
+      "original_text": "It's an o instead of an I, but the d is good. You",
+      "refined_text": "It's an o instead of an I, but the d is good. You",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.89,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          65
+        ]
+      }
+    },
+    {
+      "start": 276.66,
+      "end": 283.22,
+      "speaker": "SPEAKER_02",
+      "original_text": "like the d? Yeah. It's a good d. You know, so you could have some sort of type here, and then you could have,",
+      "refined_text": "like the d? Yeah. It's a good d. You know, so you could have some sort of type here, and then you could have,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          65,
+          66,
+          67
+        ]
+      }
+    },
+    {
+      "start": 284.34,
+      "end": 288.1,
+      "speaker": "SPEAKER_02",
+      "original_text": "the utterance that it's referring to could be u 17 or something like that.",
+      "refined_text": "the utterance that it's referring to could be u 17 or something like that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          68
+        ]
+      }
+    },
+    {
+      "start": 289.215,
+      "end": 291.535,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay. So that",
+      "refined_text": "Okay. So that",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.89,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          69,
+          70
+        ]
+      }
+    },
+    {
+      "start": 293.135,
+      "end": 296.095,
+      "speaker": "SPEAKER_03",
+      "original_text": "seems great for all of the",
+      "refined_text": "seems great for all of the",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.919,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          71,
+          72
+        ]
+      }
+    },
+    {
+      "start": 297.615,
+      "end": 301.055,
+      "speaker": "SPEAKER_03",
+      "original_text": "encoding of things with time. And",
+      "refined_text": "encoding of things with time. And",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          73,
+          74
+        ]
+      }
+    },
+    {
+      "start": 302.175,
+      "end": 303.695,
+      "speaker": "SPEAKER_03",
+      "original_text": "guess my question is more,",
+      "refined_text": "guess my question is more,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          75
+        ]
+      }
+    },
+    {
+      "start": 304.96,
+      "end": 334.59003,
+      "speaker": "SPEAKER_03",
+      "original_text": "what do you do with, say, a forced alignment when you've got all these phone labels? And what do you do if you, just conceptually, if you get transcriptions where the words are staying but the time boundaries are changing because you've got a new recognition outpouring? Of what's the sequence of going from the waveforms that stay the same, the transcripts that may or may not change, and then the utterance",
+      "refined_text": "what do you do with, say, a forced alignment when you've got all these phone labels? And what do you do if you, just conceptually, if you get transcriptions where the words are staying but the time boundaries are changing because you've got a new recognition outpouring? Of what's the sequence of going from the waveforms that stay the same, the transcripts that may or may not change, and then the utterance",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89
+        ]
+      }
+    },
+    {
+      "start": 334.59003,
+      "end": 335.15002,
+      "speaker": "SPEAKER_00",
+      "original_text": "which are",
+      "refined_text": "which are",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.902,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          89
+        ]
+      }
+    },
+    {
+      "start": 335.15002,
+      "end": 337.07,
+      "speaker": "SPEAKER_03",
+      "original_text": "the time boundaries that may or may not change.",
+      "refined_text": "the time boundaries that may or may not change.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.967,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          89
+        ]
+      }
+    },
+    {
+      "start": 337.07,
+      "end": 342.19003,
+      "speaker": "SPEAKER_00",
+      "original_text": "That's actually very nicely handled here because all you'd have to change is the",
+      "refined_text": "That's actually very nicely handled here because all you'd have to change is the",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          89,
+          90
+        ]
+      }
+    },
+    {
+      "start": 343.39,
+      "end": 348.03003,
+      "speaker": "SPEAKER_00",
+      "original_text": "time stamps in the timeline without But you'd be able to propagate all that.",
+      "refined_text": "time stamps in the timeline without But you'd be able to propagate all that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.979,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          91,
+          92
+        ]
+      }
+    },
+    {
+      "start": 348.03003,
+      "end": 351.24503,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. That's that's why you do that extra level of indirection.",
+      "refined_text": "Right. That's that's why you do that extra level of indirection.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.916,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          92
+        ]
+      }
+    },
+    {
+      "start": 353.245,
+      "end": 355.165,
+      "speaker": "SPEAKER_02",
+      "original_text": "So that you can just change the timeline.",
+      "refined_text": "So that you can just change the timeline.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.842,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          93
+        ]
+      }
+    },
+    {
+      "start": 355.965,
+      "end": 357.805,
+      "speaker": "SPEAKER_00",
+      "original_text": "Except the timeline is gonna be huge.",
+      "refined_text": "Except the timeline is gonna be huge.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.967,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          94
+        ]
+      }
+    },
+    {
+      "start": 357.805,
+      "end": 358.045,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yes.",
+      "refined_text": "Yes.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.633,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          94
+        ]
+      }
+    },
+    {
+      "start": 358.045,
+      "end": 359.805,
+      "speaker": "SPEAKER_00",
+      "original_text": "Yeah. Especially at phone level.",
+      "refined_text": "Yeah. Especially at phone level.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          94
+        ]
+      }
+    },
+    {
+      "start": 359.805,
+      "end": 360.36502,
+      "speaker": "SPEAKER_03",
+      "original_text": "We",
+      "refined_text": "We",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.638,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          94
+        ]
+      }
+    },
+    {
+      "start": 360.685,
+      "end": 361.245,
+      "speaker": "SPEAKER_00",
+      "original_text": "we have",
+      "refined_text": "we have",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.632,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          95
+        ]
+      }
+    },
+    {
+      "start": 361.245,
+      "end": 367.31,
+      "speaker": "SPEAKER_02",
+      "original_text": "phone I don't think I would do this for phone level. I think for phone level, you wanna use some sort of binary representation because it'll be too",
+      "refined_text": "phone I don't think I would do this for phone level. I think for phone level, you wanna use some sort of binary representation because it'll be too",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          95
+        ]
+      }
+    },
+    {
+      "start": 367.31,
+      "end": 375.55002,
+      "speaker": "SPEAKER_03",
+      "original_text": "dense So if you were doing that and you had this sort of companion thing that gets called up for phone level, what would that look like? How would",
+      "refined_text": "dense So if you were doing that and you had this sort of companion thing that gets called up for phone level, what would that look like? How would",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.983,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          95,
+          96,
+          97
+        ]
+      }
+    },
+    {
+      "start": 375.55002,
+      "end": 377.07,
+      "speaker": "SPEAKER_02",
+      "original_text": "you I would use just an existing",
+      "refined_text": "you I would use just an existing",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.964,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          97
+        ]
+      }
+    },
+    {
+      "start": 378.625,
+      "end": 378.945,
+      "speaker": "SPEAKER_02",
+      "original_text": "existing",
+      "refined_text": "existing",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          98
+        ]
+      }
+    },
+    {
+      "start": 378.945,
+      "end": 388.225,
+      "speaker": "SPEAKER_00",
+      "original_text": "way of doing it. For follow. It's just a matter of it being bigger. But if you have, you know, barring memory limitations, mean, this is still It's",
+      "refined_text": "way of doing it. For follow. It's just a matter of it being bigger. But if you have, you know, barring memory limitations, mean, this is still It's",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.963,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          98,
+          99,
+          100,
+          101
+        ]
+      }
+    },
+    {
+      "start": 388.225,
+      "end": 393.99,
+      "speaker": "SPEAKER_02",
+      "original_text": "parsing limitations. I don't want to have this text file that you have to read in the whole thing to do something very simple for.",
+      "refined_text": "parsing limitations. I don't want to have this text file that you have to read in the whole thing to do something very simple for.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.956,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          101
+        ]
+      }
+    },
+    {
+      "start": 394.62997,
+      "end": 400.55,
+      "speaker": "SPEAKER_00",
+      "original_text": "Oh, no. You would use it only for purposes where you actually want the phone level information.",
+      "refined_text": "Oh, no. You would use it only for purposes where you actually want the phone level information.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.981,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          102,
+          103,
+          104
+        ]
+      }
+    },
+    {
+      "start": 400.71,
+      "end": 406.94998,
+      "speaker": "SPEAKER_03",
+      "original_text": "So you could have some file that configures how much information you want in your in your XML or something.",
+      "refined_text": "So you could have some file that configures how much information you want in your in your XML or something.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.984,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          105
+        ]
+      }
+    },
+    {
+      "start": 406.94998,
+      "end": 424.97,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. I mean, you'd... I imagine you'd have multiple versions of this depending on the information that you want. I'm just... What I'm wondering is whether... I think for word level, this would be okay. Yeah. Yeah. For word level, it's alright. Mhmm. For lower than word level, you're talking about so much data that I just I don't know. I don't know if that...",
+      "refined_text": "Right. I mean, you'd... I imagine you'd have multiple versions of this depending on the information that you want. I'm just... What I'm wondering is whether... I think for word level, this would be okay. Yeah. Yeah. For word level, it's alright. Mhmm. For lower than word level, you're talking about so much data that I just I don't know. I don't know if that...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.993,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          105,
+          106
+        ]
+      }
+    },
+    {
+      "start": 424.97,
+      "end": 434.73,
+      "speaker": "SPEAKER_03",
+      "original_text": "I mean, actually have... So one thing that Donna's doing Bladuses are big too. We're running... For every frame, you get a pitch value. And not only one pitch value, but different kinds of pitch values depending Yeah.",
+      "refined_text": "I mean, actually have... So one thing that Donna's doing Bladuses are big too. We're running... For every frame, you get a pitch value. And not only one pitch value, but different kinds of pitch values depending Yeah.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.985,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          106,
+          107
+        ]
+      }
+    },
+    {
+      "start": 434.73,
+      "end": 440.14502,
+      "speaker": "SPEAKER_02",
+      "original_text": "I for something like that, I would use or or any frame level stuff, would use p file.",
+      "refined_text": "I for something like that, I would use or or any frame level stuff, would use p file.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.98,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          107
+        ]
+      }
+    },
+    {
+      "start": 440.225,
+      "end": 440.86502,
+      "speaker": "SPEAKER_03",
+      "original_text": "Meaning?",
+      "refined_text": "Meaning?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.802,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          107
+        ]
+      }
+    },
+    {
+      "start": 441.105,
+      "end": 447.105,
+      "speaker": "SPEAKER_02",
+      "original_text": "That's a... Well, or something like it. It's... ICSI has a format for frame level representation of features.",
+      "refined_text": "That's a... Well, or something like it. It's... ICSI has a format for frame level representation of features.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          108
+        ]
+      }
+    },
+    {
+      "start": 447.825,
+      "end": 452.545,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay. That you could call... That you would tie into this representation with, like, an ID.",
+      "refined_text": "Okay. That you could call... That you would tie into this representation with, like, an ID.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          109
+        ]
+      }
+    },
+    {
+      "start": 452.59998,
+      "end": 461.63998,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. Or or there's a there's a particular way in XML to refer to external resources. Okay. So you would say, refer to this external file.",
+      "refined_text": "Right. Or or there's a there's a particular way in XML to refer to external resources. Okay. So you would say, refer to this external file.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.969,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          109,
+          110
+        ]
+      }
+    },
+    {
+      "start": 462.91998,
+      "end": 465.96,
+      "speaker": "SPEAKER_02",
+      "original_text": "So that external file wouldn't be in But what what's the",
+      "refined_text": "So that external file wouldn't be in But what what's the",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          111
+        ]
+      }
+    },
+    {
+      "start": 465.96,
+      "end": 472.035,
+      "speaker": "SPEAKER_01",
+      "original_text": "advantage of doing that versus just putting it to this in format? More compact, which I think is is better.",
+      "refined_text": "advantage of doing that versus just putting it to this in format? More compact, which I think is is better.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.989,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          111,
+          112
+        ]
+      }
+    },
+    {
+      "start": 472.035,
+      "end": 479.155,
+      "speaker": "SPEAKER_02",
+      "original_text": "Mean, if you did it this meetings and with You don't wanna do it with that. Anything at frame level, you had better encode binary or it's gonna be really painful.",
+      "refined_text": "Mean, if you did it this meetings and with You don't wanna do it with that. Anything at frame level, you had better encode binary or it's gonna be really painful.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.97,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          112
+        ]
+      }
+    },
+    {
+      "start": 479.155,
+      "end": 490.02,
+      "speaker": "SPEAKER_00",
+      "original_text": "Or you just... I mean, I like text formats. You can always gzip them and decompress them on the fly if if space is really... I was thinking the advantage that we",
+      "refined_text": "Or you just... I mean, I like text formats. You can always gzip them and decompress them on the fly if if space is really... I was thinking the advantage that we",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.999,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          112,
+          113,
+          114,
+          115
+        ]
+      }
+    },
+    {
+      "start": 490.02,
+      "end": 502.28497,
+      "speaker": "SPEAKER_02",
+      "original_text": "can share this one per frame. You're talking about gigabyte files. You're gonna actually run out of space in your file system for one file. Right? Because you have a two gigabyte limit on most OSs.",
+      "refined_text": "can share this one per frame. You're talking about gigabyte files. You're gonna actually run out of space in your file system for one file. Right? Because you have a two gigabyte limit on most OSs.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.999,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          115,
+          116,
+          117,
+          118
+        ]
+      }
+    },
+    {
+      "start": 502.28497,
+      "end": 507.16498,
+      "speaker": "SPEAKER_00",
+      "original_text": "I would say, okay. So frame level is probably not a good idea. But for phone level stuff, it's perfectly",
+      "refined_text": "I would say, okay. So frame level is probably not a good idea. But for phone level stuff, it's perfectly",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.927,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          118
+        ]
+      }
+    },
+    {
+      "start": 508.32,
+      "end": 510.4,
+      "speaker": "SPEAKER_00",
+      "original_text": "like phones or syllables Phones are every",
+      "refined_text": "like phones or syllables Phones are every",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.943,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          119
+        ]
+      }
+    },
+    {
+      "start": 510.4,
+      "end": 513.04,
+      "speaker": "SPEAKER_03",
+      "original_text": "five frames though, so, or something like",
+      "refined_text": "five frames though, so, or something like",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.955,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          119,
+          120
+        ]
+      }
+    },
+    {
+      "start": 513.04,
+      "end": 516.16,
+      "speaker": "SPEAKER_00",
+      "original_text": "that. But most of the frames are actually not speech.",
+      "refined_text": "that. But most of the frames are actually not speech.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.992,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          120
+        ]
+      }
+    },
+    {
+      "start": 517.6,
+      "end": 519.2,
+      "speaker": "SPEAKER_00",
+      "original_text": "So people don't",
+      "refined_text": "So people don't",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          121,
+          122
+        ]
+      }
+    },
+    {
+      "start": 519.36,
+      "end": 520.0,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yeah, but we",
+      "refined_text": "Yeah, but we",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.948,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          122
+        ]
+      }
+    },
+    {
+      "start": 520.0,
+      "end": 529.105,
+      "speaker": "SPEAKER_00",
+      "original_text": "actually look at it, words times the average number of phones in an English word is, I don't know, five maybe? So look at a number of words times five.",
+      "refined_text": "actually look at it, words times the average number of phones in an English word is, I don't know, five maybe? So look at a number of words times five.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.981,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          122,
+          123,
+          124
+        ]
+      }
+    },
+    {
+      "start": 529.105,
+      "end": 535.265,
+      "speaker": "SPEAKER_03",
+      "original_text": "So you mean pause phones take up a lot of the long pause phones. Yep. Exactly. Okay. That's true. But you do have to keep them in there.",
+      "refined_text": "So you mean pause phones take up a lot of the long pause phones. Yep. Exactly. Okay. That's true. But you do have to keep them in there.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          124
+        ]
+      }
+    },
+    {
+      "start": 535.73004,
+      "end": 546.05005,
+      "speaker": "SPEAKER_02",
+      "original_text": "So I think it's debatable whether you wanna do phone level in the same thing. But I think anything at frame level, even p file, is too verbose. I would use something tighter than p files.",
+      "refined_text": "So I think it's debatable whether you wanna do phone level in the same thing. But I think anything at frame level, even p file, is too verbose. I would use something tighter than p files.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.992,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          124,
+          125
+        ]
+      }
+    },
+    {
+      "start": 546.05005,
+      "end": 549.09,
+      "speaker": "SPEAKER_03",
+      "original_text": "Do you... Are you familiar with it? I haven't seen this particular format.",
+      "refined_text": "Do you... Are you familiar with it? I haven't seen this particular format.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.955,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          125
+        ]
+      }
+    },
+    {
+      "start": 549.09,
+      "end": 552.045,
+      "speaker": "SPEAKER_00",
+      "original_text": "I've used them. I don't know what their structure is. I forgot...",
+      "refined_text": "I've used them. I don't know what their structure is. I forgot...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          125
+        ]
+      }
+    },
+    {
+      "start": 552.045,
+      "end": 557.485,
+      "speaker": "SPEAKER_01",
+      "original_text": "P file for each frame is storing a vector of Kepstrol or plp values. Right? It's",
+      "refined_text": "P file for each frame is storing a vector of MFCC or PLP values. Right? It's",
+      "changed": true,
+      "changes": [
+        {
+          "original": "Kepstrol",
+          "refined": "MFCC",
+          "reason": "Misrecognized technical term; context of speech features suggests MFCC (Mel-frequency cepstral coefficients).",
+          "confidence": 0.9
+        },
+        {
+          "original": "plp",
+          "refined": "PLP",
+          "reason": "Capitalization of acronym for perceptual linear prediction.",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.987,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          125
+        ]
+      }
+    },
+    {
+      "start": 557.485,
+      "end": 580.875,
+      "speaker": "SPEAKER_02",
+      "original_text": "whatever you want Right. Actually. So that... What's nice about the p file, it it... Built into it is the concept of frames, utterances, sentences, that sort of thing, that structure. And then also attached to it is an arbitrary vector of values. Oh. And it can take different types. So they don't all have to be floats. You know, you can have integers and you can have doubles and all that sort of stuff. That sounds about",
+      "refined_text": "whatever you want Right. Actually. So that... What's nice about the p file, it it... Built into it is the concept of frames, utterances, sentences, that sort of thing, that structure. And then also attached to it is an arbitrary vector of values. Oh. And it can take different types. So they don't all have to be floats. You know, you can have integers and you can have doubles and all that sort of stuff. That sounds about",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.999,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          125,
+          126,
+          127,
+          128,
+          129
+        ]
+      }
+    },
+    {
+      "start": 580.875,
+      "end": 581.59503,
+      "speaker": "SPEAKER_03",
+      "original_text": "what I",
+      "refined_text": "what I",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.751,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          129
+        ]
+      }
+    },
+    {
+      "start": 581.835,
+      "end": 603.89,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. And it has a header it has a header format that describes it to some extent. So the only problem with it is it's actually storing the utterance numbers and the frame numbers in the file, even though they're always sequential. And so it does waste a lot of space. But it's still a lot tighter than than ASCII, and we have a lot of tools already to deal with it.",
+      "refined_text": "Right. And it has a header it has a header format that describes it to some extent. So the only problem with it is it's actually storing the utterance numbers and the frame numbers in the file, even though they're always sequential. And so it does waste a lot of space. But it's still a lot tighter than than ASCII, and we have a lot of tools already to deal with it.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.998,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ]
+      }
+    },
+    {
+      "start": 603.89,
+      "end": 608.05,
+      "speaker": "SPEAKER_03",
+      "original_text": "We do. Okay. Is there some documentation? Yeah. There's a ton of it. Okay. Great.",
+      "refined_text": "We do. Okay. Is there some documentation? Yeah. There's a ton of it. Okay. Great.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.977,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          134,
+          135
+        ]
+      }
+    },
+    {
+      "start": 608.05,
+      "end": 611.35504,
+      "speaker": "SPEAKER_02",
+      "original_text": "Man pages and source code and... I",
+      "refined_text": "Man pages and source code and... I",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.934,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          135,
+          136,
+          137
+        ]
+      }
+    },
+    {
+      "start": 611.35504,
+      "end": 621.515,
+      "speaker": "SPEAKER_03",
+      "original_text": "mean, that sounds good. I I was just looking for something... I'm not a database person, but something sort of standard enough that, you know, if we start using this, we can give it out. Other people can work It's not",
+      "refined_text": "mean, that sounds good. I I was just looking for something... I'm not a database person, but something sort of standard enough that, you know, if we start using this, we can give it out. Other people can work It's not",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.99,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          137,
+          138
+        ]
+      }
+    },
+    {
+      "start": 621.515,
+      "end": 623.67505,
+      "speaker": "SPEAKER_02",
+      "original_text": "standard. I mean, it's something that we developed at ICSI.",
+      "refined_text": "standard. I mean, it's something that we developed at ICSI.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          138
+        ]
+      }
+    },
+    {
+      "start": 624.68,
+      "end": 625.0,
+      "speaker": "SPEAKER_02",
+      "original_text": "But",
+      "refined_text": "But",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          139
+        ]
+      }
+    },
+    {
+      "start": 625.88,
+      "end": 627.95996,
+      "speaker": "SPEAKER_03",
+      "original_text": "But it's been used here.",
+      "refined_text": "But it's been used here.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.941,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          140,
+          141
+        ]
+      }
+    },
+    {
+      "start": 627.95996,
+      "end": 634.36,
+      "speaker": "SPEAKER_02",
+      "original_text": "But it's been used here, and and, you know, we have a well configured system that you can distribute for free. And",
+      "refined_text": "But it's been used here, and, you know, we have a well configured system that you can distribute for free. And",
+      "changed": true,
+      "changes": [
+        {
+          "original": "and",
+          "refined": "",
+          "reason": "Removed STT duplicate word",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.988,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          141
+        ]
+      }
+    },
+    {
+      "start": 634.51996,
+      "end": 640.245,
+      "speaker": "SPEAKER_01",
+      "original_text": "I mean, it must be the equivalent of whatever you guys use to store your computed features in, right?",
+      "refined_text": "I mean, it must be the equivalent of whatever you guys use to store your computed features in, right?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.964,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          141,
+          142
+        ]
+      }
+    },
+    {
+      "start": 640.245,
+      "end": 646.64496,
+      "speaker": "SPEAKER_00",
+      "original_text": "Yeah, we have, actually we use a generalization of the sphere format.",
+      "refined_text": "Yeah, we have, actually we use a generalization of the sphere format.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          142,
+          143
+        ]
+      }
+    },
+    {
+      "start": 650.45,
+      "end": 653.73004,
+      "speaker": "SPEAKER_00",
+      "original_text": "yeah, But so there's something like that. But it's And I think what does",
+      "refined_text": "yeah, But so there's something like that. But it's And I think what does",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.946,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          144
+        ]
+      }
+    },
+    {
+      "start": 653.73004,
+      "end": 655.97003,
+      "speaker": "SPEAKER_02",
+      "original_text": "HTK do for features? Or does it even",
+      "refined_text": "HTK do for features? Or does it even",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.99,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          144
+        ]
+      }
+    },
+    {
+      "start": 655.97003,
+      "end": 656.77,
+      "speaker": "SPEAKER_00",
+      "original_text": "have a I concept of",
+      "refined_text": "have a I concept of",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.95,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          144
+        ]
+      }
+    },
+    {
+      "start": 657.97003,
+      "end": 664.225,
+      "speaker": "SPEAKER_00",
+      "original_text": "mean, Entropic has their own feature format. It's called like s s d or something. Yeah. So s or something like that.",
+      "refined_text": "mean, Entropic has their own feature format. It's called like s s d or something. Yeah. So s or something like that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.979,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          145
+        ]
+      }
+    },
+    {
+      "start": 664.225,
+      "end": 666.945,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. I'm just wondering would it be worthwhile to use that instead?",
+      "refined_text": "Yeah. I'm just wondering would it be worthwhile to use that instead?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.949,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          145
+        ]
+      }
+    },
+    {
+      "start": 666.945,
+      "end": 669.90497,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yeah. This is exactly a decision. It's just whatever",
+      "refined_text": "Yeah. This is exactly a decision. It's just whatever",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          145
+        ]
+      }
+    },
+    {
+      "start": 670.14496,
+      "end": 674.14496,
+      "speaker": "SPEAKER_01",
+      "original_text": "typically share this kind of stuff. Right? I mean, they generate their own",
+      "refined_text": "typically share this kind of stuff. Right? I mean, they generate their own",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.998,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          145
+        ]
+      }
+    },
+    {
+      "start": 674.225,
+      "end": 697.635,
+      "speaker": "SPEAKER_03",
+      "original_text": "Actually, I I just... You know, we... We've done this stuff on Prosodics, and three or four places have asked for those Prosodic files, and we just have an ASCII Alright. Put a frame by frame, which is fine. But it gets unwieldy to go in and and query these files with really huge files. Right. And we could do it. I was just thinking if there's something And and again, if you have a values are. Mhmm.",
+      "refined_text": "Actually, I I just... You know, we... We've done this stuff on Prosodics, and three or four places have asked for those Prosodic files, and we just have an ASCII Alright. Put a frame by frame, which is fine. But it gets unwieldy to go in and and query these files with really huge files. Right. And we could do it. I was just thinking if there's something And and again, if you have a values are. Mhmm.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151
+        ]
+      }
+    },
+    {
+      "start": 697.715,
+      "end": 701.155,
+      "speaker": "SPEAKER_02",
+      "original_text": "If you have a two hour long meeting, that's",
+      "refined_text": "If you have a two hour long meeting, that's",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          151,
+          152
+        ]
+      }
+    },
+    {
+      "start": 701.155,
+      "end": 713.44,
+      "speaker": "SPEAKER_03",
+      "original_text": "gonna They're they're quite large. Yeah. Mean, are enormous. Ten minute switchboard conversations. Right. And so it's doable. It's just that you can only store a feature vector at frame by frame, and it doesn't have any kind of",
+      "refined_text": "gonna They're they're quite large. Yeah. Mean, are enormous. Ten minute switchboard conversations. Right. And so it's doable. It's just that you can only store a feature vector at frame by frame, and it doesn't have any kind of",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.965,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          152,
+          153,
+          154
+        ]
+      }
+    },
+    {
+      "start": 714.8,
+      "end": 717.83997,
+      "speaker": "SPEAKER_01",
+      "original_text": "Is is the sharing part of this a pretty important",
+      "refined_text": "Is the sharing part of this a pretty important",
+      "changed": true,
+      "changes": [
+        {
+          "original": "is",
+          "refined": "",
+          "reason": "Removed STT duplicate word",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 0.982,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          155
+        ]
+      }
+    },
+    {
+      "start": 718.91504,
+      "end": 722.43506,
+      "speaker": "SPEAKER_01",
+      "original_text": "consideration or is that just sort of a nice thing to have?",
+      "refined_text": "consideration or is that just sort of a nice thing to have?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.903,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          156
+        ]
+      }
+    },
+    {
+      "start": 722.67505,
+      "end": 730.35504,
+      "speaker": "SPEAKER_03",
+      "original_text": "I I don't know enough about what we're gonna do with the data, but I thought it would be good to get something that",
+      "refined_text": "I don't know enough about what we're gonna do with the data, but I thought it would be good to get something that",
+      "changed": true,
+      "changes": [
+        {
+          "original": "I",
+          "refined": "",
+          "reason": "Removed STT duplicate word",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 0.947,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          156,
+          157,
+          158
+        ]
+      }
+    },
+    {
+      "start": 731.46,
+      "end": 774.49,
+      "speaker": "SPEAKER_03",
+      "original_text": "can that other people can use or adopt for their own kinds of encoding and just we to make some decision about what to do. Especially for the prosody work, what it ends up being is you get features from the signal. And of course, those change every time your alignments change. So you rerun a recognizer, you want to recompute your features and then keep the database up to date. Or you change a word or you change an utterance boundary segment, which is going to happen a lot. And so I wanted something where all of this can be done in an elegant way and that if somebody wants to try something or compute something else, that it can be done flexibly. It doesn't have to be pretty. It just has to be",
+      "refined_text": "can that other people can use or adopt for their own kinds of encoding and just we to make some decision about what to do. Especially for the prosody work, what it ends up being is you get features from the signal. And of course, those change every time your alignments change. So you rerun a recognizer, you want to recompute your features and then keep the database up to date. Or you change a word or you change an utterance boundary segment, which is going to happen a lot. And so I wanted something where all of this can be done in an elegant way and that if somebody wants to try something or compute something else, that it can be done flexibly. It doesn't have to be pretty. It just has to be",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.99,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167,
+          168,
+          169
+        ]
+      }
+    },
+    {
+      "start": 775.805,
+      "end": 776.765,
+      "speaker": "SPEAKER_03",
+      "original_text": "easy to use.",
+      "refined_text": "easy to use.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.935,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          170
+        ]
+      }
+    },
+    {
+      "start": 777.165,
+      "end": 781.965,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. The other thing, we should look at Atlas, the NIST thing,",
+      "refined_text": "Yeah. The other thing, we should look at Atlas, the NIST thing,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.969,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          171,
+          172,
+          173
+        ]
+      }
+    },
+    {
+      "start": 783.005,
+      "end": 794.94,
+      "speaker": "SPEAKER_02",
+      "original_text": "and see if they have anything at that level. I mean, I'm not sure what to do about this with Atlas because they chose a different route. I chose something that there are sort of two choices. Your file format can know",
+      "refined_text": "and see if they have anything at that level. I mean, I'm not sure what to do about this with Atlas because they chose a different route. I chose something that there are sort of two choices. Your file format can know",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          174,
+          175,
+          176
+        ]
+      }
+    },
+    {
+      "start": 796.06,
+      "end": 815.95496,
+      "speaker": "SPEAKER_02",
+      "original_text": "that you're talking about language and speech, which is what I chose, and time. Or your file format can just be a graph representation. And then the application has to impose the structure on top. So what it looked like Atlas chose is they chose the other way, which was their file format is just nodes and links, and you have to interpret what they mean yourself.",
+      "refined_text": "that you're talking about language and speech, which is what I chose, and time. Or your file format can just be a graph representation. And then the application has to impose the structure on top. So what it looked like Atlas chose is they chose the other way, which was their file format is just nodes and links, and you have to interpret what they mean yourself.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.99,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          177,
+          178,
+          179,
+          180,
+          181,
+          182
+        ]
+      }
+    },
+    {
+      "start": 816.435,
+      "end": 818.115,
+      "speaker": "SPEAKER_03",
+      "original_text": "And why did you not choose",
+      "refined_text": "And why did you not choose",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.794,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          183
+        ]
+      }
+    },
+    {
+      "start": 818.115,
+      "end": 828.47,
+      "speaker": "SPEAKER_02",
+      "original_text": "that tag? Because I knew that we were doing speech, I thought it was better if you're looking at a raw file to be... To... For the tags to say it's an utterance as opposed to the tag to say it's a link.",
+      "refined_text": "that tag? Because I knew that we were doing speech, I thought it was better if you're looking at a raw file to be... To... For the tags to say it's an utterance as opposed to the tag to say it's a link.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.893,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          183,
+          184
+        ]
+      }
+    },
+    {
+      "start": 828.79,
+      "end": 831.91,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay. But other than that, are they compatible? I mean, you could sort of?",
+      "refined_text": "Okay. But other than that, are they compatible? I mean, you could sort of?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          185
+        ]
+      }
+    },
+    {
+      "start": 832.065,
+      "end": 833.665,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. They're reasonably compatible. You",
+      "refined_text": "Yeah. They're reasonably compatible. You",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.955,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          185
+        ]
+      }
+    },
+    {
+      "start": 833.665,
+      "end": 834.145,
+      "speaker": "SPEAKER_03",
+      "original_text": "could",
+      "refined_text": "could",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.631,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          185
+        ]
+      }
+    },
+    {
+      "start": 834.145,
+      "end": 835.505,
+      "speaker": "SPEAKER_02",
+      "original_text": "probably translate between them.",
+      "refined_text": "probably translate between them.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          185
+        ]
+      }
+    },
+    {
+      "start": 835.505,
+      "end": 836.465,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yeah. That's Yep. So",
+      "refined_text": "Yeah. That's Yep. So",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          185
+        ]
+      }
+    },
+    {
+      "start": 836.705,
+      "end": 845.025,
+      "speaker": "SPEAKER_02",
+      "original_text": "So... Well, the other thing is if we choose to use Atlas, which maybe we should just do, we should just throw this out before we invest a lot of time in it.",
+      "refined_text": "So... Well, the other thing is if we choose to use Atlas, which maybe we should just do, we should just throw this out before we invest a lot of time in it.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.979,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          185,
+          186
+        ]
+      }
+    },
+    {
+      "start": 845.025,
+      "end": 856.79004,
+      "speaker": "SPEAKER_03",
+      "original_text": "So this is what the meeting's about, just sort of how to, Because we need to come up with a database like this just to do our work. I actually don't care, as long as it's something useful to other people, what we choose. Maybe it's...",
+      "refined_text": "So this is what the meeting's about, just sort of how to, Because we need to come up with a database like this just to do our work. I actually don't care, as long as it's something useful to other people, what we choose. Maybe it's...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.995,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          186,
+          187
+        ]
+      }
+    },
+    {
+      "start": 858.15,
+      "end": 860.39,
+      "speaker": "SPEAKER_03",
+      "original_text": "Do you have any idea of how to choose? Because I don't.",
+      "refined_text": "Do you have any idea of how to choose? Because I don't.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.968,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          188
+        ]
+      }
+    },
+    {
+      "start": 861.965,
+      "end": 871.645,
+      "speaker": "SPEAKER_02",
+      "original_text": "I chose this for a couple reasons. One of them is that it's easy to parse. You don't need a full XML parser. It's very easy to just write a Perl script to parse it.",
+      "refined_text": "I chose this for a couple reasons. One of them is that it's easy to parse. You don't need a full XML parser. It's very easy to just write a Perl script to parse it.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.989,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          189,
+          190,
+          191
+        ]
+      }
+    },
+    {
+      "start": 871.645,
+      "end": 874.14,
+      "speaker": "SPEAKER_00",
+      "original_text": "As long as each tag is on one line.",
+      "refined_text": "As long as each tag is on one line.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.881,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          191
+        ]
+      }
+    },
+    {
+      "start": 874.14,
+      "end": 876.30005,
+      "speaker": "SPEAKER_02",
+      "original_text": "Exactly. Exactly. Which I always do.",
+      "refined_text": "Exactly. Exactly. Which I always do.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.961,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          191
+        ]
+      }
+    },
+    {
+      "start": 876.30005,
+      "end": 880.22003,
+      "speaker": "SPEAKER_03",
+      "original_text": "And you can have as much information in the tag as you want, right?",
+      "refined_text": "And you can have as much information in the tag as you want, right?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.904,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          191
+        ]
+      }
+    },
+    {
+      "start": 880.46,
+      "end": 885.9,
+      "speaker": "SPEAKER_02",
+      "original_text": "Well, I have it structured, right? So each tag has only particular items that it can take.",
+      "refined_text": "Well, I have it structured, right? So each tag has only particular items that it can take.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.97,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          191
+        ]
+      }
+    },
+    {
+      "start": 886.215,
+      "end": 889.09503,
+      "speaker": "SPEAKER_03",
+      "original_text": "Can you... But you can add to those structures",
+      "refined_text": "Can you... But you can add to those structures",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.91,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          191
+        ]
+      }
+    },
+    {
+      "start": 889.335,
+      "end": 889.815,
+      "speaker": "SPEAKER_02",
+      "original_text": "Sure.",
+      "refined_text": "Sure.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.579,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          192
+        ]
+      }
+    },
+    {
+      "start": 889.895,
+      "end": 890.775,
+      "speaker": "SPEAKER_03",
+      "original_text": "If you...",
+      "refined_text": "If you...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.792,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          192
+        ]
+      }
+    },
+    {
+      "start": 890.85504,
+      "end": 892.05505,
+      "speaker": "SPEAKER_02",
+      "original_text": "If you have more information. So what",
+      "refined_text": "If you have more information. So what",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.977,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          192
+        ]
+      }
+    },
+    {
+      "start": 892.135,
+      "end": 892.455,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yes.",
+      "refined_text": "Yes.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.662,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          192
+        ]
+      }
+    },
+    {
+      "start": 892.455,
+      "end": 896.135,
+      "speaker": "SPEAKER_02",
+      "original_text": "What NIST would say is that instead of doing this, you would say something like link",
+      "refined_text": "What NIST would say is that instead of doing this, you would say something like link",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.915,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          192
+        ]
+      }
+    },
+    {
+      "start": 897.97504,
+      "end": 904.73004,
+      "speaker": "SPEAKER_02",
+      "original_text": "start equals, you know, some node ID end equals some other node ID,",
+      "refined_text": "start equals, you know, some node ID end equals some other node ID,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.981,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          193,
+          194,
+          195
+        ]
+      }
+    },
+    {
+      "start": 905.93,
+      "end": 909.21,
+      "speaker": "SPEAKER_02",
+      "original_text": "and then type would be utterance.",
+      "refined_text": "and then type would be utterance.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.921,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          196,
+          197
+        ]
+      }
+    },
+    {
+      "start": 910.33,
+      "end": 911.21,
+      "speaker": "SPEAKER_00",
+      "original_text": "You",
+      "refined_text": "You",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.25,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          198
+        ]
+      }
+    },
+    {
+      "start": 911.21,
+      "end": 912.57,
+      "speaker": "SPEAKER_02",
+      "original_text": "know, so it's very similar.",
+      "refined_text": "know, so it's very similar.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.859,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          199
+        ]
+      }
+    },
+    {
+      "start": 913.05,
+      "end": 918.49,
+      "speaker": "SPEAKER_03",
+      "original_text": "So why would it be a a waste to do it this way if it's similar enough that we can always",
+      "refined_text": "So why would it be a waste to do it this way if it's similar enough that we can always",
+      "changed": true,
+      "changes": [
+        {
+          "original": "a",
+          "refined": "",
+          "reason": "obvious STT duplicate",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 0.897,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          200
+        ]
+      }
+    },
+    {
+      "start": 917.985,
+      "end": 926.305,
+      "speaker": "SPEAKER_01",
+      "original_text": "translate? Probably wouldn't be a waste. It would mean that at some point if we wanted to switch, we'd just have to Write a translator. Since they're developing other big don't think it's a big",
+      "refined_text": "translate? Probably wouldn't be a waste. It would mean that at some point if we wanted to switch, we'd just have to write a translator. Since they're developing other big don't think it's a big",
+      "changed": true,
+      "changes": [
+        {
+          "original": "Write",
+          "refined": "write",
+          "reason": "capitalization fix",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.945,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          200,
+          201
+        ]
+      }
+    },
+    {
+      "start": 926.545,
+      "end": 934.77997,
+      "speaker": "SPEAKER_02",
+      "original_text": "it is They're developing a big infrastructure. And so it seems to me that if if we wanna use that, we might as well go directly to what they're doing rather than",
+      "refined_text": "it is They're developing a big infrastructure. And so it seems to me that if if we wanna use that, we might as well go directly to what they're doing rather than",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          201,
+          202
+        ]
+      }
+    },
+    {
+      "start": 934.94,
+      "end": 936.86,
+      "speaker": "SPEAKER_00",
+      "original_text": "something that's... That would be useful.",
+      "refined_text": "something that's... That would be useful.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.905,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          202
+        ]
+      }
+    },
+    {
+      "start": 936.86,
+      "end": 937.58,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. See, that's the",
+      "refined_text": "Yeah. See, that's the",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          202
+        ]
+      }
+    },
+    {
+      "start": 937.58,
+      "end": 941.26,
+      "speaker": "SPEAKER_01",
+      "original_text": "question. I mean, how stable is their... Are they ready to go?",
+      "refined_text": "question. I mean, how stable is their... Are they ready to go?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.956,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          202,
+          203
+        ]
+      }
+    },
+    {
+      "start": 941.42,
+      "end": 945.5,
+      "speaker": "SPEAKER_02",
+      "original_text": "I looked at it... The last time I looked at it was a while ago, probably a year ago",
+      "refined_text": "I looked at it... The last time I looked at it was a while ago, probably a year ago",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.997,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          203
+        ]
+      }
+    },
+    {
+      "start": 945.58,
+      "end": 945.74,
+      "speaker": "SPEAKER_01",
+      "original_text": "Mhmm.",
+      "refined_text": "Mhmm.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.788,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          203
+        ]
+      }
+    },
+    {
+      "start": 945.855,
+      "end": 976.795,
+      "speaker": "SPEAKER_02",
+      "original_text": "When we first started talking about this. And at that time, at least, it was still not very complete. And so specifically, they didn't have any external format representation at that time. They just had sort of conceptual node annotated transcription graph, which I really liked, and that's exactly what this stuff is based on. Since then, they've developed their own external file format, which is this sort of thing. And apparently, they've also developed a lot of tools, but I haven't looked at them. Maybe I should. Should",
+      "refined_text": "When we first started talking about this. And at that time, at least, it was still not very complete. And so specifically, they didn't have any external format representation at that time. They just had sort of conceptual node annotated transcription graph, which I really liked, and that's exactly what this stuff is based on. Since then, they've developed their own external file format, which is this sort of thing. And apparently, they've also developed a lot of tools, but I haven't looked at them. Maybe I should. Should",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.994,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          203,
+          204,
+          205,
+          206,
+          207,
+          208,
+          209,
+          210
+        ]
+      }
+    },
+    {
+      "start": 976.955,
+      "end": 981.755,
+      "speaker": "SPEAKER_03",
+      "original_text": "Maybe would the tools run on something like this, if you can translate them into another way?",
+      "refined_text": "Maybe would the tools run on something like this, if you can translate them into another way?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.922,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          210,
+          211
+        ]
+      }
+    },
+    {
+      "start": 982.555,
+      "end": 990.86,
+      "speaker": "SPEAKER_02",
+      "original_text": "I guess the question What would worry me is maybe that we might miss a little detail. That would make it very difficult to translate from one to the other.",
+      "refined_text": "I guess the question What would worry me is maybe that we might miss a little detail. That would make it very difficult to translate from one to the other.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          212,
+          213
+        ]
+      }
+    },
+    {
+      "start": 990.86,
+      "end": 1003.255,
+      "speaker": "SPEAKER_00",
+      "original_text": "It's conceptually close. And they already have or will have tools that everybody else will be using. I mean Yeah, might as well. Would be crazy to do something you know, separate that",
+      "refined_text": "It's conceptually close. And they already have or will have tools that everybody else will be using. I mean Yeah, might as well. Would be crazy to do something you know, separate that",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.996,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          213,
+          214,
+          215,
+          216
+        ]
+      }
+    },
+    {
+      "start": 1003.415,
+      "end": 1006.375,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yep. Yeah. So I'll I'll take a closer look So at",
+      "refined_text": "Yep. Yeah. So I'll I'll take a closer look So at",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.947,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          216
+        ]
+      }
+    },
+    {
+      "start": 1006.615,
+      "end": 1019.48004,
+      "speaker": "SPEAKER_03",
+      "original_text": "it's... That that would really be the question is just what you feel is Right. In the long run the best thing because The once we start sort of doing this, I don't we don't actually have enough time to probably have to rehash it out again.",
+      "refined_text": "it's... That that would really be the question is just what you feel is Right. In the long run the best thing because The once we start sort of doing this, I don't we don't actually have enough time to probably have to rehash it out again.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.981,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          216
+        ]
+      }
+    },
+    {
+      "start": 1019.8,
+      "end": 1026.36,
+      "speaker": "SPEAKER_02",
+      "original_text": "Other thing, the other way that I sort of established this was as easy translation to and from the transcriber format.",
+      "refined_text": "Other thing, the other way that I sort of established this was as easy translation to and from the transcriber format.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          217
+        ]
+      }
+    },
+    {
+      "start": 1026.645,
+      "end": 1027.445,
+      "speaker": "SPEAKER_03",
+      "original_text": "Right.",
+      "refined_text": "Right.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.654,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          217
+        ]
+      }
+    },
+    {
+      "start": 1027.685,
+      "end": 1028.885,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. But",
+      "refined_text": "Right. But",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.847,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          218,
+          219
+        ]
+      }
+    },
+    {
+      "start": 1029.125,
+      "end": 1039.925,
+      "speaker": "SPEAKER_03",
+      "original_text": "I mean, I like this. This is sort of intuitively easy to actually read as easy as it could be. But I suppose that as long as they have a type here that specifies",
+      "refined_text": "I mean, I like this. This is sort of intuitively easy to actually read as easy as it could be. But I suppose that as long as they have a type here that specifies",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.992,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          219,
+          220
+        ]
+      }
+    },
+    {
+      "start": 1040.85,
+      "end": 1050.29,
+      "speaker": "SPEAKER_02",
+      "original_text": "utt. It's almost the same. The point is with this, though, is that you can't really add any supplementary information. Right? So if you suddenly decide that you want",
+      "refined_text": "utt. It's almost the same. The point is with this, though, is that you can't really add any supplementary information. Right? So if you suddenly decide that you want",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.91,
+        "has_overlap": true,
+        "flags": [
+          "nearest_speaker",
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          221,
+          222,
+          223
+        ]
+      }
+    },
+    {
+      "start": 1050.53,
+      "end": 1051.25,
+      "speaker": "SPEAKER_03",
+      "original_text": "You have to make a different",
+      "refined_text": "You have to make a different",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          223
+        ]
+      }
+    },
+    {
+      "start": 1051.25,
+      "end": 1053.65,
+      "speaker": "SPEAKER_02",
+      "original_text": "type. Yeah. You'd have to make a different type.",
+      "refined_text": "type. Yeah. You'd have to make a different type.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          223
+        ]
+      }
+    },
+    {
+      "start": 1053.65,
+      "end": 1097.385,
+      "speaker": "SPEAKER_03",
+      "original_text": "So, well, if you look at it, and I guess in my mind, I don't know enough, Jane would know better about the types of annotations. And... I imagine that those are things that would... Well, you guys mentioned this, that could span any... It could be in its own channel. It could span time boundaries of any type. It could be instantaneous, things like that. And then from the recognition side, we have back traces at the phone level. It can handle that, it could handle states or whatever. And then at the prosody level, we have frame sort of like Yep. Capsule feature files like these p files or anything like that. And that's sort of the world of things that I... And then we have the aligned channels",
+      "refined_text": "So, well, if you look at it, and I guess in my mind, I don't know enough, Jane would know better about the types of annotations. And... I imagine that those are things that would... Well, you guys mentioned this, that could span any... It could be in its own channel. It could span time boundaries of any type. It could be instantaneous, things like that. And then from the recognition side, we have back traces at the phone level. It can handle that, it could handle states or whatever. And then at the prosody level, we have frame sort of like Yep. Capsule feature files like these p files or anything like that. And that's sort of the world of things that I... And then we have the aligned channels",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.997,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          223,
+          224,
+          225,
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238
+        ]
+      }
+    },
+    {
+      "start": 1097.625,
+      "end": 1101.72,
+      "speaker": "SPEAKER_00",
+      "original_text": "Right. Of course. seems It to me you want to keep the frame level stuff separate.",
+      "refined_text": "Right. Of course. seems It to me you want to keep the frame level stuff separate.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          238
+        ]
+      }
+    },
+    {
+      "start": 1101.88,
+      "end": 1113.5599,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yeah. I definitely agree and I wanted to find actually a nicer format or a maybe a more compact format than what we used before just because you've got 10 channels or whatever and two hours of a meeting. It's",
+      "refined_text": "Yeah. I definitely agree and I wanted to find actually a nicer format or a maybe a more compact format than what we used before just because you've got 10 channels or whatever and two hours of a meeting. It's",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.986,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          239,
+          240
+        ]
+      }
+    },
+    {
+      "start": 1113.925,
+      "end": 1125.365,
+      "speaker": "SPEAKER_00",
+      "original_text": "Now how would you how would you represent multiple speakers in this framework? Where you would just represent them as you would have like a speaker tag or something?",
+      "refined_text": "Now how would you how would you represent multiple speakers in this framework? Where you would just represent them as you would have like a speaker tag or something?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.98,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          240,
+          241,
+          242,
+          243
+        ]
+      }
+    },
+    {
+      "start": 1125.365,
+      "end": 1135.83,
+      "speaker": "SPEAKER_02",
+      "original_text": "There's a speaker tag up at the top which identifies them and then each utt, the way I had it is each churn or each utterance, I don't even remember now, had a speaker ID tag attached to it.",
+      "refined_text": "There's a speaker tag up at the top which identifies them and then each utt, the way I had it is each churn or each utterance, I don't even remember now, had a speaker ID tag attached to it.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          243,
+          244
+        ]
+      }
+    },
+    {
+      "start": 1136.23,
+      "end": 1136.79,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay.",
+      "refined_text": "Okay.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.754,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          245
+        ]
+      }
+    },
+    {
+      "start": 1136.79,
+      "end": 1147.765,
+      "speaker": "SPEAKER_02",
+      "original_text": "And this format, you would have a different tag which which would, be linked to the link. Yeah. So so somewhere else, would have another thing that would be...",
+      "refined_text": "And this format, you would have a different tag which which would, be linked to the link. Yeah. So so somewhere else, would have another thing that would be...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.981,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          245,
+          246,
+          247
+        ]
+      }
+    },
+    {
+      "start": 1150.3251,
+      "end": 1152.325,
+      "speaker": "SPEAKER_02",
+      "original_text": "Let's see. Would it be a note or a link?",
+      "refined_text": "Let's see. Would it be a note or a link?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.921,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          248
+        ]
+      }
+    },
+    {
+      "start": 1153.4451,
+      "end": 1164.31,
+      "speaker": "SPEAKER_02",
+      "original_text": "And so so this one would have, an ID. It's link link 74 or something like that. Mhmm. And then somewhere up here, would have a link that that,",
+      "refined_text": "And so so this one would have, an ID. It's link link 74 or something like that. Mhmm. And then somewhere up here, would have a link that that,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          249,
+          250,
+          251,
+          252
+        ]
+      }
+    },
+    {
+      "start": 1166.15,
+      "end": 1172.755,
+      "speaker": "SPEAKER_02",
+      "original_text": "you know, was referencing l 74 and had speaker Adam.",
+      "refined_text": "you know, was referencing link 74 and had speaker Adam.",
+      "changed": true,
+      "changes": [
+        {
+          "original": "l",
+          "refined": "link",
+          "reason": "Expanded 'l' to 'link' based on context of link IDs",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          253,
+          254,
+          255
+        ]
+      }
+    },
+    {
+      "start": 1173.475,
+      "end": 1176.515,
+      "speaker": "SPEAKER_03",
+      "original_text": "Actually, a channel I think that... Mean... Well,",
+      "refined_text": "Actually, a channel I think that... Mean... Well,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.942,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          256,
+          257
+        ]
+      }
+    },
+    {
+      "start": 1176.515,
+      "end": 1177.0751,
+      "speaker": "SPEAKER_00",
+      "original_text": "channel or speaker...",
+      "refined_text": "channel or speaker...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.887,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          257
+        ]
+      }
+    },
+    {
+      "start": 1177.0751,
+      "end": 1180.115,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yeah. Channel is what the channelized output... This isn't quite right.",
+      "refined_text": "Yeah. Channel is what the channelized output... This isn't quite right.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.973,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          257
+        ]
+      }
+    },
+    {
+      "start": 1180.115,
+      "end": 1180.755,
+      "speaker": "SPEAKER_02",
+      "original_text": "Have to look at it",
+      "refined_text": "Have to look at it",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          257
+        ]
+      }
+    },
+    {
+      "start": 1180.755,
+      "end": 1186.675,
+      "speaker": "SPEAKER_00",
+      "original_text": "again. But but so how in the list format do we express hierarchical relationship between,",
+      "refined_text": "again. But but so how in the list format do we express hierarchical relationship between,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.97,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          257,
+          258,
+          259,
+          260
+        ]
+      }
+    },
+    {
+      "start": 1187.99,
+      "end": 1196.2299,
+      "speaker": "SPEAKER_00",
+      "original_text": "say an utterance and the words within it. So how do you tell that these are the words that belong to that utterance?",
+      "refined_text": "say an utterance and the words within it. So how do you tell that these are the words that belong to that utterance?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.977,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          261,
+          262,
+          263
+        ]
+      }
+    },
+    {
+      "start": 1197.51,
+      "end": 1204.065,
+      "speaker": "SPEAKER_02",
+      "original_text": "You would have another structure lower down than this that would be saying they're all belonging to this ID.",
+      "refined_text": "You would have another structure lower down than this that would be saying they're all belonging to this ID.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.949,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          264
+        ]
+      }
+    },
+    {
+      "start": 1205.345,
+      "end": 1212.145,
+      "speaker": "SPEAKER_01",
+      "original_text": "So each thing refers to the utterance that it belongs to. Right. It's not just",
+      "refined_text": "So each thing refers to the utterance that it belongs to. Right. It's not just",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.962,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          265,
+          266,
+          267
+        ]
+      }
+    },
+    {
+      "start": 1212.145,
+      "end": 1215.745,
+      "speaker": "SPEAKER_02",
+      "original_text": "sort a bottom line. Each turn could refer to something higher up.",
+      "refined_text": "sort a bottom line. Each turn could refer to something higher up.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.998,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          267,
+          268
+        ]
+      }
+    },
+    {
+      "start": 1217.71,
+      "end": 1236.1649,
+      "speaker": "SPEAKER_03",
+      "original_text": "So right now what you have as utterance, the closest thing that comes out of the channelize is the stuff between the segment boundaries that the transcribers put in or that TLO put in, which may or may not actually be like... It's usually not, the beginning and end of a sentence, say. Well,",
+      "refined_text": "So right now what you have as utterance, the closest thing that comes out of the channelize is the stuff between the segment boundaries that the transcribers put in or that TLO put in, which may or may not actually be like... It's usually not, the beginning and end of a sentence, say. Well,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.999,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          269,
+          270,
+          271,
+          272,
+          273,
+          274
+        ]
+      }
+    },
+    {
+      "start": 1236.1649,
+      "end": 1236.485,
+      "speaker": "SPEAKER_02",
+      "original_text": "that's why I didn't",
+      "refined_text": "that's why I didn't",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.981,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          274
+        ]
+      }
+    },
+    {
+      "start": 1236.485,
+      "end": 1249.01,
+      "speaker": "SPEAKER_03",
+      "original_text": "call it So a it's like like a segment or something. Yep. So I mean I assume this is possible that if you have someone annotates the punctuation or whatever when they transcribe, you can say, you know, from",
+      "refined_text": "call it So a it's like like a segment or something. Yep. So I mean I assume this is possible that if you have someone annotates the punctuation or whatever when they transcribe, you can say, you know, from",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          274,
+          275,
+          276,
+          277
+        ]
+      }
+    },
+    {
+      "start": 1250.13,
+      "end": 1260.905,
+      "speaker": "SPEAKER_03",
+      "original_text": "the beginning of the sentence to the end of the sentence from the annotations, this is a unit even though it never actually, it's only a unit by virtue of the annotations at the word level.",
+      "refined_text": "the beginning of the sentence to the end of the sentence from the annotations, this is a unit even though it never actually, it's only a unit by virtue of the annotations at the word level.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          278,
+          279,
+          280
+        ]
+      }
+    },
+    {
+      "start": 1260.905,
+      "end": 1261.545,
+      "speaker": "SPEAKER_02",
+      "original_text": "Sure. I mean, so",
+      "refined_text": "Sure. I mean, so",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.766,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          280
+        ]
+      }
+    },
+    {
+      "start": 1261.545,
+      "end": 1262.0249,
+      "speaker": "SPEAKER_03",
+      "original_text": "you",
+      "refined_text": "you",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          280
+        ]
+      }
+    },
+    {
+      "start": 1261.865,
+      "end": 1263.1449,
+      "speaker": "SPEAKER_02",
+      "original_text": "have yet another tag",
+      "refined_text": "have yet another tag",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.822,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          280
+        ]
+      }
+    },
+    {
+      "start": 1263.545,
+      "end": 1264.185,
+      "speaker": "SPEAKER_03",
+      "original_text": "somehow.",
+      "refined_text": "somehow.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.789,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          281
+        ]
+      }
+    },
+    {
+      "start": 1264.185,
+      "end": 1266.665,
+      "speaker": "SPEAKER_02",
+      "original_text": "You'd have another tag which says this is of typed sentence.",
+      "refined_text": "You'd have another tag which says this is of typed sentence.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.973,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          281
+        ]
+      }
+    },
+    {
+      "start": 1266.665,
+      "end": 1267.3049,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay.",
+      "refined_text": "Okay.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.559,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          281
+        ]
+      }
+    },
+    {
+      "start": 1267.305,
+      "end": 1268.105,
+      "speaker": "SPEAKER_02",
+      "original_text": "And But",
+      "refined_text": "And But",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.901,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          281
+        ]
+      }
+    },
+    {
+      "start": 1268.105,
+      "end": 1270.265,
+      "speaker": "SPEAKER_03",
+      "original_text": "it's just not overtly in the,",
+      "refined_text": "it's just not overtly in the,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          281
+        ]
+      }
+    },
+    {
+      "start": 1272.1101,
+      "end": 1273.7101,
+      "speaker": "SPEAKER_03",
+      "original_text": "because this is exactly the kind of So",
+      "refined_text": "because this is exactly the kind of So",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          282
+        ]
+      }
+    },
+    {
+      "start": 1274.91,
+      "end": 1282.99,
+      "speaker": "SPEAKER_03",
+      "original_text": "I think that should be possible as long as the... But what I don't understand is where the... Where in this type of file that would be expressed.",
+      "refined_text": "I think that should be possible as long as the... But what I don't understand is where the... Where in this type of file that would be expressed.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.985,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          283,
+          284
+        ]
+      }
+    },
+    {
+      "start": 1284.765,
+      "end": 1286.845,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. You would have another tag somewhere.",
+      "refined_text": "Right. You would have another tag somewhere.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.946,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          285
+        ]
+      }
+    },
+    {
+      "start": 1287.5651,
+      "end": 1291.005,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well, are two ways of doing Floating before the sentence or floating after the sentence. You could",
+      "refined_text": "Well, are two ways of doing Floating before the sentence or floating after the sentence. You could",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.997,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          286
+        ]
+      }
+    },
+    {
+      "start": 1291.005,
+      "end": 1295.3251,
+      "speaker": "SPEAKER_02",
+      "original_text": "have some sort of link type type equals sentence",
+      "refined_text": "have some sort of link type type equals sentence",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.962,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          286,
+          287
+        ]
+      }
+    },
+    {
+      "start": 1297.11,
+      "end": 1305.2699,
+      "speaker": "SPEAKER_02",
+      "original_text": "And ID is s whatever. And then lower down, you could have an utterance. So the type is utterance",
+      "refined_text": "And ID is s whatever. And then lower down, you could have an utterance. So the type is utterance",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.993,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          288,
+          289,
+          290,
+          291
+        ]
+      }
+    },
+    {
+      "start": 1306.3099,
+      "end": 1310.965,
+      "speaker": "SPEAKER_02",
+      "original_text": "equals ut. And you could either say that, no, I don't know. Think",
+      "refined_text": "equals ut. And you could either say that, no, I don't know. Think",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          292,
+          293
+        ]
+      }
+    },
+    {
+      "start": 1310.965,
+      "end": 1313.365,
+      "speaker": "SPEAKER_00",
+      "original_text": "it's back. Saying. See, because it's",
+      "refined_text": "it's back. Saying. See, because it's",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.956,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          293,
+          294
+        ]
+      }
+    },
+    {
+      "start": 1313.445,
+      "end": 1320.885,
+      "speaker": "SPEAKER_02",
+      "original_text": "Can you can you say that this is You would just have part of this, or do you say this is part of this? I think But that you would refer up to the",
+      "refined_text": "Can you can you say that this is You would just have part of this, or do you say this is part of this? I think But that you would refer up to the",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.921,
+        "has_overlap": true,
+        "flags": [
+          "nearest_speaker",
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          294,
+          295
+        ]
+      }
+    },
+    {
+      "start": 1320.885,
+      "end": 1323.365,
+      "speaker": "SPEAKER_03",
+      "original_text": "sentence. They're actually overlapping each other, sort of.",
+      "refined_text": "sentence. They're actually overlapping each other, sort of.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.964,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          295
+        ]
+      }
+    },
+    {
+      "start": 1323.365,
+      "end": 1330.62,
+      "speaker": "SPEAKER_00",
+      "original_text": "That some... Something be a may part of one thing for one purpose and another thing of another purpose. Have to have",
+      "refined_text": "That some... Something be a may part of one thing for one purpose and another thing of another purpose. Have to have",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.968,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          295,
+          296,
+          297
+        ]
+      }
+    },
+    {
+      "start": 1330.62,
+      "end": 1332.0599,
+      "speaker": "SPEAKER_03",
+      "original_text": "another type then, I guess.",
+      "refined_text": "another type then, I guess.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.902,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          297
+        ]
+      }
+    },
+    {
+      "start": 1332.5399,
+      "end": 1333.6599,
+      "speaker": "SPEAKER_00",
+      "original_text": "Well,",
+      "refined_text": "Well,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          298
+        ]
+      }
+    },
+    {
+      "start": 1334.0599,
+      "end": 1337.4199,
+      "speaker": "SPEAKER_02",
+      "original_text": "I I better look at it again because I'm...",
+      "refined_text": "I I better look at it again because I'm...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          299,
+          300
+        ]
+      }
+    },
+    {
+      "start": 1338.705,
+      "end": 1341.025,
+      "speaker": "SPEAKER_02",
+      "original_text": "There's one more level of indirection that I'm",
+      "refined_text": "There's one more level of indirection that I'm",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          301,
+          302
+        ]
+      }
+    },
+    {
+      "start": 1341.025,
+      "end": 1349.6649,
+      "speaker": "SPEAKER_00",
+      "original_text": "forgetting. Suppose you have a word sequence and you have two different segmentations of that same word sequence. Let's say one segmentation is in terms of",
+      "refined_text": "forgetting. Suppose you have a word sequence and you have two different segmentations of that same word sequence. Let's say one segmentation is in terms of",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.947,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          302
+        ]
+      }
+    },
+    {
+      "start": 1353.27,
+      "end": 1368.965,
+      "speaker": "SPEAKER_00",
+      "original_text": "sentences. And another segmentation is in terms of, I don't know, prosodic phrases. And let's say that they don't nest. So a prosodic phrase may cross two sentences or something. I don't know if that's true or not.",
+      "refined_text": "sentences. And another segmentation is in terms of, I don't know, prosodic phrases. And let's say that they don't nest. So a prosodic phrase may cross two sentences or something. I don't know if that's true or not.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.961,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          303,
+          304,
+          305,
+          306,
+          307,
+          308
+        ]
+      }
+    },
+    {
+      "start": 1368.965,
+      "end": 1370.645,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well, definitely true with the segment.",
+      "refined_text": "Well, definitely true with the segment.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.753,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          308
+        ]
+      }
+    },
+    {
+      "start": 1370.645,
+      "end": 1370.885,
+      "speaker": "SPEAKER_00",
+      "original_text": "That's",
+      "refined_text": "That's",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          308
+        ]
+      }
+    },
+    {
+      "start": 1370.885,
+      "end": 1371.365,
+      "speaker": "SPEAKER_03",
+      "original_text": "exactly",
+      "refined_text": "exactly",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.915,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          308
+        ]
+      }
+    },
+    {
+      "start": 1371.365,
+      "end": 1371.605,
+      "speaker": "SPEAKER_00",
+      "original_text": "what",
+      "refined_text": "what",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.967,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          308
+        ]
+      }
+    },
+    {
+      "start": 1371.605,
+      "end": 1374.485,
+      "speaker": "SPEAKER_03",
+      "original_text": "I meant by the utterances versus the sentence. So you wanna",
+      "refined_text": "I meant by the utterances versus the sentence. So you wanna",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.967,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          308
+        ]
+      }
+    },
+    {
+      "start": 1375.045,
+      "end": 1379.9299,
+      "speaker": "SPEAKER_00",
+      "original_text": "say this word is part of that sentence and this prosodic phrase.",
+      "refined_text": "say this word is part of that sentence and this prosodic phrase.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          309
+        ]
+      }
+    },
+    {
+      "start": 1380.97,
+      "end": 1384.49,
+      "speaker": "SPEAKER_00",
+      "original_text": "But the phrase is not part of the sentence, and neither is the sentence part of the phrase.",
+      "refined_text": "But the phrase is not part of the sentence, and neither is the sentence part of the phrase.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          310
+        ]
+      }
+    },
+    {
+      "start": 1384.41,
+      "end": 1387.13,
+      "speaker": "SPEAKER_02",
+      "original_text": "I'm pretty sure that you can do that, but I'm forgetting the Two exact",
+      "refined_text": "I'm pretty sure that you can do that, but I'm forgetting the two exact",
+      "changed": true,
+      "changes": [
+        {
+          "original": "Two",
+          "refined": "two",
+          "reason": "capitalisation fix for mid-sentence word",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.961,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          310
+        ]
+      }
+    },
+    {
+      "start": 1387.13,
+      "end": 1387.37,
+      "speaker": "SPEAKER_00",
+      "original_text": "level",
+      "refined_text": "level",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.95,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          310
+        ]
+      }
+    },
+    {
+      "start": 1387.37,
+      "end": 1387.61,
+      "speaker": "SPEAKER_02",
+      "original_text": "of",
+      "refined_text": "of",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.513,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          310
+        ]
+      }
+    },
+    {
+      "start": 1388.57,
+      "end": 1391.61,
+      "speaker": "SPEAKER_00",
+      "original_text": "different pointers from the word up one level up.",
+      "refined_text": "different pointers from the word up one level up.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.973,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          311
+        ]
+      }
+    },
+    {
+      "start": 1391.61,
+      "end": 1402.995,
+      "speaker": "SPEAKER_02",
+      "original_text": "So so what you would end up having is a tag saying, here's a word, and it starts here and it ends And then lower down, you would say, here's a prosodic boundary, and it has these words in it. And lower down, you'd have, here's a sentence, and it has",
+      "refined_text": "So so what you would end up having is a tag saying, here's a word, and it starts here and it ends And then lower down, you would say, here's a prosodic boundary, and it has these words in it. And lower down, you'd have, here's a sentence, and it has",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          311
+        ]
+      }
+    },
+    {
+      "start": 1402.995,
+      "end": 1408.595,
+      "speaker": "SPEAKER_03",
+      "original_text": "these words in it. You'd be able to go in and say, give me all the words in prosodic phrase, and give me all the words in the... Yeah.",
+      "refined_text": "these words in it. You'd be able to go in and say, give me all the words in prosodic phrase, and give me all the words in the... Yeah.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.997,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          311,
+          312
+        ]
+      }
+    },
+    {
+      "start": 1409.01,
+      "end": 1411.65,
+      "speaker": "SPEAKER_02",
+      "original_text": "So I think that's that. Let me look at it again.",
+      "refined_text": "So I think that's that. Let me look at it again.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.997,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          312
+        ]
+      }
+    },
+    {
+      "start": 1411.65,
+      "end": 1412.05,
+      "speaker": "SPEAKER_03",
+      "original_text": "Okay.",
+      "refined_text": "Okay.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          312
+        ]
+      }
+    },
+    {
+      "start": 1412.05,
+      "end": 1417.8099,
+      "speaker": "SPEAKER_00",
+      "original_text": "The other issue that you had was how do you actually efficiently extract,",
+      "refined_text": "The other issue that you had was how do you actually efficiently extract,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.983,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          312,
+          313
+        ]
+      }
+    },
+    {
+      "start": 1419.49,
+      "end": 1427.0549,
+      "speaker": "SPEAKER_00",
+      "original_text": "find and extract information in a structure of this type. So you gave some examples like",
+      "refined_text": "find and extract information in a structure of this type. So you gave some examples like",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.958,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          314,
+          315,
+          316
+        ]
+      }
+    },
+    {
+      "start": 1427.295,
+      "end": 1438.44,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well, and I mean you guys might, I don't know if this is premature because I suppose once you get the representation you can do this but the kinds of things I was worried about is",
+      "refined_text": "Well, and I mean you guys might, I don't know if this is premature because I suppose once you get the representation you can do this but the kinds of things I was worried about is",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.992,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          317,
+          318,
+          319,
+          320
+        ]
+      }
+    },
+    {
+      "start": 1439.24,
+      "end": 1443.08,
+      "speaker": "SPEAKER_00",
+      "original_text": "Well that's not clear. Mean Well okay Sure so you can do it but can you do it",
+      "refined_text": "Well that's not clear. Mean Well okay Sure so you can do it but can you do it",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          321
+        ]
+      }
+    },
+    {
+      "start": 1443.4,
+      "end": 1444.6799,
+      "speaker": "SPEAKER_03",
+      "original_text": "I mean I can't You",
+      "refined_text": "I mean I can't You",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.743,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          322
+        ]
+      }
+    },
+    {
+      "start": 1444.36,
+      "end": 1444.52,
+      "speaker": "SPEAKER_00",
+      "original_text": "do",
+      "refined_text": "do",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.987,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          322
+        ]
+      }
+    },
+    {
+      "start": 1444.52,
+      "end": 1444.6,
+      "speaker": "SPEAKER_03",
+      "original_text": "it",
+      "refined_text": "it",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.863,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          322
+        ]
+      }
+    },
+    {
+      "start": 1444.6,
+      "end": 1444.9199,
+      "speaker": "SPEAKER_00",
+      "original_text": "but",
+      "refined_text": "but",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.9,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          322
+        ]
+      }
+    },
+    {
+      "start": 1447.7999,
+      "end": 1453.855,
+      "speaker": "SPEAKER_00",
+      "original_text": "gotta do this, you're gonna want to do this very quickly Presenter: or else you'll spend all your time sort of searching through",
+      "refined_text": "gotta do this, you're gonna want to do this very quickly Presenter: or else you'll spend all your time sort of searching through",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          323
+        ]
+      }
+    },
+    {
+      "start": 1453.855,
+      "end": 1458.655,
+      "speaker": "SPEAKER_03",
+      "original_text": "very Right, you need a sort complex of a paradigm for how to do it. But an example would be",
+      "refined_text": "very Right, you need a sort complex of a paradigm for how to do it. But an example would be",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.923,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          323
+        ]
+      }
+    },
+    {
+      "start": 1460.415,
+      "end": 1463.535,
+      "speaker": "SPEAKER_03",
+      "original_text": "find all the cases in which Adam",
+      "refined_text": "find all the cases in which Adam",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.927,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          324,
+          325
+        ]
+      }
+    },
+    {
+      "start": 1465.08,
+      "end": 1472.36,
+      "speaker": "SPEAKER_03",
+      "original_text": "started to talk while Andreas was talking and his pitch was rising. Andreas' pitch. That kind of thing.",
+      "refined_text": "started to talk while Andreas was talking and his pitch was rising. Andreas' pitch. That kind of thing.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.898,
+        "has_overlap": false,
+        "flags": [
+          "nearest_speaker",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          326,
+          327
+        ]
+      }
+    },
+    {
+      "start": 1472.44,
+      "end": 1478.6799,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right. Mean, that's going to be is the rising pitch a feature? Or is it going to be in the same file?",
+      "refined_text": "Right. Mean, that's going to be is the rising pitch a feature? Or is it going to be in the same file?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.96,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          327,
+          328
+        ]
+      }
+    },
+    {
+      "start": 1478.6799,
+      "end": 1486.475,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well, the rising pitch will never be hand annotated. So all the prosodic features are going to be automatically I mean, that's going to be hard",
+      "refined_text": "Well, the rising pitch will never be hand annotated. So all the prosodic features are going to be automatically I mean, that's going to be hard",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.988,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          328,
+          329
+        ]
+      }
+    },
+    {
+      "start": 1486.475,
+      "end": 1491.515,
+      "speaker": "SPEAKER_02",
+      "original_text": "regardless, right? Because you're going have to write a program that goes through your feature file and looks for rising",
+      "refined_text": "regardless, right? Because you're going to have to write a program that goes through your feature file and looks for rising",
+      "changed": true,
+      "changes": [
+        {
+          "original": "",
+          "refined": "to",
+          "reason": "missing 'to' in 'going to have'",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.996,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          329,
+          330
+        ]
+      }
+    },
+    {
+      "start": 1491.515,
+      "end": 1509.545,
+      "speaker": "SPEAKER_03",
+      "original_text": "pitches. So normally what we would do is we would say, what are we gonna assign rising pitch to? Are we gonna send it to words? Are we gonna just assign it to sort of when it's rising, we have a begin and rise representation. But But suppose we dump out this file. Say, for every word, we just classify it as, you know, rise or fall or neither.",
+      "refined_text": "pitches. So normally what we would do is we would say, what are we gonna assign rising pitch to? Are we gonna send it to words? Are we gonna just assign it to sort of when it's rising, we have a begin and rise representation. But suppose we dump out this file. Say, for every word, we just classify it as, you know, rise or fall or neither.",
+      "changed": true,
+      "changes": [
+        {
+          "original": "But",
+          "refined": "",
+          "reason": "duplicated word",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          330,
+          331,
+          332
+        ]
+      }
+    },
+    {
+      "start": 1509.545,
+      "end": 1509.945,
+      "speaker": "SPEAKER_02",
+      "original_text": "Okay.",
+      "refined_text": "Okay.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.818,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          332
+        ]
+      }
+    },
+    {
+      "start": 1509.945,
+      "end": 1510.585,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well in that case",
+      "refined_text": "Well in that case",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.87,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          332
+        ]
+      }
+    },
+    {
+      "start": 1510.585,
+      "end": 1512.0249,
+      "speaker": "SPEAKER_02",
+      "original_text": "you would add that to this",
+      "refined_text": "you would add that to this",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          332
+        ]
+      }
+    },
+    {
+      "start": 1512.425,
+      "end": 1524.0249,
+      "speaker": "SPEAKER_03",
+      "original_text": "format. So we would basically be sort of taking the format and enriching it with things that we want to query in relation to the words that are already in the file and then querying it.",
+      "refined_text": "format. So we would basically be sort of taking the format and enriching it with things that we want to query in relation to the words that are already in the file and then querying it.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.951,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          333,
+          334,
+          335
+        ]
+      }
+    },
+    {
+      "start": 1524.1849,
+      "end": 1527.52,
+      "speaker": "SPEAKER_00",
+      "original_text": "You want a grep that works at the structural",
+      "refined_text": "You want a grep that works at the structural",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          335
+        ]
+      }
+    },
+    {
+      "start": 1527.52,
+      "end": 1528.1599,
+      "speaker": "SPEAKER_02",
+      "original_text": "You have that.",
+      "refined_text": "You have that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.819,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          336
+        ]
+      }
+    },
+    {
+      "start": 1528.1599,
+      "end": 1528.72,
+      "speaker": "SPEAKER_00",
+      "original_text": "On the structural",
+      "refined_text": "On the structural",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          336
+        ]
+      }
+    },
+    {
+      "start": 1528.88,
+      "end": 1538.4,
+      "speaker": "SPEAKER_02",
+      "original_text": "There's a standard again in XML, specifically for searching XML documents, structured XML documents, where you can specify both the content and the structural position.",
+      "refined_text": "There's a standard again in XML, specifically for searching XML documents, structured XML documents, where you can specify both the content and the structural position.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          336,
+          337
+        ]
+      }
+    },
+    {
+      "start": 1539.975,
+      "end": 1545.1749,
+      "speaker": "SPEAKER_00",
+      "original_text": "Yeah. But it's it's not clear that that's It that's relative to the structure of the XML document",
+      "refined_text": "Yeah. But it's it's not clear that that's It that's relative to the structure of the XML document",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.874,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          338,
+          339
+        ]
+      }
+    },
+    {
+      "start": 1545.495,
+      "end": 1546.2949,
+      "speaker": "SPEAKER_02",
+      "original_text": "You use it as a tool.",
+      "refined_text": "You use it as a tool.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          339
+        ]
+      }
+    },
+    {
+      "start": 1546.375,
+      "end": 1546.855,
+      "speaker": "SPEAKER_00",
+      "original_text": "Of what you",
+      "refined_text": "Of what you",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.902,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          339
+        ]
+      }
+    },
+    {
+      "start": 1546.855,
+      "end": 1554.03,
+      "speaker": "SPEAKER_02",
+      "original_text": "represent. You use it as a tool, not an end user. It's not an end user thing. It's it's... You would use that to build your tool Right. To do that sort of search.",
+      "refined_text": "represent. You use it as a tool, not an end user. It's not an end user thing. It's it's... You would use that to build your tool Right. To do that sort of search.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.944,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          339
+        ]
+      }
+    },
+    {
+      "start": 1554.03,
+      "end": 1565.0701,
+      "speaker": "SPEAKER_00",
+      "original_text": "Because here, you're specifying a lattice. So the underslying... That's the underlying data structure. But as long as...... To be able to search in that But... That's different from searching... It seems",
+      "refined_text": "Because here, you're specifying a lattice. So the underlying... That's the underlying data structure. But as long as...... To be able to search in that But... That's different from searching... It seems",
+      "changed": true,
+      "changes": [
+        {
+          "original": "underslying...",
+          "refined": "underlying...",
+          "reason": "corrected spelling error",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 0.979,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          339,
+          340,
+          341
+        ]
+      }
+    },
+    {
+      "start": 1565.0701,
+      "end": 1566.43,
+      "speaker": "SPEAKER_03",
+      "original_text": "like as long as the feature...",
+      "refined_text": "like as long as the feature...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.905,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          341
+        ]
+      }
+    },
+    {
+      "start": 1566.43,
+      "end": 1573.695,
+      "speaker": "SPEAKER_02",
+      "original_text": "Well, no. No. No. The whole point is that the text and the lattice are isomorphic. They represent each other completely.",
+      "refined_text": "Well, no. No. No. The whole point is that the text and the lattice are isomorphic. They represent each other completely.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.984,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          341,
+          342
+        ]
+      }
+    },
+    {
+      "start": 1575.375,
+      "end": 1575.9349,
+      "speaker": "SPEAKER_02",
+      "original_text": "That",
+      "refined_text": "That",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.58,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          343
+        ]
+      }
+    },
+    {
+      "start": 1577.4551,
+      "end": 1587.16,
+      "speaker": "SPEAKER_03",
+      "original_text": "That's true if the features from your acoustics or whatever that are not explicitly in this are at the level of these types. That that if you can",
+      "refined_text": "That's true if the features from your acoustics or whatever that are not explicitly in this are at the level of these types. That that if you can",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.985,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          344,
+          345,
+          346
+        ]
+      }
+    },
+    {
+      "start": 1587.4,
+      "end": 1594.2,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. But that's gonna be the trouble no matter what. Right? No matter what format you choose, you're gonna have the trouble... You're gonna have the difficulty of relating",
+      "refined_text": "Yeah. But that's gonna be the trouble no matter what. Right? No matter what format you choose, you're gonna have the trouble... You're gonna have the difficulty of relating",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.978,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          346
+        ]
+      }
+    },
+    {
+      "start": 1594.12,
+      "end": 1604.705,
+      "speaker": "SPEAKER_03",
+      "original_text": "That's right. That's true. That's Frame level features. Figure out what's the best format for this representation, and it's still gonna be it's still gonna be not direct. Or",
+      "refined_text": "That's right. That's true. That's Frame level features. Figure out what's the best format for this representation, and it's still gonna be it's still gonna be not direct. Or",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.934,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          346,
+          347
+        ]
+      }
+    },
+    {
+      "start": 1605.825,
+      "end": 1611.1849,
+      "speaker": "SPEAKER_03",
+      "original_text": "another example was, you know, where in the language, where in the word sequence",
+      "refined_text": "another example was, you know, where in the language, where in the word sequence",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          348,
+          349,
+          350
+        ]
+      }
+    },
+    {
+      "start": 1612.44,
+      "end": 1617.5599,
+      "speaker": "SPEAKER_03",
+      "original_text": "are people interrupting. So I guess that one's actually easier.",
+      "refined_text": "are people interrupting. So I guess that one's actually easier.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.925,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          351,
+          352,
+          353
+        ]
+      }
+    },
+    {
+      "start": 1618.12,
+      "end": 1620.5199,
+      "speaker": "SPEAKER_01",
+      "original_text": "What about what about,",
+      "refined_text": "What about what about,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.601,
+        "has_overlap": false,
+        "flags": [
+          "nearest_speaker"
+        ],
+        "source_segment_ids": [
+          354,
+          355
+        ]
+      }
+    },
+    {
+      "start": 1621.72,
+      "end": 1624.9999,
+      "speaker": "SPEAKER_01",
+      "original_text": "the idea of using a relational database to,",
+      "refined_text": "the idea of using a relational database to,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          356,
+          357
+        ]
+      }
+    },
+    {
+      "start": 1626.36,
+      "end": 1632.495,
+      "speaker": "SPEAKER_01",
+      "original_text": "store the information from the XML. You would have... XML basically would,",
+      "refined_text": "store the information from the XML. You would have... XML basically would,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.943,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          358,
+          359
+        ]
+      }
+    },
+    {
+      "start": 1634.255,
+      "end": 1648.3999,
+      "speaker": "SPEAKER_01",
+      "original_text": "you you could use the XML to put the data in, and then when you get data out, you put it back in XML. So use XML as sort of transfer format, but then you store the data in the database, which allows you to do all kinds of good search things.",
+      "refined_text": "you could use the XML to put the data in, and then when you get data out, you put it back in XML. So use XML as sort of transfer format, but then you store the data in the database, which allows you to do all kinds of good search things.",
+      "changed": true,
+      "changes": [
+        {
+          "original": "you",
+          "refined": "",
+          "reason": "obvious STT-caused duplicated word",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 0.995,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          360
+        ]
+      }
+    },
+    {
+      "start": 1648.4,
+      "end": 1653.68,
+      "speaker": "SPEAKER_02",
+      "original_text": "One of the things that Atlas is doing is they're trying to define an API which is independent of the back store",
+      "refined_text": "One of the things that Atlas is doing is they're trying to define an API which is independent of the back store",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          360
+        ]
+      }
+    },
+    {
+      "start": 1654.8949,
+      "end": 1659.0549,
+      "speaker": "SPEAKER_02",
+      "original_text": "So that you could define a single API and the storage could be",
+      "refined_text": "So that you could define a single API and the storage could be",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.984,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          361
+        ]
+      }
+    },
+    {
+      "start": 1659.0549,
+      "end": 1659.2949,
+      "speaker": "SPEAKER_01",
+      "original_text": "Mhmm.",
+      "refined_text": "Mhmm.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.687,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          361
+        ]
+      }
+    },
+    {
+      "start": 1659.2949,
+      "end": 1668.1749,
+      "speaker": "SPEAKER_02",
+      "original_text": "Flat XML files or a database. My opinion on that is for the sort of stuff that we're doing, I suspect it's overkill to do a full relational database that",
+      "refined_text": "Flat XML files or a database. My opinion on that is for the sort of stuff that we're doing, I suspect it's overkill to do a full relational database that",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.992,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          361
+        ]
+      }
+    },
+    {
+      "start": 1669.9199,
+      "end": 1685.805,
+      "speaker": "SPEAKER_02",
+      "original_text": "just a flat file and search tools, I bet, will be enough. But that's the advantage of Atlas is that if we actually take... Decide to go that route completely and we program to their API, then if we wanted to add a database later, it would be pretty easy.",
+      "refined_text": "just a flat file and search tools, I bet, will be enough. But that's the advantage of Atlas is that if we actually take... Decide to go that route completely and we program to their API, then if we wanted to add a database later, it would be pretty easy.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.98,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          362,
+          363,
+          364,
+          365,
+          366
+        ]
+      }
+    },
+    {
+      "start": 1687.645,
+      "end": 1701.49,
+      "speaker": "SPEAKER_03",
+      "original_text": "It seems like the kind of thing you do if, I don't know, if people start adding all kinds of bells and whistles to the data. And so that might be... I mean, it'd be good for us to know, to use a format where we know we can easily,",
+      "refined_text": "It seems like the kind of thing you do if, I don't know, if people start adding all kinds of bells and whistles to the data. And so that might be... I mean, it'd be good for us to know, to use a format where we know we can easily,",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.946,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          367,
+          368,
+          369
+        ]
+      }
+    },
+    {
+      "start": 1702.69,
+      "end": 1706.37,
+      "speaker": "SPEAKER_03",
+      "original_text": "input that to some database if other people are using it. Something like that.",
+      "refined_text": "input that to some database if other people are using it. Something like that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.961,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          370
+        ]
+      }
+    },
+    {
+      "start": 1706.37,
+      "end": 1711.57,
+      "speaker": "SPEAKER_02",
+      "original_text": "I guess I'm just a little hesitant to try to go whole hog on sort of",
+      "refined_text": "I guess I'm just a little hesitant to try to go whole hog on sort of",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.937,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          370,
+          371
+        ]
+      }
+    },
+    {
+      "start": 1712.6749,
+      "end": 1727.5549,
+      "speaker": "SPEAKER_02",
+      "original_text": "the whole framework that that NIST is talking about with Atlas and the database and all that sort of stuff because it's a big learning curve just to get going. Whereas if we just do a flat file format, sure, it may not be as efficient, but everyone can program in Perl and and use it. Okay.",
+      "refined_text": "the whole framework that that NIST is talking about with Atlas and the database and all that sort of stuff because it's a big learning curve just to get going. Whereas if we just do a flat file format, sure, it may not be as efficient, but everyone can program in Perl and and use it. Okay.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          372,
+          373
+        ]
+      }
+    },
+    {
+      "start": 1729.04,
+      "end": 1730.4,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right? So as opposed to",
+      "refined_text": "Right? So as opposed to",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          374
+        ]
+      }
+    },
+    {
+      "start": 1730.56,
+      "end": 1731.6,
+      "speaker": "SPEAKER_00",
+      "original_text": "I'm still",
+      "refined_text": "I'm still",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          374
+        ]
+      }
+    },
+    {
+      "start": 1732.88,
+      "end": 1740.64,
+      "speaker": "SPEAKER_00",
+      "original_text": "not convinced that you can do much at all on the flat file, the text representation.",
+      "refined_text": "not convinced that you can do much at all on the flat file, the text representation.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          375,
+          376,
+          377
+        ]
+      }
+    },
+    {
+      "start": 1742.1051,
+      "end": 1744.585,
+      "speaker": "SPEAKER_00",
+      "original_text": "Because the text representation is gonna be",
+      "refined_text": "Because the text representation is gonna be",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          378
+        ]
+      }
+    },
+    {
+      "start": 1745.785,
+      "end": 1751.9451,
+      "speaker": "SPEAKER_00",
+      "original_text": "not reflecting the structure of your words and annotations. It's just...",
+      "refined_text": "not reflecting the structure of your words and annotations. It's just...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          379,
+          380,
+          381,
+          382
+        ]
+      }
+    },
+    {
+      "start": 1751.9451,
+      "end": 1755.0651,
+      "speaker": "SPEAKER_02",
+      "original_text": "Well, if it's not representing it, then how do you recover it? Of course it's",
+      "refined_text": "Well, if it's not representing it, then how do you recover it? Of course it's",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.957,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          382
+        ]
+      }
+    },
+    {
+      "start": 1755.0651,
+      "end": 1756.26,
+      "speaker": "SPEAKER_00",
+      "original_text": "representing it. the That's whole",
+      "refined_text": "representing it. the That's whole",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.963,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          382
+        ]
+      }
+    },
+    {
+      "start": 1756.26,
+      "end": 1756.5801,
+      "speaker": "SPEAKER_02",
+      "original_text": "point.",
+      "refined_text": "point.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.843,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          382
+        ]
+      }
+    },
+    {
+      "start": 1756.5801,
+      "end": 1765.38,
+      "speaker": "SPEAKER_00",
+      "original_text": "To do is you have to basically... Yeah. You can use Perl to read it in and construct a internal representation that is essentially a lattice.",
+      "refined_text": "To do is you have to basically... Yeah. You can use Perl to read it in and construct an internal representation that is essentially a lattice.",
+      "changed": true,
+      "changes": [
+        {
+          "original": "a",
+          "refined": "an",
+          "reason": "grammar fix for article before vowel sound",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.975,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          382,
+          383,
+          384
+        ]
+      }
+    },
+    {
+      "start": 1766.66,
+      "end": 1767.7001,
+      "speaker": "SPEAKER_00",
+      "original_text": "But the",
+      "refined_text": "But the",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          385
+        ]
+      }
+    },
+    {
+      "start": 1767.945,
+      "end": 1772.2649,
+      "speaker": "SPEAKER_02",
+      "original_text": "Yeah. Okay. Well, that was a different point. Right? So what I was saying is that",
+      "refined_text": "Yeah. Okay. Well, that was a different point. Right? So what I was saying is that",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.957,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          385,
+          386
+        ]
+      }
+    },
+    {
+      "start": 1772.4249,
+      "end": 1773.8649,
+      "speaker": "SPEAKER_00",
+      "original_text": "But that's what you'll have to do.",
+      "refined_text": "But that's what you'll have to do.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.811,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          386
+        ]
+      }
+    },
+    {
+      "start": 1773.945,
+      "end": 1792.35,
+      "speaker": "SPEAKER_02",
+      "original_text": "For Perl, if you wanna just do Perl, if you wanted to use the structured XML query language, that's a different thing. And it's a set of tools that let you specify given the DDT, DTD of the document, what sorts of structural searches you wanna do. So you wanna say that, you know, you're looking for",
+      "refined_text": "For Perl, if you wanna just do Perl, if you wanted to use the structured XML query language, that's a different thing. And it's a set of tools that let you specify given the DTD, DTD of the document, what sorts of structural searches you wanna do. So you wanna say that, you know, you're looking for",
+      "changed": true,
+      "changes": [
+        {
+          "original": "DDT,",
+          "refined": "DTD,",
+          "reason": "corrected misrecognized acronym DDT to DTD",
+          "confidence": 0.95
+        }
+      ],
+      "metadata": {
+        "confidence": 0.99,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          386,
+          387,
+          388,
+          389,
+          390
+        ]
+      }
+    },
+    {
+      "start": 1793.885,
+      "end": 1799.485,
+      "speaker": "SPEAKER_02",
+      "original_text": "a tag within a tag within a particular tag that has this particular text in it. And",
+      "refined_text": "a tag within a tag within a particular tag that has this particular text in it. And",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          391
+        ]
+      }
+    }
+  ]
+}

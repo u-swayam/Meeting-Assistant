@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 6,
+  "label": "chunk_06",
+  "requested_indices": [
+    30,
+    31,
+    32,
+    33,
+    34
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 30,\n      \"refined_text\": \"If the canary stays below 0.5 percent error rate for 30 minutes, we could increase traffic from 5 percent to 25 percent. Again, this is a proposed rollout policy.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 31,\n      \"refined_text\": \"The final rollout threshold has not been approved yet. Priya owns the release checklist, and Arjun owns the database migration script.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 32,\n      \"refined_text\": \"I will review the migration script after Arjun opens the pull request. If the PR is not open by Thursday, we should discuss the schedule rather than assuming the task moved to me.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 33,\n      \"refined_text\": \"The repository is payments-platform, the migration directory is db/migrations/2026_10, and the CI workflow is .github/workflows/payment-ci.yml.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 34,\n      \"refined_text\": \"One STT error worth checking is graf on a dashboards. The actual product name in the architecture is Grafana, but if someone says the phrase graph on a dashboard in ordinary English, that should not automatically become Grafana.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1020,
+      "completion_tokens": 307,
+      "total_tokens": 1327
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 30,
+        "refined_text": "If the canary stays below 0.5 percent error rate for 30 minutes, we could increase traffic from 5 percent to 25 percent. Again, this is a proposed rollout policy.",
+        "changes": []
+      },
+      {
+        "index": 31,
+        "refined_text": "The final rollout threshold has not been approved yet. Priya owns the release checklist, and Arjun owns the database migration script.",
+        "changes": []
+      },
+      {
+        "index": 32,
+        "refined_text": "I will review the migration script after Arjun opens the pull request. If the PR is not open by Thursday, we should discuss the schedule rather than assuming the task moved to me.",
+        "changes": []
+      },
+      {
+        "index": 33,
+        "refined_text": "The repository is payments-platform, the migration directory is db/migrations/2026_10, and the CI workflow is .github/workflows/payment-ci.yml.",
+        "changes": []
+      },
+      {
+        "index": 34,
+        "refined_text": "One STT error worth checking is graf on a dashboards. The actual product name in the architecture is Grafana, but if someone says the phrase graph on a dashboard in ordinary English, that should not automatically become Grafana.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 30,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 31,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 32,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 33,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 34,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

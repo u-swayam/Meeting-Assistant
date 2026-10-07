@@ -1,0 +1,26 @@
+MEETING SUMMARY
+
+The meeting reviewed the definitions and naming of MR rate metrics, particularly the wider MR rate and its relationship to the overall MR rate. Participants clarified that the wider MR rate is intended to capture community (external) contributions, while the overall rate combines narrow and wider, and that the R&D wider MR rate uses community contributions as the numerator and GitLab team members as the denominator. Concerns were raised about the wider rate's behavior as a productivity rate and about the complexity of the existing taxonomy. The group agreed to track the percentage of total MRs coming from the community over time as a KPI.
+
+MINUTES
+
+1. MR rate definitions and duplication concerns
+   Initial concern was that the wider MR rate (internal plus external) duplicates the overall MR rate. It was clarified that the wider MR rate should be external only, and the overall rate should be narrow plus wider. The wider rate is measured because losing the community is a key failure mode.
+
+2. Wider MR rate scope and team contributions
+   The wider rate is used to reflect contributions from a group that are not from outside the company, such as infrastructure contributing to development work, which would not be counted as MRs. This was noted as a potential bit of funkiness to discuss separately, and it was acknowledged that the original duplication critique could be partly discarded.
+
+3. R&D wider MR rate metric critique
+   Concern was raised that the R&D wider MR rate does not move much because it is a rate, and driving it up could mean pushing community authors to contribute more than one MR per month, which may not be the right incentive. It was clarified that the numerator is community contributions and the denominator is GitLab team members, not external contributors, so the metric measures external MRs relative to organization size.
+
+4. Context for community contribution metric
+   The context is that as the company grows, the community should be kept up; otherwise the community could flatline while the org grows, outgrowing the wider community.
+
+5. Proposal to simplify naming and track community MR percentage
+   It was noted that the sophisticated taxonomy with prefixes and postfixes is hard to remember and discuss, and only two of them are used. A proposal was made to use simple names for what they are and to track the percentage of total MRs that come from the community over time as a KPI.
+
+KEY DECISIONS
+- Track as a KPI the percentage of total MRs that come from the community over time.
+
+ACTION ITEMS
+- None established in the recording.

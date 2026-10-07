@@ -1,0 +1,167 @@
+{
+  "stage": "transformation",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "source_file": "refined_output.json",
+  "total_segments": 24,
+  "topics": [
+    {
+      "topic_id": "topic_1",
+      "title": "MR rate definitions and duplication concerns",
+      "segment_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "topic_id": "topic_2",
+      "title": "Wider MR rate scope and team contributions",
+      "segment_ids": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "topic_id": "topic_3",
+      "title": "R&D wider MR rate metric critique",
+      "segment_ids": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "topic_id": "topic_4",
+      "title": "Context for community contribution metric",
+      "segment_ids": [
+        22
+      ]
+    },
+    {
+      "topic_id": "topic_5",
+      "title": "Proposal to simplify naming and track community MR percentage",
+      "segment_ids": [
+        23
+      ]
+    }
+  ],
+  "discussion_units": [
+    {
+      "discussion_id": "discussion_1",
+      "topic_id": "topic_1",
+      "segment_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "type": "discussion"
+    },
+    {
+      "discussion_id": "discussion_2",
+      "topic_id": "topic_2",
+      "segment_ids": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "type": "discussion"
+    },
+    {
+      "discussion_id": "discussion_3",
+      "topic_id": "topic_3",
+      "segment_ids": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "type": "discussion"
+    },
+    {
+      "discussion_id": "discussion_4",
+      "topic_id": "topic_4",
+      "segment_ids": [
+        22
+      ],
+      "type": "clarification"
+    },
+    {
+      "discussion_id": "discussion_5",
+      "topic_id": "topic_5",
+      "segment_ids": [
+        23
+      ],
+      "type": "proposal"
+    }
+  ],
+  "decision_candidates": [
+    {
+      "decision_id": "decision_1",
+      "topic_id": "topic_5",
+      "segment_ids": [
+        23
+      ],
+      "status": "confirmed",
+      "text": "Track as a KPI the percentage of total MRs that come from the community over time.",
+      "consensus": {
+        "classification": "confirmed",
+        "level": "medium",
+        "score": 0.65,
+        "score_kind": "heuristic_internal_confidence_not_calibrated",
+        "evidence": {
+          "decision_statement": [
+            23
+          ],
+          "supporting_statements": [],
+          "explicit_agreement": [],
+          "explicit_finalization": [
+            23
+          ],
+          "opposition": [],
+          "unresolved": []
+        },
+        "notes": [
+          "explicit finalization wording without a separate agreeing response"
+        ]
+      },
+      "trigger_segment": 23,
+      "context_segments": [
+        22,
+        23
+      ],
+      "original_text": "Yeah. And what what I'm seeing is we we created this pretty sophisticated taxonomy with prefixes and postfixes to talk about these things. But in reality, we only got two of them, and it's we keep forgetting, and we have a hard time discussing this thing. So I'd rather just name them simply some... Two names for what they are rather than than using the taxonomy. But also, like, in f, I have this proposal of, like, what if we just track as a KPI the percentage of total MRs that come from the community over time? And we would see that drop. I love that. I love that. Let's do that instead. Okay. But the the the thing... This...",
+      "reconstructed_text": "The team agreed to track as a KPI the percentage of total MRs that come from the community over time.",
+      "reconstruction_source": "model"
+    }
+  ],
+  "action_candidates": [],
+  "relations": [],
+  "warnings": [
+    "1 of 24 segments are not assigned to any topic"
+  ]
+}

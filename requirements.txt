@@ -1,0 +1,26 @@
+# Meeting Assistant - pinned for reproducibility (tested with Python 3.12).
+# Install via setup.sh (Linux/macOS) or setup_windows.ps1 (Windows), or manually:
+#   python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+
+# --- Core runtime ---
+pydantic>=2.5
+requests>=2.31
+python-dotenv>=1.0
+numpy
+soundfile>=0.12
+
+# --- LLM1 default provider (DeepSeek uses the OpenAI-compatible SDK) ---
+openai>=1.40
+
+# --- Diarization stack (versions must stay matched: torch 2.8 <-> torchcodec 0.7) ---
+torch==2.8.0
+torchaudio==2.8.0
+pyannote.audio==4.0.7
+torchcodec==0.7.0
+
+# --- Tests ---
+pytest>=7
+
+# --- Optional (uncomment only if you use them) ---
+# groq>=0.13               # STT_PROVIDER=groq (Whisper alternative to Deepgram)
+# pyannote.metrics         # tests/diag_diarization.py (DER diagnostics)

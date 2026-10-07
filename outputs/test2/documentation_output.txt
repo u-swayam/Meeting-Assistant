@@ -1,0 +1,60 @@
+MEETING SUMMARY
+
+The meeting reviewed the migration of the payment orchestration layer from the monolith to a distributed architecture, with the constraint of avoiding duplicate charges while traffic is moved gradually. Topics covered the Kafka-based event flow, PostgreSQL ledger and idempotency handling, Redis caching, Kubernetes deployment, gRPC/protobuf internal transport, ETCD consensus for the metadata cluster, observability, retry and timeout semantics, the payment state machine and refunds, security, rollout policy, terminology and identifier preservation, Kafka retention, migration compatibility, and load and failure-injection testing. The only final decision was that PostgreSQL remains the authoritative ledger store, with Kafka events serving as transport and workflow coordination. Deployment strategy, final SLO, production canary date, and the 30-day retention change remain open, and several rollout items were explicitly noted as proposals or recommendations rather than approved decisions.
+
+MINUTES
+
+1. Migration overview and event flow
+   The payment orchestration layer is being migrated from the monolith to a distributed architecture, with the constraint that duplicate charges must not be introduced while traffic is moved gradually. In the new design checkout publishes a PaymentRequested event to Kafka and the orchestration service consumes it, replacing the current synchronous call from checkout to the payment gateway adapter. Kafka partitions are keyed by payment_id, which gives ordering only for events with the same key, not global ordering across all payments. The consumer group will run three replicas initially, but only one consumer in the group owns a partition at a time.
+
+2. Ledger, idempotency, and cache
+   The ledger remains on PostgreSQL, with serializable transactions used only around the balance mutation rather than the entire request lifecycle. The idempotency table is keyed by merchant_id and idempotency_key, with a unique constraint on merchant_id, idempotency_key, and operation_type; a retry with the same key but a different amount is rejected rather than silently updating the original request. Redis is only an optimization and a Redis hit must not be treated as proof that a payment exists in the ledger, since cache eviction or failover can remove the entry.
+
+3. Deployment target and internal transport
+   The deployment target is Kubernetes across three availability zones, in namespace payments-prod with service account payment-orchestrator. Service-to-service calls are standardizing on gRPC with protobuf, while the public API remains REST under /api/v2/payments so clients do not need to know the internal transport. The gRPC method is ProcessPayment and the protobuf package is payments.v2; the field name payment_id should be preserved because downstream consumers already depend on it.
+
+4. Consensus, metadata cluster, and observability
+   The configuration service uses ETCD for consensus, with a leader election timeout of 1000 milliseconds and a heartbeat interval of 100 milliseconds. The consensus algorithm is relevant only to the metadata cluster, not the payment ledger, and that distinction should be documented because the two consistency mechanisms are often mixed up. The metadata cluster has five nodes: losing two is tolerated, but losing three prevents quorum and stops writes. Prometheus scrapes application metrics and Grafana renders dashboards with a 15 second scrape interval, and OpenTelemetry tracing is being added with trace IDs propagated through Kafka headers to correlate checkout, orchestration, and the gateway.
+
+5. Latency SLO and retry behavior
+   An alert firing when payment processing p95 exceeds 800 milliseconds for 10 minutes was raised but explicitly not proposed as a final SLO. Current latency is p95 420 milliseconds and p99 1.8 seconds, and the discussion noted that optimizing only for p95 is insufficient because tail latency drives customer-visible timeouts. The gateway uses exponential backoff with a maximum of 30 seconds while the Kafka consumer retry policy currently allows 5 attempts. A gateway timeout after sending the authorization request cannot be assumed to mean the authorization failed; the next retry has to query the provider or use the idempotency key, since a timeout is not a negative acknowledgment and the provider may have accepted the transaction.
+
+6. State machine, refunds, and concurrency
+   The state machine moves CREATED to AUTHORIZING, then to AUTHORIZED or DECLINED; an AUTHORIZED payment can move to CAPTURED, but a DECLINED payment cannot move directly to CAPTURED. Refunds are separate from the authorization state machine, with endpoint POST /api/v2/refunds taking original_payment_id and refund_amount. A concurrency edge case exists when a capture and a refund arrive nearly simultaneously; PostgreSQL row locking should serialize the ledger mutation, but an integration test is needed to prove the invariant. Provider sandbox behavior was also noted: HTTP 409 returned twice yesterday, which differs from HTTP 429 rate limiting, and one HTTP 500 whose cause (transient provider failure versus malformed request) is unknown.
+
+7. Security and authentication
+   OpenID Connect will be used between the admin portal and the identity provider, and access tokens should have a 15 minute lifetime. The admin portal must not receive the provider client secret; that secret stays in the backend secret store and is injected only into the authentication service.
+
+8. Rollout policy and ownership
+   A rolling update with maxUnavailable set to 0 and maxSurge set to 1 was proposed but is not a final deployment decision. A proposed rollout policy would increase traffic from 5 percent to 25 percent if the canary stays below 0.5 percent error rate for 30 minutes. The final rollout threshold has not been approved. Priya owns the release checklist and Arjun owns the database migration script. A review of the migration script was offered after Arjun opens the pull request, with the note that if the PR is not open by Thursday the schedule should be discussed rather than assuming the task moved.
+
+9. Terminology and identifier preservation
+   Terminology clarifications were raised: the product name in the architecture is Grafana, and the quoted string "cube net ease" should remain exactly as quoted when discussing the original output. The feature flag name enable_new_ledger, the environment variable PAYMENT_GATEWAY_URL, and the header X-Idempotency-Key must be preserved exactly because those identifiers are case-sensitive.
+
+10. Kafka retention and migration compatibility
+   Kafka topic retention is 2 GB in staging and 14 days in production; 30 days for production is under consideration but not approved. The database migration should be backward compatible for at least two application releases, and the schema change and application change cannot be deployed as one irreversible step. For rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases; a destructive contract migration should not be rolled back automatically. The consensus algorithm is not used for payment authorization, a distinction between Raft and the ledger's transaction protocol that should be preserved.
+
+11. Load and failure-injection testing
+   The load test target is 1,240 requests per second with 40 percent reads and 60 percent writes, over a 20 minute duration. Kafka consumer lag is expected to remain below 500 messages under normal load, and the load test should be considered failed if lag exceeds 2,000 for more than 5 minutes. The failure-injection test will stop one Kafka broker and one application replica; there is no plan to stop two brokers simultaneously in this test.
+
+12. Canary scheduling, rollback path, and ADR
+   Scheduling the production canary for the 15th was discussed as a possibility only; the date is tentative and the release manager has not approved it. Keeping the old payment path available for 48 hours after the canary was suggested as a rollback option but remains only a recommendation. Documenting the architecture decision record after the meeting was raised conditionally on everyone agreeing, and the final ADR wording has not been agreed.
+
+13. Service mesh and open items
+   Istio is the service mesh currently in the staging cluster and is staying for now; no replacement is being evaluated during this migration. It was noted that the proposed 25 percent traffic step should not be inferred as approved merely because it appears in the rollout document. The deployment strategy, final SLO, production canary date, and 30-day retention change remain open.
+
+KEY DECISIONS
+- PostgreSQL remains the source of truth for the ledger; Kafka events are transport and workflow coordination, not the authoritative balance store.
+- Istio is the service mesh currently in the staging cluster and is staying for now; no replacement is being evaluated during this migration.
+
+ACTION ITEMS
+- Write the integration test for the capture-refund concurrency case
+    Owner: not stated   |   Deadline: not stated
+- Complete the release checklist
+    Owner: Priya   |   Deadline: not stated
+- Complete the database migration script
+    Owner: Arjun   |   Deadline: not stated
+- Update the retry documentation and add the provider HTTP 409 versus 429 examples
+    Owner: not stated   |   Deadline: not stated
+- Review the migration script after Arjun opens the pull request
+    Owner: not stated   |   Deadline: not stated

@@ -1,0 +1,531 @@
+{
+  "stage": "llm1_transcript_refinement",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "source_file": "final_output.json",
+  "total_segments": 24,
+  "changed_segments": 2,
+  "total_changes": 5,
+  "rejected_changes": 0,
+  "speakers": [
+    "SPEAKER_00",
+    "SPEAKER_01",
+    "SPEAKER_02",
+    "SPEAKER_03"
+  ],
+  "duration": 301.008,
+  "warnings": [],
+  "confidence_note": "Change confidence is a conservative indication of how strongly context supports the correction; it is not a mathematical probability. The change log documents the model's interventions, not that each one is correct.",
+  "segments": [
+    {
+      "start": 2.32,
+      "end": 13.84,
+      "speaker": "SPEAKER_01",
+      "original_text": "The problems I see with this are that one, the wider MR rate, the one that includes internal and external MRs, it duplicates the overall MR rate, which is Sorry. Sorry. Sorry.",
+      "refined_text": "The problems I see with this are that one, the wider MR rate, the one that includes internal and external MRs, it duplicates the overall MR rate, which is Sorry. Sorry. Sorry.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.999,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "start": 14.985,
+      "end": 24.505,
+      "speaker": "SPEAKER_02",
+      "original_text": "Wider MR rate should just be external. Right? And then overall should be narrow plus wider.",
+      "refined_text": "Wider MR rate should just be external. Right? And then overall should be narrow plus wider.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.882,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    {
+      "start": 25.865,
+      "end": 28.265,
+      "speaker": "SPEAKER_02",
+      "original_text": "Oh, yeah. It's like we say the wider community.",
+      "refined_text": "Oh, yeah. It's like we say the wider community.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          7
+        ]
+      }
+    },
+    {
+      "start": 29.84,
+      "end": 30.160002,
+      "speaker": "SPEAKER_02",
+      "original_text": "Right.",
+      "refined_text": "Right.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.475,
+        "has_overlap": true,
+        "flags": [
+          "overlap",
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          8
+        ]
+      }
+    },
+    {
+      "start": 30.160002,
+      "end": 32.32,
+      "speaker": "SPEAKER_01",
+      "original_text": "Right. Right. Okay. So there's...",
+      "refined_text": "Right. Right. Okay. So there's...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.832,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          8
+        ]
+      }
+    },
+    {
+      "start": 34.32,
+      "end": 36.32,
+      "speaker": "SPEAKER_01",
+      "original_text": "I have to check the taxonomy.",
+      "refined_text": "I have to check the taxonomy.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.709,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          9
+        ]
+      }
+    },
+    {
+      "start": 39.120003,
+      "end": 44.4,
+      "speaker": "SPEAKER_03",
+      "original_text": "Well, like, can you can you confirm... That's that's... Since reasoning is my my understanding as well.",
+      "refined_text": "Well, like, can you can you confirm... That's that's... Since reasoning is my my understanding as well.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.963,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          10,
+          11
+        ]
+      }
+    },
+    {
+      "start": 45.635,
+      "end": 51.235,
+      "speaker": "SPEAKER_00",
+      "original_text": "Yeah. I believe water... MR rate just captures community contributions.",
+      "refined_text": "Yeah. I believe water... MR rate just captures community contributions.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          12,
+          13,
+          14
+        ]
+      }
+    },
+    {
+      "start": 52.114998,
+      "end": 60.515,
+      "speaker": "SPEAKER_02",
+      "original_text": "Only and no internal. The reason we measure that is that, like, one of the most likely failure modes is that we lose the community.",
+      "refined_text": "Only and no internal. The reason we measure that is that, like, one of the most likely failure modes is that we lose the community.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.982,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          15,
+          16
+        ]
+      }
+    },
+    {
+      "start": 61.61,
+      "end": 82.284996,
+      "speaker": "SPEAKER_03",
+      "original_text": "Yeah. So... So where it gets... Eric, where it gets goofy is is that when you look at a specific team within the company, there could be contributions outside of that that aren't community contributions. They would be huge community contributions by that group, but effectively, they're not from outside the company. So that's why we use wider to kind of reflect that.",
+      "refined_text": "Yeah. So... So where it gets... Eric, where it gets goofy is is that when you look at a specific team within the company, there could be contributions outside of that that aren't community contributions. They would be huge community contributions by that group, but effectively, they're not from outside the company. So that's why we use wider to kind of reflect that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.915,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      }
+    },
+    {
+      "start": 82.284996,
+      "end": 92.810005,
+      "speaker": "SPEAKER_01",
+      "original_text": "And narrow is very specific to the team. Are you saying that if someone in plan contributes to verify, it's viewed as wider? Not quite that.",
+      "refined_text": "And narrow is very specific to the team. Are you saying that if someone in plan contributes to verify, it's viewed as wider? Not quite that.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.92,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          24,
+          25,
+          26,
+          27
+        ]
+      }
+    },
+    {
+      "start": 92.810005,
+      "end": 105.384995,
+      "speaker": "SPEAKER_03",
+      "original_text": "Plan and verify are just fine. It's when you look at like the development versus infrastructure. Infrastructure will oftentimes contribute to developments work, but it won't be counted as MRs.",
+      "refined_text": "Plan and verify are just fine. It's when you look at like the development versus infrastructure. Infrastructure will oftentimes contribute to developments work, but it won't be counted as MRs.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.936,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          27,
+          28,
+          29
+        ]
+      }
+    },
+    {
+      "start": 106.424995,
+      "end": 116.345,
+      "speaker": "SPEAKER_01",
+      "original_text": "Okay. That's a that's a potential bit of funkiness that we should talk about separately. I didn't have that in my sort of critique of this, but that that doesn't necessarily make intuitive sense to me.",
+      "refined_text": "Okay. That's a that's a potential bit of funkiness that we should talk about separately. I didn't have that in my sort of critique of this, but that that doesn't necessarily make intuitive sense to me.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.996,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          30
+        ]
+      }
+    },
+    {
+      "start": 118.0,
+      "end": 155.97,
+      "speaker": "SPEAKER_01",
+      "original_text": "So so then I think part of my critique of this can be thrown out because it's not as duplicative as I thought. But I still think there's a problem with r and d wider m r a, which is this thing doesn't really move in part because it's a it's a rate. So it feels like the way to drive this up is to specifically drive community authors to contribute more than one MR per month. That's how this moves up because it's a it's a productivity rate like we use internally. That And doesn't necessarily feel like the right thing because there's scenarios in which this goes up. We've actually got less contributions overall and less contributors overall. Wait. Wait. Wait. Wait a second. So you... You're saying",
+      "refined_text": "So so then I think part of my critique of this can be thrown out because it's not as duplicative as I thought. But I still think there's a problem with R and D wider MR rate, which is this thing doesn't really move in part because it's a it's a rate. So it feels like the way to drive this up is to specifically drive community authors to contribute more than one MR per month. That's how this moves up because it's a it's a productivity rate like we use internally. That And doesn't necessarily feel like the right thing because there's scenarios in which this goes up. We've actually got less contributions overall and less contributors overall. Wait. Wait. Wait. Wait a second. So you... You're saying",
+      "changed": true,
+      "changes": [
+        {
+          "original": "r",
+          "refined": "R",
+          "reason": "capitalisation/punctuation",
+          "confidence": 0.7
+        },
+        {
+          "original": "d",
+          "refined": "D",
+          "reason": "capitalisation/punctuation",
+          "confidence": 0.7
+        },
+        {
+          "original": "m r a,",
+          "refined": "MR rate,",
+          "reason": "Corrected misrecognized acronyms and term based on context",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.993,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          31,
+          32,
+          33,
+          34,
+          35,
+          36
+        ]
+      }
+    },
+    {
+      "start": 155.97,
+      "end": 177.26001,
+      "speaker": "SPEAKER_02",
+      "original_text": "that r and d wider MR rate is number MRs per external contributor? Oh my goodness. That should not be the same. It should be contributions per GitLab team member. So to contribute those the the the thing above the division",
+      "refined_text": "that R and D wider MR rate is number MRs per external contributor? Oh my goodness. That should not be the same. It should be contributions per GitLab team member. So to contribute those the the the thing above the division",
+      "changed": true,
+      "changes": [
+        {
+          "original": "r",
+          "refined": "R",
+          "reason": "Corrected capitalization of acronyms",
+          "confidence": 0.9
+        },
+        {
+          "original": "d",
+          "refined": "D",
+          "reason": "Corrected capitalization of acronyms",
+          "confidence": 0.9
+        }
+      ],
+      "metadata": {
+        "confidence": 0.925,
+        "has_overlap": false,
+        "flags": [
+          "split_segment"
+        ],
+        "source_segment_ids": [
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42
+        ]
+      }
+    },
+    {
+      "start": 178.7,
+      "end": 183.50002,
+      "speaker": "SPEAKER_02",
+      "original_text": "is the external ones. The thing below is the number of team members at GitLab.",
+      "refined_text": "is the external ones. The thing below is the number of team members at GitLab.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.889,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          43
+        ]
+      }
+    },
+    {
+      "start": 184.94,
+      "end": 186.14,
+      "speaker": "SPEAKER_02",
+      "original_text": "Is that the case, Lily?",
+      "refined_text": "Is that the case, Lily?",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.773,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          44
+        ]
+      }
+    },
+    {
+      "start": 187.71501,
+      "end": 202.29001,
+      "speaker": "SPEAKER_00",
+      "original_text": "I'm checking right now. Yeah. Just clarifying here. So our numerator is community contributions, and then our denominator is GitLab team members. So it's not per external member.",
+      "refined_text": "I'm checking right now. Yeah. Just clarifying here. So our numerator is community contributions, and then our denominator is GitLab team members. So it's not per external member.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.888,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52
+        ]
+      }
+    },
+    {
+      "start": 206.93001,
+      "end": 208.05002,
+      "speaker": "SPEAKER_02",
+      "original_text": "So",
+      "refined_text": "So",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.286,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          53
+        ]
+      }
+    },
+    {
+      "start": 210.77,
+      "end": 211.09,
+      "speaker": "SPEAKER_02",
+      "original_text": "we...",
+      "refined_text": "we...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          54
+        ]
+      }
+    },
+    {
+      "start": 212.265,
+      "end": 225.94499,
+      "speaker": "SPEAKER_02",
+      "original_text": "So what we're doing there, Eric, is we're we're not trying to say how many how many MRs does someone send if they send something. We're saying how many MRs from external do we get for the size of our organization.",
+      "refined_text": "So what we're doing there, Eric, is we're we're not trying to say how many how many MRs does someone send if they send something. We're saying how many MRs from external do we get for the size of our organization.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.984,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          55,
+          56
+        ]
+      }
+    },
+    {
+      "start": 239.52,
+      "end": 242.08,
+      "speaker": "SPEAKER_01",
+      "original_text": "Sorry. I have a childhood emergency outside the door.",
+      "refined_text": "Sorry. I have a childhood emergency outside the door.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 1.0,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          57
+        ]
+      }
+    },
+    {
+      "start": 245.83499,
+      "end": 261.85,
+      "speaker": "SPEAKER_02",
+      "original_text": "So so the... Maybe explain the context behind this. The context is as we grow as a company, we should make sure we we keep the community up. Like, the logical thing is for the community to flatline and the size of the org to go, and before you know it, you've kind of outgrown the wider community.",
+      "refined_text": "So so the... Maybe explain the context behind this. The context is as we grow as a company, we should make sure we we keep the community up. Like, the logical thing is for the community to flatline and the size of the org to go, and before you know it, you've kind of outgrown the wider community.",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.967,
+        "has_overlap": false,
+        "flags": [],
+        "source_segment_ids": [
+          58,
+          59
+        ]
+      }
+    },
+    {
+      "start": 264.25,
+      "end": 301.0,
+      "speaker": "SPEAKER_01",
+      "original_text": "Yeah. And what what I'm seeing is we we created this pretty sophisticated taxonomy with prefixes and postfixes to talk about these things. But in reality, we only got two of them, and it's we keep forgetting, and we have a hard time discussing this thing. So I'd rather just name them simply some... Two names for what they are rather than than using the taxonomy. But also, like, in f, I have this proposal of, like, what if we just track as a KPI the percentage of total MRs that come from the community over time? And we would see that drop. I love that. I love that. Let's do that instead. Okay. But the the the thing... This...",
+      "refined_text": "Yeah. And what what I'm seeing is we we created this pretty sophisticated taxonomy with prefixes and postfixes to talk about these things. But in reality, we only got two of them, and it's we keep forgetting, and we have a hard time discussing this thing. So I'd rather just name them simply some... Two names for what they are rather than than using the taxonomy. But also, like, in f, I have this proposal of, like, what if we just track as a KPI the percentage of total MRs that come from the community over time? And we would see that drop. I love that. I love that. Let's do that instead. Okay. But the the the thing... This...",
+      "changed": false,
+      "changes": [],
+      "metadata": {
+        "confidence": 0.963,
+        "has_overlap": true,
+        "flags": [
+          "overlap"
+        ],
+        "source_segment_ids": [
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66
+        ]
+      }
+    }
+  ]
+}

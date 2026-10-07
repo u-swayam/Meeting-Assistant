@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 8,
+  "label": "chunk_08",
+  "requested_indices": [
+    40,
+    41,
+    42,
+    43,
+    44
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 40,\n      \"refined_text\": \"The rough consensus algorithm is not used for payment authorization. I want that sentence unchanged if it appears in the final transcript because it is specifically distinguishing Raft from the ledger's transaction protocol.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 41,\n      \"refined_text\": \"For load testing, the target is 1,240 requests per second with 40 percent reads and 60 percent writes. The test duration is 20 minutes.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 42,\n      \"refined_text\": \"We expect the Kafka consumer lag to remain below 500 messages under normal load. If lag exceeds 2,000 for more than 5 minutes, the load test should be considered failed.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 43,\n      \"refined_text\": \"The failure-injection test will stop one Kafka broker and one application replica. We are not planning to stop two brokers simultaneously in this test.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 44,\n      \"refined_text\": \"We might schedule the production canary for the 15th, but that date is tentative. The release manager has not approved it yet.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1007,
+      "completion_tokens": 289,
+      "total_tokens": 1296
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 40,
+        "refined_text": "The rough consensus algorithm is not used for payment authorization. I want that sentence unchanged if it appears in the final transcript because it is specifically distinguishing Raft from the ledger's transaction protocol.",
+        "changes": []
+      },
+      {
+        "index": 41,
+        "refined_text": "For load testing, the target is 1,240 requests per second with 40 percent reads and 60 percent writes. The test duration is 20 minutes.",
+        "changes": []
+      },
+      {
+        "index": 42,
+        "refined_text": "We expect the Kafka consumer lag to remain below 500 messages under normal load. If lag exceeds 2,000 for more than 5 minutes, the load test should be considered failed.",
+        "changes": []
+      },
+      {
+        "index": 43,
+        "refined_text": "The failure-injection test will stop one Kafka broker and one application replica. We are not planning to stop two brokers simultaneously in this test.",
+        "changes": []
+      },
+      {
+        "index": 44,
+        "refined_text": "We might schedule the production canary for the 15th, but that date is tentative. The release manager has not approved it yet.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 40,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 41,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 42,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 43,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 44,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

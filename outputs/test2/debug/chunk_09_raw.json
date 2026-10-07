@@ -1,0 +1,105 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 9,
+  "label": "chunk_09",
+  "requested_indices": [
+    45,
+    46,
+    47,
+    48,
+    49
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 45,\n      \"refined_text\": \"I suggest we keep the old payment path available for 48 hours after the canary. That gives us a rollback option, but it is only a recommendation at this point.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 46,\n      \"refined_text\": \"If everyone agrees, we can document the architecture decision record after this meeting. We have not agreed on the final ADR wording yet.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 47,\n      \"refined_text\": \"One final terminology issue: Istio is the service mesh we currently have in the staging cluster. We are not evaluating a replacement during this migration.\",\n      \"changes\": [\n        {\n          \"original\": \"is two is\",\n          \"refined\": \"Istio is\",\n          \"reason\": \"Corrected misrecognized product name 'Istio' based on context and later mention.\",\n          \"confidence\": 0.95\n        }\n      ]\n    },\n    {\n      \"index\": 48,\n      \"refined_text\": \"Right. Istio is staying for now. Also, no one should infer that the proposed 25 percent traffic step has been approved just because it is in the rollout document.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 49,\n      \"refined_text\": \"I will update the retry documentation and add the provider HTTP 409 versus 429 examples. I can finish that tomorrow if the sandbox is stable.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1006,
+      "completion_tokens": 340,
+      "total_tokens": 1346
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 45,
+        "refined_text": "I suggest we keep the old payment path available for 48 hours after the canary. That gives us a rollback option, but it is only a recommendation at this point.",
+        "changes": []
+      },
+      {
+        "index": 46,
+        "refined_text": "If everyone agrees, we can document the architecture decision record after this meeting. We have not agreed on the final ADR wording yet.",
+        "changes": []
+      },
+      {
+        "index": 47,
+        "refined_text": "One final terminology issue: Istio is the service mesh we currently have in the staging cluster. We are not evaluating a replacement during this migration.",
+        "changes": [
+          {
+            "original": "is two is",
+            "refined": "Istio is",
+            "reason": "Corrected misrecognized product name 'Istio' based on context and later mention.",
+            "confidence": 0.95
+          }
+        ]
+      },
+      {
+        "index": 48,
+        "refined_text": "Right. Istio is staying for now. Also, no one should infer that the proposed 25 percent traffic step has been approved just because it is in the rollout document.",
+        "changes": []
+      },
+      {
+        "index": 49,
+        "refined_text": "I will update the retry documentation and add the provider HTTP 409 versus 429 examples. I can finish that tomorrow if the sandbox is stable.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 1,
+    "total_itemised_changes": 1,
+    "per_segment": [
+      {
+        "index": 45,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 46,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 47,
+        "refined_text_differs_from_input": true,
+        "itemised_changes": 1
+      },
+      {
+        "index": 48,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 49,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 2,
+  "label": "chunk_02",
+  "requested_indices": [
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a domain-aware meeting transcript refinement system. Correct only plausible speech-to-text errors while preserving the meaning of what was actually said. If uncertain, preserve the original wording.\n\nYou receive numbered transcript segments (speaker-labelled, from automatic speech recognition). For each segment return the refined text and a list of the exact changes you made.\n\nWHAT YOU MAY FIX (only when the surrounding transcript strongly supports it):\n- misrecognised technical, scientific, engineering and programming terminology\n- acronyms and initialisms (e.g. \"em are\" -> \"MR\" when the discussion is clearly about MRs)\n- product, company and tool names\n- spelling, capitalisation, punctuation\n- obvious speech-recognition errors and obvious STT-caused duplicated words (stutter duplicates like \"the the\")\nUse the whole transcript as context: a term used correctly elsewhere is strong evidence for how a garbled instance should be written.\n\nWHAT YOU MUST PRESERVE EXACTLY (never alter):\n- speaker identity, speaker order, timestamps, chronology (you are not given the means to change them; do not try)\n- names of people, organisations and places unless it is an unambiguous spelling fix of a name used elsewhere in the transcript\n- numbers, dates, times, quantities, units, versions, identifiers, code tokens\n- negation (not, no, never, n't ...)\n- uncertainty and hedging (think, maybe, might, probably, perhaps, I guess ...)\n- questions, commitments, proposals, suggestions and conditional statements\n- the overall meaning and the speaker's register\n\nYOU MUST NOT:\n- summarise, paraphrase, shorten, rewrite for style, or \"improve\" grammar of natural speech\n- add, invent or infer information, owners, deadlines, tasks or context\n- guess ambiguous words; resolve nothing that the context does not clearly resolve\n- turn a suggestion into a decision (\"I think we should probably change this\" must NOT become \"We should change this\"); turn \"might\" into \"will\"; remove negation\n- remove filler words, false starts or disfluencies unless they are an obvious STT duplicate\n- merge, split, drop, reorder or add segments\n- add commentary inside refined_text\n\nIf you are not sure a correction is right, keep the original wording. Returning a segment unchanged is correct and expected for most segments.\n\nOUTPUT FORMAT (strict JSON matching the provided schema):\n{\"segments\":[{\"index\":<int, same as input>,\"refined_text\":\"<full refined segment text>\",\"changes\":[{\"original\":\"<exact original words>\",\"refined\":\"<replacement words>\",\"reason\":\"<short reason>\",\"confidence\":<0..1>}]}]}\n- Return exactly one entry per input segment, with the same index.\n- If nothing changed: refined_text equals the original text exactly and changes is [].\n- Each change's \"original\" must be copied exactly from the segment's original text. Keep each change minimal (only the words that differ). List every difference between original and refined text, including punctuation or capitalisation fixes.\n- confidence is a conservative 0-1 indication of how strongly context supports the correction (not a probability). Use below 0.7 for anything doubtful - such changes will be discarded.\n"
+    },
+    {
+      "role": "user",
+      "content": "Refine the following 5 segments (of 60 in the meeting). Speaker and timing are shown for context only.\n\n### index=10 speaker=SPEAKER_02 [237.0s-257.0s]\nThe gRPC method is ProcessPayment, and the protobuf package is payments.v2. We should preserve the field name payment_id because downstream consumers already depend on it.\n\n### index=11 speaker=SPEAKER_03 [257.3s-279.0s]\nFor consensus inside the configuration service, we use E T C D. The leader election timeout is 1000 milliseconds and the heartbeat interval is 100 milliseconds.\n\n### index=12 speaker=SPEAKER_00 [279.3s-302.7s]\nThe rough algorithm is only relevant to the metadata cluster, not the payment ledger. I want that distinction in the documentation because people keep mixing the two consistency mechanisms.\n\n### index=13 speaker=SPEAKER_01 [303.0s-328.1s]\nRight, and the metadata cluster has five nodes. Losing two nodes is tolerated, but if we lose three, the cluster cannot maintain quorum and writes stop.\n\n### index=14 speaker=SPEAKER_02 [328.4s-355.2s]\nOn observability, promise us is scraping the application metrics and Grafana is rendering the dashboards. The scrape interval is 15 seconds.\n"
+    }
+  ],
+  "requested_segments": [
+    {
+      "index": 10,
+      "speaker": "SPEAKER_02",
+      "start": 237.0,
+      "end": 257.0,
+      "text": "The gRPC method is ProcessPayment, and the protobuf package is payments.v2. We should preserve the field name payment_id because downstream consumers already depend on it."
+    },
+    {
+      "index": 11,
+      "speaker": "SPEAKER_03",
+      "start": 257.3,
+      "end": 279.0,
+      "text": "For consensus inside the configuration service, we use E T C D. The leader election timeout is 1000 milliseconds and the heartbeat interval is 100 milliseconds."
+    },
+    {
+      "index": 12,
+      "speaker": "SPEAKER_00",
+      "start": 279.3,
+      "end": 302.7,
+      "text": "The rough algorithm is only relevant to the metadata cluster, not the payment ledger. I want that distinction in the documentation because people keep mixing the two consistency mechanisms."
+    },
+    {
+      "index": 13,
+      "speaker": "SPEAKER_01",
+      "start": 303.0,
+      "end": 328.1,
+      "text": "Right, and the metadata cluster has five nodes. Losing two nodes is tolerated, but if we lose three, the cluster cannot maintain quorum and writes stop."
+    },
+    {
+      "index": 14,
+      "speaker": "SPEAKER_02",
+      "start": 328.4,
+      "end": 355.2,
+      "text": "On observability, promise us is scraping the application metrics and Grafana is rendering the dashboards. The scrape interval is 15 seconds."
+    }
+  ]
+}

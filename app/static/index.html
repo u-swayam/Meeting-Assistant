@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PULSE — Meeting Intelligence</title>
+<style>
+:root{--bg:#080a09;--p1:#101310;--p2:#151815;--line:#252a25;--ink:#f2f3ee;--mut:#91978d;--dim:#5e655c;--acc:#8fe11e;--accd:#5f9a10;--accbg:#16210c;--amb:#e3b34d;--ambbg:#2a210b;--red:#e36d72;--ok:#39c978;--hl:#1f3410}
+:root[data-theme=light]{--bg:#f4f5f0;--p1:#fff;--p2:#eef0ea;--line:#d9ddd3;--ink:#121511;--mut:#566052;--dim:#7b8576;--acc:#4f8a00;--accd:#3d6b00;--accbg:#e7f2d2;--amb:#9a6a00;--ambbg:#fbf0d3;--red:#b3262d;--ok:#157347;--hl:#dcecbf}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}a{color:var(--acc)}
+select,input[type=search]{font:inherit;background:var(--p2);color:var(--ink);border:1px solid var(--line);border-radius:6px;height:38px;padding:0 12px}
+.relative{position:relative}.block{display:block}.overflow-hidden{overflow:hidden}.absolute{position:absolute}.inset-0{inset:0}.inline-block{display:inline-block}
+.rollhost{display:inline-block}
+.fb .a span,.fb .b span{transition:transform .32s ease-in-out;transition-delay:var(--d)}.fb .b span{transform:translateY(100%)}
+.fb:hover .a span,button:focus-visible .fb .a span{transform:translateY(-100%)}.fb:hover .b span,button:focus-visible .fb .b span{transform:none}
+.nomotion .fb *{transition:none!important}
+.roll{text-transform:uppercase;font-weight:800;letter-spacing:-.02em}
+.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:12px 36px;flex-wrap:wrap}
+.brand{cursor:pointer;color:var(--acc);font-size:30px;padding:4px 0}.brandsub{font-size:9px;letter-spacing:.16em;color:var(--accd);font-weight:700;display:block;margin-top:3px}
+#search{position:relative;flex:1;min-width:200px;max-width:460px;margin-left:auto}#search input{width:100%}
+.btn{height:38px;border:1px solid var(--line);background:var(--p2);border-radius:6px;padding:0 13px;color:var(--ink);text-decoration:none}.btn:hover:not([disabled]){border-color:var(--acc)}.btn.pri{background:var(--acc);border-color:var(--acc);color:#0a0d06;font-weight:700}
+#results{position:absolute;top:44px;left:0;right:0;max-height:62vh;overflow:auto;background:var(--p1);border:1px solid var(--line);border-radius:8px;box-shadow:0 14px 40px #0006;display:none}
+#results .r{padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer}#results .r:hover{background:var(--accbg)}
+.nav{position:sticky;top:var(--th,64px);z-index:35;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:stretch;gap:34px;padding:0 36px}
+.navbtn{display:flex;align-items:center;height:48px;color:var(--mut);font-size:13px;border-bottom:2px solid transparent;margin-bottom:-1px}.navbtn:hover{color:var(--ink)}.navbtn.on{color:var(--acc);border-color:var(--acc)}
+.navlist{display:flex;gap:34px}
+.menubtn{display:none;height:48px;align-items:center;gap:10px;color:var(--acc);font-size:13px}
+.sub{display:flex;gap:22px;flex-wrap:wrap;margin:6px 0 18px;border-bottom:1px solid var(--line)}
+.subbtn{height:38px;display:flex;align-items:center;font-size:11px;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px}.subbtn.on{color:var(--acc);border-color:var(--acc)}.subbtn:hover{color:var(--ink)}
+.wrap{max-width:1360px;margin:auto;padding:0 36px 80px}
+.hero{position:relative;padding:42px 0 34px;overflow:hidden;border-bottom:1px solid var(--line);margin-bottom:26px}
+.hero img{position:absolute;right:0;top:0;width:48%;height:100%;object-fit:cover;opacity:.5;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%)}
+.hero>div{position:relative}
+.kick{color:var(--acc);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.mega .roll,.brand .roll{line-height:1!important}
+.mega{font-size:clamp(76px,14vw,190px);color:var(--ink);padding:6px 0 10px;letter-spacing:-.05em;cursor:default}
+.lead{max-width:600px;color:var(--mut);font-size:15px;margin:6px 0 0}
+.meta-line{display:flex;gap:16px;flex-wrap:wrap;color:var(--mut);font-size:12px;margin-top:18px}.meta-line b{color:var(--ink)}
+.stages{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--line);margin-bottom:22px;background:var(--p1)}
+.stage{padding:12px 14px;border-right:1px solid var(--line);min-width:0}.stage:last-child{border:0}.stage b{font-size:12px}.stage .s{font-size:11px;color:var(--dim);margin-top:2px;overflow-wrap:anywhere}
+.stage.done{box-shadow:inset 0 2px 0 var(--acc)}.stage.done .s{color:var(--acc)}.stage.running{box-shadow:inset 0 2px 0 var(--amb)}.stage.running .s{color:var(--amb)}.stage.failed{box-shadow:inset 0 2px 0 var(--red)}.stage.failed .s{color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px}
+.stat{background:var(--p1);border:1px solid var(--line);padding:18px 20px;position:relative}.stat:before{content:"";position:absolute;left:0;top:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),transparent)}
+.stat .l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}.stat strong{display:block;font-size:30px;letter-spacing:-.04em;margin-top:6px;line-height:1.1}.stat small{color:var(--mut);font-size:11px}
+.sh{display:flex;justify-content:space-between;align-items:end;margin:28px 0 12px}.sh h3{margin:0;font-size:18px;letter-spacing:-.02em}.sh span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.panel{background:var(--p1);border:1px solid var(--line)}.pad{padding:20px 22px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cols2{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+.li{padding:15px 18px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s,padding-left .15s}.li:last-child{border:0}.li:hover{background:var(--p2);padding-left:22px}
+.li h4{margin:4px 0 0;font-size:13.5px;font-weight:600}.li p{margin:4px 0 0;color:var(--mut);font-size:12px}
+.type{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);font-weight:700}
+.tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid var(--line);color:var(--mut);margin-right:6px;background:var(--p2)}.tag.w{color:var(--amb);border-color:var(--amb);background:var(--ambbg)}.tag.a{color:var(--acc);border-color:var(--accd);background:var(--accbg)}
+.ns{color:var(--dim);font-style:italic}
+.cov{font-size:54px;font-weight:700;letter-spacing:-.06em;color:var(--acc);line-height:1}.bar{height:4px;background:var(--line);margin:12px 0 8px}.bar i{display:block;height:100%;background:var(--acc)}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px;color:var(--mut);font-size:12px}
+.seg{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:11px 16px;border-bottom:1px solid var(--line);border-left:3px solid transparent;scroll-margin-top:170px}
+.seg .m{font-size:11px;color:var(--dim)}.seg .m b{display:block;color:var(--ink);font-size:11px;letter-spacing:.03em}.seg .t{font-size:13.5px;color:var(--ink)}
+.seg.ch{border-left-color:var(--amb);cursor:pointer}.seg.ch:hover{background:var(--p2)}.seg.hl{background:var(--hl)!important;animation:fl 1.6s ease-out}
+@keyframes fl{from{box-shadow:inset 0 0 0 2px var(--acc)}to{box-shadow:inset 0 0 0 2px transparent}}
+mark{background:var(--ambbg);color:var(--amb);padding:0 3px;border-radius:3px}mark.q{background:var(--acc);color:#0a0d06}
+.diff{margin-top:8px;border-left:2px solid var(--acc);padding:8px 12px;background:var(--p2);font-size:12.5px}.diff .o{color:var(--red);text-decoration:line-through}.diff .n{color:var(--acc);font-weight:600}.diff .why{color:var(--dim);font-size:11px;margin-top:3px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:600}tr.li:hover td{background:var(--p2)}
+.spk{display:grid;grid-template-columns:110px 1fr 120px;gap:12px;align-items:center;padding:8px 0;font-size:12px}.spk .bar{margin:0;height:8px}
+.strip{display:flex;height:26px;gap:1px;margin:6px 0}.strip>div{cursor:pointer;min-width:2px;transition:filter .15s}.strip>div:hover{filter:brightness(1.4)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--mut);margin-top:8px}.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+#drawer{position:fixed;top:var(--hh,64px);right:0;bottom:0;width:min(500px,100vw);background:var(--p1);border-left:1px solid var(--line);box-shadow:-12px 0 40px #0006;transform:translateX(105%);transition:transform .22s;z-index:50;overflow:auto;padding:20px}#drawer.open{transform:none}
+.ev{border-left:2px solid var(--acc);padding:6px 12px;margin:10px 0;background:var(--p2)}.ev .h{font-size:11px;color:var(--dim);margin-bottom:3px}.ev q{quotes:none;font-style:italic}
+.wb{background:var(--ambbg);color:var(--amb);border-radius:6px;padding:9px 12px;margin:8px 0;font-size:13px}
+.empty{color:var(--mut);padding:36px;text-align:center}.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 14px;font-size:13px}.kv dt{color:var(--dim)}.kv dd{margin:0}
+.seg2{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}.seg2 button{padding:8px 14px;font-size:12px;color:var(--mut)}.seg2 button.on{background:var(--acc);color:#0a0d06;font-weight:700}
+.reveal{animation:rv .5s ease both}@keyframes rv{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.nomotion .reveal,.nomotion .seg.hl{animation:none}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.cols,.cols2{grid-template-columns:1fr}.stages{grid-template-columns:1fr 1fr 1fr}.stage{border-bottom:1px solid var(--line)}.top,.nav,.wrap{padding-left:18px;padding-right:18px}}
+@media(max-width:760px){.nav{flex-direction:column;gap:0;padding:0 18px}.menubtn{display:flex}.navlist{display:none;flex-direction:column;padding-bottom:8px}.navlist.open{display:flex}.navbtn{height:44px;border-bottom:1px solid var(--line);margin:0}.navbtn.on{border-color:var(--acc)}
+  .seg{grid-template-columns:1fr;gap:2px}.spk{grid-template-columns:80px 1fr}.spk>:last-child{display:none}.hero img{opacity:.25;width:100%}#search{order:5;max-width:none;width:100%;margin:0}.kv{grid-template-columns:1fr}}
+.reveal{position:relative}.reveal>*{position:relative;z-index:1}
+.foot{border-top:1px solid var(--line);margin-top:60px;padding-top:16px;color:var(--dim);font-size:11px}
+</style></head><body>
+<header class="top" id="top">
+  <div class="brand" data-tab="overview" role="link" aria-label="PULSE, go to overview"><span class="rollhost" data-t="PULSE" data-c="1"></span><span class="brandsub">MEETING INTELLIGENCE</span></div>
+  <select id="meetingSel" aria-label="Meeting"></select>
+  <div id="search"><input id="q" type="search" placeholder="Search transcript, minutes, decisions, actions…" autocomplete="off" aria-label="Global search"><div id="results"></div></div>
+  <label class="btn" style="display:flex;align-items:center;cursor:pointer">Upload audio<input id="file" type="file" accept="audio/*,.m4a,.wav,.mp3,.mp4" hidden></label>
+  <button class="btn" id="theme" aria-label="Toggle theme">Theme</button>
+</header>
+<div class="nav" id="nav"></div>
+<main class="wrap" id="main"></main>
+<div class="wrap"><div class="foot">PULSE · interaction patterns (TextRoll) adapted from Skiper UI — skiperui.com</div></div>
+<aside id="drawer" aria-label="Evidence"></aside>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ts=t=>{t=Math.max(0,t||0);return Math.floor(t/60)+':'+(t%60).toFixed(1).padStart(4,'0')};
+const dur=t=>Math.floor(t/60)+' min '+Math.round(t%60)+' s';
+const spk=s=>String(s).replace('SPEAKER_','Speaker ');
+const rng=a=>a.length?a.join(', '):'none';
+const STAGES=['STT','Diarization','Alignment','LLM1 Refinement','Transformation','LLM2 Documentation'];
+const PAL=['#8fe11e','#4cc9f0','#f4a261','#c77dff','#ff6b6b','#2ec4b6','#ffd166','#9aa5b1'];
+const KIND={minutes:'minute',decisions:'decision',action_items:'action'};
+const NAV=[['overview','Overview'],['transcript','Transcript'],['analytics','Analytics'],['documentation','Documentation'],['settings','Settings']];
+const DOCT=[['summary','Summary'],['minutes','Minutes'],['decisions','Decisions'],['actions','Actions'],['warnings','Warnings']];
+const TV=[['raw','Raw'],['refined','Refined']];
+let B=null,job=null,query='',tab='overview',tview='refined',docTab='summary',spkF='',menuOpen=false;
+const S=Object.assign({theme:'dark',reduce:false,onlyChanged:false},JSON.parse(localStorage.getItem('pulse')||'{}'));
+const save=()=>localStorage.setItem('pulse',JSON.stringify(S));
+function applySettings(){document.documentElement.dataset.theme=S.theme;document.body.classList.toggle('nomotion',S.reduce)}
+async function api(p,o){const r=await fetch(p,o);const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
+
+const STAGGER=0.035;
+function roll(text,cls='',center=true){
+  const L=[...text].map(c=>c===' '?'\u00A0':c);
+  const lay=c=>`<div class="${c==='a'?'':'absolute inset-0 '}${c}">`+L.map((l,i)=>`<span class="inline-block" style="--d:${(center?STAGGER*Math.abs(i-(L.length-1)/2):STAGGER*i).toFixed(3)}s">${esc(l)}</span>`).join('')+'</div>';
+  return `<span class="rollhost" data-t="${esc(text)}" data-c="${center?1:0}" data-cls="${esc(cls)}" aria-hidden="true"><span class="relative block overflow-hidden roll fb ${cls}" style="line-height:.75">${lay('a')}${lay('b')}</span></span>`;
+}
+let MO=null,roots=[];
+function TextRollReact(h,motion){return function TextRoll({children,className,center}){
+  const L=[...children].map(c=>c===' '?'\u00A0':c);
+  const layer=(y0,y1)=>L.map((l,i)=>{const delay=center?STAGGER*Math.abs(i-(L.length-1)/2):STAGGER*i;
+    return h(motion.span,{key:i,variants:{initial:{y:y0},hovered:{y:y1}},transition:{ease:'easeInOut',delay},className:'inline-block'},l)});
+  return h(motion.span,{initial:'initial',whileHover:'hovered',className:'relative block overflow-hidden roll '+(className||''),style:{lineHeight:.75}},
+    h('div',null,layer(0,'-100%')),h('div',{className:'absolute inset-0'},layer('100%',0)));}}
+function mountRolls(){
+  if(!MO)return;const {h,TR,MotionConfig,createRoot}=MO;
+  document.querySelectorAll('.rollhost[data-t]:not([data-m])').forEach(el=>{
+    try{el.dataset.m=1;const root=createRoot(el);
+      root.render(h(MotionConfig,{reducedMotion:S.reduce?'always':'user'},h(TR,{center:el.dataset.c==='1',className:el.dataset.cls||''},el.dataset.t)));
+      el.removeAttribute('aria-hidden');el.setAttribute('aria-hidden','true');
+      if(el.closest('#nav,#main'))roots.push(root);}catch(e){delete el.dataset.m;console.warn('TextRoll mount failed, CSS fallback kept',e)}});
+}
+function unmountRolls(){roots.forEach(r=>{try{r.unmount()}catch(e){}});roots=[]}
+
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('load '+src));document.head.appendChild(s);setTimeout(()=>rej(new Error('timeout '+src)),8000)})}
+async function loadMotion(){
+  try{
+    await loadScript('https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js');
+    await loadScript('https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js');
+    const ce=(t,p,k)=>React.createElement(t,k!==undefined?{...p,key:k}:p);
+    window.jsxRuntime={jsx:ce,jsxs:ce,Fragment:React.Fragment};
+    await loadScript('https://cdn.jsdelivr.net/npm/framer-motion@11.11.17/dist/framer-motion.js');
+    const {motion,MotionConfig}=window.Motion;if(!motion||!MotionConfig)throw new Error('framer-motion global missing');
+    MO={h:React.createElement,TR:TextRollReact(React.createElement,motion),MotionConfig,createRoot:ReactDOM.createRoot};
+    mountRolls();document.documentElement.dataset.roll='framer';
+  }catch(e){console.warn('Framer Motion unavailable; using CSS TextRoll fallback:',e.message);document.documentElement.dataset.roll='css'}
+}
+
+function derive(){
+  const r=B.refined,E=B.evidence,segs=r?.segments||[];const total=segs.length;
+  const cited=new Set((E?.items||[]).flatMap(i=>i.segment_ids));
+  const sp={};segs.forEach((s,i)=>{const o=sp[s.speaker]??={n:0,sec:0,words:0,changed:0};o.n++;o.sec+=Math.max(0,s.end-s.start);o.words+=s.refined_text.split(/\s+/).filter(Boolean).length;if(s.changed)o.changed++});
+  const spoken=Object.values(sp).reduce((a,b)=>a+b.sec,0)||1;
+  const acts=(E?.items||[]).filter(i=>i.kind==='action_items');
+  const changes=segs.flatMap((s,i)=>s.changes.map(c=>({...c,seg:i,speaker:s.speaker})));
+  return {total,cited,sp,spoken,acts,changes,order:Object.keys(sp).sort(),
+    ownerless:acts.filter(a=>!a.owner).length,deadlineless:acts.filter(a=>!a.deadline).length,
+    avgConf:changes.length?changes.reduce((a,c)=>a+c.confidence,0)/changes.length:null,
+    warned:(E?.items||[]).filter(i=>i.warnings.length).length};
+}
+const col=(D,s)=>PAL[Math.max(0,D.order.indexOf(s))%PAL.length];
+
+function render(){
+  unmountRolls();
+  $('#nav').innerHTML=`<button class="menubtn" data-menu aria-expanded="${menuOpen}">Menu — ${esc(NAV.find(n=>n[0]===tab)[1])} ▾</button><div class="navlist ${menuOpen?'open':''}">`+NAV.map(([k,l])=>`<button class="navbtn ${tab===k?'on':''}" data-tab="${k}" aria-label="${l}" ${tab===k?'aria-current="page"':''}>${roll(l)}</button>`).join('')+'</div>';
+  $('#main').innerHTML=B?`<div class="reveal">${({overview:vOverview,transcript:vTranscript,analytics:vAnalytics,documentation:vDoc,settings:vSettings})[tab]()}</div>`:'<div class="empty">No meeting loaded.</div>';
+  mountRolls();setHH();
+}
+function setHH(){const t=$('#top').offsetHeight;document.documentElement.style.setProperty('--th',t+'px');document.documentElement.style.setProperty('--hh',t+'px')}
+
+function dlBtn(artifact, label, available) {
+  return `<a ${available ? `href="/api/download/${encodeURIComponent(B.id)}/${artifact}" download` : `disabled style="opacity:0.5;pointer-events:none"`} class="btn" style="display:inline-flex;align-items:center;text-decoration:none;margin-right:8px">${esc(label)}</a>`;
+}
+
+function stagesHTML(j){
+  const have={0:!!(B?.raw_text || B?.raw), 1:!!(B?.raw_text || B?.raw), 2:!!B?.raw, 3:!!B?.refined, 4:!!B?.transformation, 5:!!B?.documentation};
+  let h='<div class="stages">'+STAGES.map((n,i)=>{
+    let st,txt;
+    if(j){
+      const s=j.stages[i];
+      if (s) {
+          st=s.status;
+          txt=s.status+(s.seconds!=null?' · '+s.seconds+'s':'')+(s.detail?' · '+s.detail:'');
+      } else {
+          st='na'; txt='unknown (legacy job data)';
+      }
+    }else{
+      st=have[i]?'done':'na';txt=have[i]?'output present':'no output file';
+    }
+    return `<div class="stage ${st}"><b>${i+1}. ${n}</b><div class="s">${esc(txt)}</div></div>`
+  }).join('')+'</div>';
+  
+  if(j && j.error){
+    h += `<div class="panel pad" style="border-color:var(--red);margin-bottom:22px;background:color-mix(in srgb, var(--red) 10%, var(--p1))">
+      <h3 style="color:var(--red);margin:0 0 8px">Pipeline Failed</h3>
+      <p style="margin:0 0 12px"><b>Stage:</b> ${esc(j.error.split(' failed:')[0])}<br><b>Error:</b> ${esc(j.error)}</p>
+      <p style="margin:0 0 12px;color:var(--mut)">Successful earlier artifacts have been preserved. You can inspect them using the tabs above, or retry the pipeline safely.</p>
+      <button class="btn pri" onclick="retryMeeting('${esc(j.meeting_id)}')">Retry Pipeline</button>
+    </div>`;
+  }
+  return h;
+}
+
+function vOverview(){
+  const r=B.refined,d=B.documentation,raw=B.raw,D=derive(),E=B.evidence;
+  const dd=r?.duration??raw?.duration,sp=r?.speakers?.length??raw?.speakers;
+  let h=`<section class="hero"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=70" alt="" onerror="this.remove()"><div>
+    <div class="kick">Meeting · ${esc(B.id)}</div><div class="mega">${roll('PULSE','',true)}</div>
+    <p class="lead">Transcribe, refine technical language, document — and trace every decision and action back to the exact words said.</p>
+    <div class="meta-line"><span><b>${dd!=null?dur(dd):'n/a'}</b> recorded</span><span><b>${sp??'n/a'}</b> speakers</span><span><b>${D.total}</b> segments</span>${r?`<span>refined by <b>${esc(r.provider)}/${esc(r.model)}</b></span>`:''}</div></div></section>`;
+  
+  const j = (job && job.meeting_id === B.id) ? job : B.job;
+  h+=stagesHTML(j);
+  h+=`<div class="stats">${[['Duration',dd!=null?dur(dd):'n/a','recording length'],['Refinements',r?r.total_changes:'n/a',r?`in ${r.changed_segments} segments · ${r.rejected_changes} rejected`:'LLM1 output missing'],['Decisions',d?d.decisions.length:'n/a',d?'each cites segments':'no documentation'],['Action items',d?d.action_items.length:'n/a',d?`${D.ownerless} without a stated owner`:'no documentation']].map(([l,v,s])=>`<div class="stat"><span class="l">${l}</span><strong>${esc(v)}</strong><small>${esc(s)}</small></div>`).join('')}</div>`;
+  if(!d)return h+'<div class="panel empty">No <code>documentation_output.json</code> for this meeting yet. Run LLM2 on it or upload audio.</div>';
+  const pct=D.total?Math.round(100*D.cited.size/D.total):0;
+  h+=`<div class="sh"><h3>Summary</h3><span>${esc(d.provider)} / ${esc(d.model)}</span></div><div class="cols2"><div class="panel pad"><p style="margin:0;font-size:15.5px;line-height:1.7">${esc(d.summary)}</p></div>
+   <div class="panel pad"><span class="type">Evidence coverage</span><div class="cov">${pct}%</div><div class="bar"><i style="width:${pct}%"></i></div><small style="color:var(--mut)">${D.cited.size} of ${D.total} transcript segments are cited by at least one minute, decision or action. Computed from segment IDs — not a model score.</small></div></div>`;
+  const dec=(E?.items||[]).filter(i=>i.kind==='decisions'),act=D.acts;
+  h+=`<div class="sh"><h3>Decisions &amp; actions</h3><span>click an item for its evidence</span></div><div class="cols">
+   <div class="panel">${dec.map(i=>`<div class="li" data-ev="${i.key}"><span class="type">Decision</span> ${i.warnings.length?'<span class="tag w">needs verification</span>':''}<h4>${esc(i.title)}</h4><p>segments ${rng(i.segment_ids)} ·${i.speakers.map(spk).join(', ')}</p></div>`).join('')||'<div class="empty">No decisions documented.</div>'}</div>
+   <div class="panel">${act.slice(0,5).map(i=>`<div class="li" data-ev="${i.key}"><span class="type">Action</span><h4>${esc(i.title)}</h4><p>Owner: ${i.owner?esc(i.owner):'<span class="ns">Not stated</span>'} · Deadline: ${i.deadline?esc(i.deadline):'<span class="ns">Not stated</span>'}</p></div>`).join('')||'<div class="empty">No action items documented.</div>'}${act.length>5?`<div class="li" data-go="documentation:actions"><p>+ ${act.length-5} more →</p></div>`:''}</div></div>`;
+  const notes=[...(r?.warnings||[]).map(w=>['LLM1',w]),...(raw?.warnings||[]).map(w=>['Pipeline',w]),...(E?.general_warnings||[]).map(w=>['LLM2',w])];
+  if(D.warned||notes.length)h+=`<div class="sh"><h3>Uncertainty</h3><span>not hidden</span></div>`+(D.warned?`<div class="wb" data-go="documentation:warnings" style="cursor:pointer">${D.warned} documented item(s) carry validation warnings → review</div>`:'')+notes.map(([s,w])=>`<div class="wb"><span class="tag w">${s}</span>${esc(w)}</div>`).join('');
+  return h;
+}
+function hlq(t){t=esc(t);if(!query)return t;const q=esc(query).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return t.replace(new RegExp(q,'ig'),x=>`<mark class="q">${x}</mark>`)}
+function refinedText(s){let o=esc(s.refined_text);if(!s.changed)return hlq(s.refined_text);for(const c of s.changes){const e=esc(c.refined);if(e&&o.includes(e)&&!o.includes('<mark>'+e))o=o.replace(e,'<mark>'+e+'</mark>')}return o}
+function diffHTML(s){return s.changes.map(c=>`<div class="diff"><div>Original: <span class="o">${esc(c.original)}</span></div><div>Refined: <span class="n">${esc(c.refined)}</span></div><div class="why">Reason: ${esc(c.reason)} · confidence ${c.confidence}</div></div>`).join('')}
+function subnav(items,cur,attr){return '<div class="sub">'+items.map(([k,l])=>`<button class="subbtn ${cur===k?'on':''}" ${attr}="${k}" aria-label="${l}">${roll(l,'',true)}</button>`).join('')+'</div>'}
+
+function vTranscript(){
+  const D=derive(),raw=B.raw?.turns,ref=B.refined?.segments;
+  let h=`<div class="sh" style="margin-top:6px"><h3>Transcript</h3><span>${tview==='raw'?'raw STT + diarization, untouched':'LLM1 refined — changes highlighted'}</span></div>`+subnav(TV,tview,'data-tv');
+  h += `<div class="tools">` +
+       dlBtn('raw', 'Download Raw (.txt)', !!(B?.raw_text || B?.raw)) +
+       dlBtn('refined', 'Download Refined (.txt)', !!ref) +
+       dlBtn('refined_json', 'Refined Record (.json)', !!ref) +
+       `</div>`;
+  h+=`<div class="tools"><select id="spkF" aria-label="Filter speaker"><option value="">All speakers</option>${D.order.map(s=>`<option value="${esc(s)}" ${spkF===s?'selected':''}>${esc(spk(s))}</option>`).join('')}</select>${tview==='refined'?`<label><input type="checkbox" id="onlyCh" ${S.onlyChanged?'checked':''}> only changed segments</label><span>Click an amber segment to inspect the change.</span>`:'<span>Raw text is preserved exactly as the pipeline produced it.</span>'}</div>`;
+  if(tview==='raw'){if(!raw)return h+'<div class="panel empty">No final_output.json</div>';
+    return h+'<div class="panel">'+raw.map(t=>spkF&&t.speaker!==spkF?'':`<div class="seg" id="raw-${t.index}"><div class="m"><b>${esc(spk(t.speaker))}</b>${ts(t.start)}–${ts(t.end)}<br>#${t.index} · conf ${t.confidence}</div><div class="t">${hlq(t.text)}${t.has_overlap?' <span class="tag w">overlap</span>':''}${(t.flags||[]).map(f=>` <span class="tag w">${esc(f)}</span>`).join('')}</div></div>`).join('')+'</div>'}
+  if(!ref)return h+'<div class="panel empty">No refined_output.json</div>';
+  return h+'<div class="panel">'+ref.map((s,i)=>(spkF&&s.speaker!==spkF)||(S.onlyChanged&&!s.changed)?'':`<div class="seg ${s.changed?'ch':''}" id="ref-${i}" ${s.changed?`data-seg="${i}"`:''}><div class="m"><b>${esc(spk(s.speaker))}</b>${ts(s.start)}–${ts(s.end)}<br>#${i}</div><div class="t">${refinedText(s)}<div id="dif-${i}" hidden>${s.changed?diffHTML(s):''}</div></div></div>`).join('')+'</div>';
+}
+
+function vAnalytics(){
+  const D=derive(),r=B.refined,segs=r?.segments||[];if(!segs.length)return '<div class="panel empty">Analytics need refined_output.json.</div>';
+  const T=segs[segs.length-1].end||1;
+  let h=`<div class="sh" style="margin-top:6px"><h3>Analytics</h3><span>computed from the pipeline JSON</span></div><div class="stats">${[['Avg change confidence',D.avgConf!=null?D.avgConf.toFixed(2):'n/a','LLM1 self-reported · not a probability'],['Segments cited',D.total?Math.round(100*D.cited.size/D.total)+'%':'n/a',`${D.cited.size}/${D.total} by documentation`],['Items with warnings',D.warned,'of '+(B.evidence?.items.length??0)+' documented'],['Actions w/o deadline',D.acts.length?`${D.deadlineless}/${D.acts.length}`:'n/a','deadline not stated']].map(([l,v,s])=>`<div class="stat"><span class="l">${l}</span><strong>${esc(v)}</strong><small>${esc(s)}</small></div>`).join('')}</div>`;
+  h += `<div class="tools" style="margin-bottom:16px">` + dlBtn('transformation', 'Download Transformation Record (.json)', !!B?.transformation) + `</div>`;
+  h+=`<div class="sh"><h3>Speakers</h3><span>share of segmented speech time</span></div><div class="panel pad">${D.order.map(s=>{const o=D.sp[s],p=100*o.sec/D.spoken;return `<div class="spk"><b style="color:${col(D,s)}">${esc(spk(s))}</b><div class="bar"><i style="width:${p.toFixed(1)}\%;background:${col(D,s)}"></i></div><span style="color:var(--mut)">${p.toFixed(0)}\% ·${o.n} seg · ${o.words} words${o.changed?' · '+o.changed+' refined':''}</span></div>`}).join('')}</div>`;
+  const row=f=>`<div class="strip">`+segs.map((s,i)=>{const st=f(s,i);return `<div ${st[1]?`data-open="${i}"`:''} title="#${i} ${esc(spk(s.speaker))} ${ts(s.start)}" style="flex:${Math.max(.2,s.end-s.start)};background:${st[0]}"></div>`}).join('')+'</div>';
+  h+=`<div class="sh"><h3>Meeting timeline</h3><span>0:00 → ${ts(T)} · click a block to open it</span></div><div class="panel pad">
+   <small style="color:var(--dim)">Who spoke</small>${row((s,i)=>[col(D,s.speaker),1])}
+   <small style="color:var(--dim)">Cited by documentation</small>${row((s,i)=>[D.cited.has(i)?'var(--acc)':'var(--line)',D.cited.has(i)])}
+   <small style="color:var(--dim)">Refined by LLM1</small>${row((s,i)=>[s.changed?'var(--amb)':'var(--line)',s.changed])}
+   <div class="legend">${D.order.map(s=>`<span><i style="background:${col(D,s)}"></i>${esc(spk(s))}</span>`).join('')}</div></div>`;
+  h+=`<div class="sh"><h3>Refinement log</h3><span>${D.changes.length} changes · ${r.rejected_changes} rejected by validation</span></div><div class="panel" style="overflow:auto"><table><tr><th>Seg</th><th>Original</th><th>Refined</th><th>Reason (from LLM1)</th><th>Conf.</th></tr>${D.changes.map(c=>`<tr class="li" data-open="${c.seg}"><td>#${c.seg}</td><td style="color:var(--red)">${esc(c.original)}</td><td style="color:var(--acc);font-weight:600">${esc(c.refined)}</td><td>${esc(c.reason)}</td><td>${c.confidence}</td></tr>`).join('')||'<tr><td colspan=5 class="ns">No refinements.</td></tr>'}</table></div>`;
+  h+=`<div class="sh"><h3>Action item completeness</h3><span>as stated in the meeting</span></div><div class="panel" style="overflow:auto"><table><tr><th>Task</th><th>Owner</th><th>Deadline</th></tr>${D.acts.map(a=>`<tr class="li" data-ev="${a.key}"><td>${esc(a.title)}</td><td>${a.owner?esc(a.owner):'<span class="ns">Not stated</span>'}</td><td>${a.deadline?esc(a.deadline):'<span class="ns">Not stated</span>'}</td></tr>`).join('')||'<tr><td colspan=3 class="ns">None.</td></tr>'}</table></div>`;
+  return h;
+}
+
+function warnTags(it){return it.warnings.map(w=>`<span class="tag w" title="${esc(w)}">validation warning</span>`).join('')}
+function vDoc(){
+  const d=B.documentation,E=B.evidence;if(!d)return '<div class="panel empty">No documentation_output.json for this meeting.</div>';
+  const by=k=>E.items.filter(i=>i.kind===k);
+  let h=`<div class="sh" style="margin-top:6px"><h3>Documentation</h3><span>from documentation_output.json</span></div>`+subnav(DOCT,docTab,'data-doc');
+  h += `<div class="tools" style="margin-bottom:16px">` +
+       dlBtn('summary', 'Summary (.txt)', !!d) + dlBtn('minutes', 'Minutes (.txt)', !!d) +
+       dlBtn('decisions', 'Decisions (.txt)', !!d) + dlBtn('actions', 'Action Items (.txt)', !!d) +
+       dlBtn('json', 'Final Record (.json)', !!d) + `</div>`;
+
+  if(docTab==='summary')h+=`<div class="panel pad"><p style="margin:0;font-size:15.5px;line-height:1.75;max-width:820px">${esc(d.summary)}</p><p style="margin:14px 0 0"><span class="tag">${esc(d.provider)} / ${esc(d.model)}</span><span class="tag">${d.total_segments} segments</span></p></div>`;
+  if(docTab==='minutes')h+='<div class="panel">'+(by('minutes').map(it=>`<div class="li" data-ev="${it.key}"><span class="type">Minute ${it.index+1}</span><h4>${esc(it.title)}</h4><p style="color:var(--ink)">${esc(it.body)}</p><p>segments ${rng(it.segment_ids)} ${warnTags(it)}</p></div>`).join('')||'<div class="empty">None.</div>')+'</div>';
+  if(docTab==='decisions')h+='<div class="panel">'+(by('decisions').map(it=>`<div class="li" data-ev="${it.key}"><span class="type">Decision</span> <span class="tag">status: not recorded by pipeline</span>${warnTags(it)}<h4>${esc(it.title)}</h4><p>segments ${rng(it.segment_ids)} · ${it.speakers.map(spk).join(', ')} · ${it.time_start!=null?ts(it.time_start)+'–'+ts(it.time_end):''}</p></div>`).join('')||'<div class="empty">No decisions were documented.</div>')+'</div>';
+  if(docTab==='actions')h+=by('action_items').length?`<div class="panel" style="overflow:auto"><table><tr><th>Task</th><th>Owner</th><th>Deadline</th><th>Status</th><th>Evidence</th></tr>${by('action_items').map(it=>`<tr class="li" data-ev="${it.key}"><td>${esc(it.title)}${warnTags(it)}</td><td>${it.owner?esc(it.owner):'<span class="ns">Not stated</span>'}</td><td>${it.deadline?esc(it.deadline):'<span class="ns">Not stated</span>'}</td><td><span class="ns">Not stated</span></td><td>seg ${rng(it.segment_ids)}</td></tr>`).join('')}</table></div>`:'<div class="panel empty">No action items were documented.</div>';
+  if(docTab==='warnings'){
+    const w=[...E.items.filter(i=>i.warnings.length).flatMap(it=>it.warnings.map(x=>`<div class="wb li" data-ev="${it.key}"><span class="tag w">${KIND[it.kind]} ${it.index+1}</span>${esc(x)}<p>${esc(it.title.slice(0,120))}</p></div>`)),...E.general_warnings.map(x=>`<div class="wb">${esc(x)}</div>`)];
+    h+=(w.join('')||'<div class="panel empty">LLM2 validation produced no warnings.</div>')+`<div class="panel pad" style="margin-top:12px"><b>Not available in the data</b><ul style="color:var(--mut)">${E.missing_fields.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
+  }
+  return h;
+}
+function vSettings(){
+  const r=B.refined,d=B.documentation,raw=B.raw;
+  const kv=(k,v)=>`<dt>${k}</dt><dd>${v}</dd>`;
+  return `<div class="sh" style="margin-top:6px"><h3>Settings</h3><span>stored in this browser only</span></div><div class="cols">
+  <div class="panel pad"><b>Interface</b><dl class="kv" style="margin-top:14px">
+   ${kv('Theme',`<span class="seg2"><button data-set="theme:dark" class="${S.theme==='dark'?'on':''}">Dark</button><button data-set="theme:light" class="${S.theme==='light'?'on':''}">Light</button></span>`)}
+   ${kv('Roll animation',`<span class="seg2"><button data-set="reduce:0" class="${!S.reduce?'on':''}">On hover</button><button data-set="reduce:1" class="${S.reduce?'on':''}">Off</button></span>`)}
+   ${kv('Refined view',`<span class="seg2"><button data-set="only:0" class="${!S.onlyChanged?'on':''}">All segments</button><button data-set="only:1" class="${S.onlyChanged?'on':''}">Changed only</button></span>`)}
+   ${kv('Animation engine',esc(document.documentElement.dataset.roll==='framer'?'Framer Motion':'CSS fallback (Framer Motion CDN not reachable)'))}</dl></div>
+  <div class="panel pad"><b>Pipeline for this meeting</b><dl class="kv" style="margin-top:14px">
+   ${kv('Meeting',esc(B.id))}${kv('Language','English (fixed at upload)')}
+   ${kv('Raw / aligned',raw?`${raw.turns.length} turns · ${raw.speakers} speakers`:'<span class="ns">missing</span>')}
+   ${kv('LLM1 refinement',r?`${esc(r.provider)} / ${esc(r.model)} · source ${esc(r.source_file)}`:'<span class="ns">missing</span>')}
+   ${kv('LLM2 documentation',d?`${esc(d.provider)} / ${esc(d.model)} · source ${esc(d.source_file)}`:'<span class="ns">missing</span>')}
+   ${kv('Raw ↔ refined',B.raw_aligned_with_refined?'segment-for-segment match verified':'<span class="ns">not verified</span>')}</dl>
+   ${r?`<p style="color:var(--mut);font-size:12px;margin:14px 0 0">${esc(r.confidence_note)}</p>`:''}</div></div>`;
+}
+
+function openEvidence(key){
+  const it=B.evidence.items.find(i=>i.key===key);if(!it)return;setHH();
+  let h=`<div style="display:flex;align-items:center;gap:8px"><span class="type">${({minutes:'Minute',decisions:'Decision',action_items:'Action item'})[it.kind]}</span><button class="btn" style="margin-left:auto" data-close>Close</button></div><h3 style="margin:10px 0">${esc(it.title)}</h3>`;
+  if(it.body)h+=`<p style="color:var(--mut)">${esc(it.body)}</p>`;
+  h+=`<dl class="kv panel pad" style="margin:0 0 12px">${[['Source segments',rng(it.segment_ids)],['Speaker(s)',it.speakers.map(spk).join(', ')||'none'],['Time span',it.time_start!=null?ts(it.time_start)+' – '+ts(it.time_end):'n/a'],['Status','<span class="ns">not recorded by pipeline</span>'],...(it.kind==='action_items'?[['Owner',it.owner?esc(it.owner):'<span class="ns">Not stated</span>'],['Deadline',it.deadline?esc(it.deadline):'<span class="ns">Not stated</span>']]:[])].map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+  h+=it.warnings.map(w=>`<div class="wb"><span class="tag w">validation</span>${esc(w)}</div>`).join('');
+  if(it.consensus){const c=it.consensus,G=[['decision_statement','Decision statement'],['supporting_statements','Supporting statement(s)'],['explicit_agreement','Explicit agreement'],['explicit_finalization','Explicit finalization'],['opposition','Opposition'],['unresolved','Left open / unresolved']];
+    h+=`<div class="panel pad" style="margin:0 0 12px"><b>Consensus: ${esc(String(c.level).toUpperCase())}</b> <span class="tag">${esc(c.classification)}</span> <small style="color:var(--mut)">internal heuristic score ${c.score} · not a calibrated probability</small>`;
+    if(c.reconstructed_text)h+=`<p style="margin:8px 0 0"><i>Reconstructed (${esc(c.reconstruction_source||'')}):</i> ${esc(c.reconstructed_text)}</p>`;
+    h+=`<div style="margin-top:8px"><b>Why?</b></div>`+G.map(([k,l])=>{const L=c.evidence[k]||[];return L.length?`<div>${l}: ${L.map(s=>`<a href="#" data-open="${s.id}">#${s.id}</a> <q>${esc(s.refined_text)}</q>`).join(' ')}</div>`:(k==='opposition'||k==='explicit_agreement'?`<div style="color:var(--mut)">${l}: none found</div>`:'')}).join('')+(c.notes||[]).map(n=>`<div style="color:var(--mut)">${esc(n)}</div>`).join('')+`</div>`;}
+  h+=`<b>Transcript evidence</b>`+(it.segments.length?'':'<div class="wb">No valid segment IDs — this item cannot be traced.</div>');
+  h+=it.segments.map(s=>`<div class="ev"><div class="h">#${s.id} · ${esc(spk(s.speaker))} · ${ts(s.start)}–${ts(s.end)} · <a href="#" data-open="${s.id}">Open in transcript</a></div><q>${esc(s.refined_text)}</q>${s.changed?`<div class="diff">Refined by LLM1. Original STT: “${esc(s.original_text)}”${s.changes.map(c=>`<div class="why">${esc(c.original)} → ${esc(c.refined)} · ${esc(c.reason)} · conf ${c.confidence}</div>`).join('')}</div>`:''}</div>`).join('');
+  if(it.segments.length)h+=`<button class="btn pri" data-open="${it.segments[0].id}">Open first segment in transcript</button>`;
+  $('#drawer').innerHTML=h;$('#drawer').classList.add('open');
+}
+function closeDrawer(){$('#drawer').classList.remove('open')}
+function jumpTo(id,which){
+  tab='transcript';tview=which==='raw'?'raw':'refined';spkF='';S.onlyChanged=false;menuOpen=false;render();
+  const el=document.getElementById(which+'-'+id);if(!el)return;
+  el.scrollIntoView({block:'center',behavior:S.reduce?'auto':'smooth'});el.classList.remove('hl');void el.offsetWidth;el.classList.add('hl');
+  const d=document.getElementById('dif-'+id);if(d&&which==='ref')d.hidden=false;
+}
+
+function runSearch(q){
+  query=q.trim();const R=$('#results');if(query.length<2||!B){R.style.display='none';return}
+  const ql=query.toLowerCase(),hits=[];
+  const add=(src,label,text,act)=>{const i=text.toLowerCase().indexOf(ql);if(i<0)return;const a=Math.max(0,i-40);hits.push({src,label,snip:(a?'…':'')+text.slice(a,i+query.length+60),act})};
+  (B.raw?.turns||[]).forEach(t=>add('raw','Raw #'+t.index+' · '+spk(t.speaker),t.text,{raw:t.index}));
+  (B.refined?.segments||[]).forEach((s,i)=>add('refined','Refined #'+i+' · '+spk(s.speaker),s.refined_text,{ref:i}));
+  (B.evidence?.items||[]).forEach(it=>{const k=KIND[it.kind];add(k,k+' '+(it.index+1),it.title+(it.body?' — '+it.body:''),{ev:it.key})});
+  R.innerHTML=hits.slice(0,40).map((h,i)=>`<div class="r" data-hit="${i}"><span class="tag a">${h.src}</span><b>${esc(h.label)}</b><div style="color:var(--mut);font-size:12px">${hlq(h.snip)}</div></div>`).join('')||'<div class="r">No results</div>';
+  R.style.display='block';R._hits=hits.slice(0,40);
+}
+
+window.retryMeeting = async function(mid) {
+  const r = await fetch('/api/retry/'+encodeURIComponent(mid), {method:'POST'});
+  const j = await r.json();
+  if(!r.ok){ $('#main').innerHTML = `<div class="panel pad empty" style="color:var(--red)">Retry Failed: ${esc(j.error||'Unknown error')}</div>`; return; }
+  B = null; tab = 'overview'; job = {id:j.job_id, meeting_id:j.meeting_id, stages:STAGES.map(n=>({name:n, status:'pending'}))};
+  showJob(); poll();
+};
+
+async function loadList(sel){
+  const L=await api('/api/meetings');const s=$('#meetingSel');
+  s.innerHTML=L.map(m=>`<option value="${esc(m.id)}">${esc(m.id)}${m.has_documentation?'':m.has_refined?' (no documentation)':' (raw only)'}</option>`).join('');
+  if(!L.length){B=null;$('#main').innerHTML='<div class="empty">No processed meetings in outputs/. Upload an audio file.</div>';return}
+  const pick=sel||(L.find(m=>m.has_documentation)||L[0]).id;s.value=pick;await openMeeting(pick);
+}
+async function openMeeting(id){
+  try{B=await api('/api/meetings/'+encodeURIComponent(id))}catch(e){$('#main').innerHTML=`<div class="empty">Failed to load: ${esc(e.message)}</div>`;return}
+  closeDrawer();render();
+}
+async function upload(f){
+  const r=await fetch('/api/upload',{method:'POST',headers:{'X-Filename':f.name,'X-Language':'en'},body:f});
+  const j=await r.json();
+  if(!r.ok){ $('#main').innerHTML = `<div class="panel pad empty" style="color:var(--red)">Upload Failed: ${esc(j.error||'Unknown error')}</div>`; return; }
+  B=null;tab='overview';job={id:j.job_id,meeting_id:j.meeting_id,stages:STAGES.map(n=>({name:n,status:'pending'}))};showJob();poll();
+}
+function showJob(err){render();$('#main').innerHTML=`<div class="sh"><h3>Processing ${esc(job.meeting_id)}</h3><span>live status from the pipeline</span></div>`+stagesHTML(job)+(err?`<div class="wb">${esc(err)}</div>`:'')}
+async function poll(){
+  try{job=await api('/api/jobs/'+job.id)}catch(e){return}
+  if(!job.done){showJob();setTimeout(poll,1500);return}
+  if(job.error){showJob(job.error);return}
+  await loadList(job.meeting_id);
+}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-tab],[data-menu],[data-tv],[data-doc],[data-go],[data-ev],[data-seg],[data-open],[data-close],[data-hit],[data-set]');
+  if(!t){if(!e.target.closest('#search'))$('#results').style.display='none';return}
+  const D=t.dataset;
+  if(D.tab){e.preventDefault();tab=D.tab;menuOpen=false;closeDrawer();render();scrollTo(0,0)}
+  else if('menu' in D){menuOpen=!menuOpen;render()}
+  else if(D.tv){tview=D.tv;render()}
+  else if(D.doc){docTab=D.doc;render()}
+  else if(D.go){const [a,b]=D.go.split(':');tab=a;if(b)docTab=b;render();scrollTo(0,0)}
+  else if(D.ev){openEvidence(D.ev)}
+  else if(D.open!==undefined){e.preventDefault();closeDrawer();jumpTo(+D.open,'ref')}
+  else if(D.seg!==undefined){const x=document.getElementById('dif-'+D.seg);x.hidden=!x.hidden}
+  else if('close' in D)closeDrawer();
+  else if(D.set){const [k,v]=D.set.split(':');if(k==='theme')S.theme=v;if(k==='reduce'){S.reduce=v==='1';unmountRolls();document.querySelectorAll('.rollhost[data-m]').forEach(x=>x.removeAttribute('data-m'))}if(k==='only')S.onlyChanged=v==='1';save();applySettings();render()}
+  else if(D.hit!==undefined){const a=$('#results')._hits[+D.hit].act;$('#results').style.display='none';
+    if(a.raw!==undefined){closeDrawer();jumpTo(a.raw,'raw')}else if(a.ref!==undefined){closeDrawer();jumpTo(a.ref,'ref')}
+    else{tab='documentation';docTab=a.ev.startsWith('minutes')?'minutes':a.ev.startsWith('decisions')?'decisions':'actions';render();openEvidence(a.ev)}}
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='spkF'){spkF=e.target.value;render()}
+  if(e.target.id==='onlyCh'){S.onlyChanged=e.target.checked;save();render()}
+});
+$('#meetingSel').onchange=e=>openMeeting(e.target.value);
+$('#file').onchange=e=>{if(e.target.files[0])upload(e.target.files[0]);e.target.value=''};
+$('#q').oninput=e=>{runSearch(e.target.value)};
+$('#theme').onclick=()=>{S.theme=S.theme==='dark'?'light':'dark';save();applySettings();render()};
+addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();$('#results').style.display='none'}});
+addEventListener('resize',setHH);
+applySettings();
+$('.brand .rollhost').outerHTML=roll('PULSE');
+(async()=>{await loadList().catch(e=>{$('#main').innerHTML=`<div class="empty">Cannot reach the backend: ${esc(e.message)}</div>`});mountRolls();loadMotion()})();
+</script></body></html>

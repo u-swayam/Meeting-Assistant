@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 3,
+  "label": "chunk_03",
+  "requested_indices": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\n  \"segments\": [\n    {\n      \"index\": 15,\n      \"refined_text\": \"We are also adding OpenTelemetry tracing. Trace IDs must propagate through the Kafka headers so that checkout, orchestration, and the gateway can be correlated.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 16,\n      \"refined_text\": \"The alert should fire if payment processing p95 exceeds 800 milliseconds for 10 minutes, but I am not proposing that as a final SLO yet.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 17,\n      \"refined_text\": \"The current p95 is 420 milliseconds and p99 is 1.8 seconds. We should not optimize only for p95 because the tail latency is where the customer-visible timeouts happen.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 18,\n      \"refined_text\": \"There is another issue with retries. The gateway uses exponential backoff with a maximum of 30 seconds, while our Kafka consumer retry policy currently allows 5 attempts.\",\n      \"changes\": []\n    },\n    {\n      \"index\": 19,\n      \"refined_text\": \"If the gateway times out after sending the authorization request, we cannot assume the authorization failed. The next retry has to query the provider or use the idempotency key.\",\n      \"changes\": []\n    }\n  ]\n}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1011,
+      "completion_tokens": 298,
+      "total_tokens": 1309
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 15,
+        "refined_text": "We are also adding OpenTelemetry tracing. Trace IDs must propagate through the Kafka headers so that checkout, orchestration, and the gateway can be correlated.",
+        "changes": []
+      },
+      {
+        "index": 16,
+        "refined_text": "The alert should fire if payment processing p95 exceeds 800 milliseconds for 10 minutes, but I am not proposing that as a final SLO yet.",
+        "changes": []
+      },
+      {
+        "index": 17,
+        "refined_text": "The current p95 is 420 milliseconds and p99 is 1.8 seconds. We should not optimize only for p95 because the tail latency is where the customer-visible timeouts happen.",
+        "changes": []
+      },
+      {
+        "index": 18,
+        "refined_text": "There is another issue with retries. The gateway uses exponential backoff with a maximum of 30 seconds, while our Kafka consumer retry policy currently allows 5 attempts.",
+        "changes": []
+      },
+      {
+        "index": 19,
+        "refined_text": "If the gateway times out after sending the authorization request, we cannot assume the authorization failed. The next retry has to query the provider or use the idempotency key.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 15,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 16,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 17,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 18,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 19,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}

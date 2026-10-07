@@ -1,0 +1,59 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 10,
+  "label": "chunk_10",
+  "requested_indices": [
+    50,
+    51,
+    52,
+    53,
+    54
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a domain-aware meeting transcript refinement system. Correct only plausible speech-to-text errors while preserving the meaning of what was actually said. If uncertain, preserve the original wording.\n\nYou receive numbered transcript segments (speaker-labelled, from automatic speech recognition). For each segment return the refined text and a list of the exact changes you made.\n\nWHAT YOU MAY FIX (only when the surrounding transcript strongly supports it):\n- misrecognised technical, scientific, engineering and programming terminology\n- acronyms and initialisms (e.g. \"em are\" -> \"MR\" when the discussion is clearly about MRs)\n- product, company and tool names\n- spelling, capitalisation, punctuation\n- obvious speech-recognition errors and obvious STT-caused duplicated words (stutter duplicates like \"the the\")\nUse the whole transcript as context: a term used correctly elsewhere is strong evidence for how a garbled instance should be written.\n\nWHAT YOU MUST PRESERVE EXACTLY (never alter):\n- speaker identity, speaker order, timestamps, chronology (you are not given the means to change them; do not try)\n- names of people, organisations and places unless it is an unambiguous spelling fix of a name used elsewhere in the transcript\n- numbers, dates, times, quantities, units, versions, identifiers, code tokens\n- negation (not, no, never, n't ...)\n- uncertainty and hedging (think, maybe, might, probably, perhaps, I guess ...)\n- questions, commitments, proposals, suggestions and conditional statements\n- the overall meaning and the speaker's register\n\nYOU MUST NOT:\n- summarise, paraphrase, shorten, rewrite for style, or \"improve\" grammar of natural speech\n- add, invent or infer information, owners, deadlines, tasks or context\n- guess ambiguous words; resolve nothing that the context does not clearly resolve\n- turn a suggestion into a decision (\"I think we should probably change this\" must NOT become \"We should change this\"); turn \"might\" into \"will\"; remove negation\n- remove filler words, false starts or disfluencies unless they are an obvious STT duplicate\n- merge, split, drop, reorder or add segments\n- add commentary inside refined_text\n\nIf you are not sure a correction is right, keep the original wording. Returning a segment unchanged is correct and expected for most segments.\n\nOUTPUT FORMAT (strict JSON matching the provided schema):\n{\"segments\":[{\"index\":<int, same as input>,\"refined_text\":\"<full refined segment text>\",\"changes\":[{\"original\":\"<exact original words>\",\"refined\":\"<replacement words>\",\"reason\":\"<short reason>\",\"confidence\":<0..1>}]}]}\n- Return exactly one entry per input segment, with the same index.\n- If nothing changed: refined_text equals the original text exactly and changes is [].\n- Each change's \"original\" must be copied exactly from the segment's original text. Keep each change minimal (only the words that differ). List every difference between original and refined text, including punctuation or capitalisation fixes.\n- confidence is a conservative 0-1 indication of how strongly context supports the correction (not a probability). Use below 0.7 for anything doubtful - such changes will be discarded.\n"
+    },
+    {
+      "role": "user",
+      "content": "Refine the following 5 segments (of 60 in the meeting). Speaker and timing are shown for context only.\n\n### index=50 speaker=SPEAKER_02 [1185.0s-1205.0s]\nThat sounds good. The task is to update the retry documentation; the tomorrow timing is conditional on sandbox stability, so it is not a hard deadline.\n\n### index=51 speaker=SPEAKER_03 [1205.3s-1227.0s]\nWe should record that the current architecture decision is to keep PostgreSQL as the source of truth for the ledger. The Kafka events are transport and workflow coordination, not the authoritative balance store.\n\n### index=52 speaker=SPEAKER_00 [1227.3s-1250.7s]\nAgreed. That is the decision. The deployment strategy, final SLO, production canary date, and 30-day retention change are still open.\n\n### index=53 speaker=SPEAKER_01 [1251.0s-1276.1s]\nFor the documentation, please don't turn my recommendation about keeping the old path for 48 hours into a confirmed decision. It is still a recommendation.\n\n### index=54 speaker=SPEAKER_02 [1276.4s-1303.2s]\nAnd don't assign the migration review to Swayam. I said I would review it after Arjun opens the pull request, which is a conditional statement, not a transfer of ownership.\n"
+    }
+  ],
+  "requested_segments": [
+    {
+      "index": 50,
+      "speaker": "SPEAKER_02",
+      "start": 1185.0,
+      "end": 1205.0,
+      "text": "That sounds good. The task is to update the retry documentation; the tomorrow timing is conditional on sandbox stability, so it is not a hard deadline."
+    },
+    {
+      "index": 51,
+      "speaker": "SPEAKER_03",
+      "start": 1205.3,
+      "end": 1227.0,
+      "text": "We should record that the current architecture decision is to keep PostgreSQL as the source of truth for the ledger. The Kafka events are transport and workflow coordination, not the authoritative balance store."
+    },
+    {
+      "index": 52,
+      "speaker": "SPEAKER_00",
+      "start": 1227.3,
+      "end": 1250.7,
+      "text": "Agreed. That is the decision. The deployment strategy, final SLO, production canary date, and 30-day retention change are still open."
+    },
+    {
+      "index": 53,
+      "speaker": "SPEAKER_01",
+      "start": 1251.0,
+      "end": 1276.1,
+      "text": "For the documentation, please don't turn my recommendation about keeping the old path for 48 hours into a confirmed decision. It is still a recommendation."
+    },
+    {
+      "index": 54,
+      "speaker": "SPEAKER_02",
+      "start": 1276.4,
+      "end": 1303.2,
+      "text": "And don't assign the migration review to Swayam. I said I would review it after Arjun opens the pull request, which is a conditional statement, not a transfer of ownership."
+    }
+  ]
+}

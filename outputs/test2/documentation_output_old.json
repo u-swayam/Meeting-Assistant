@@ -1,0 +1,250 @@
+{
+  "stage": "llm2_documentation",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "source_file": "refined_output.json",
+  "total_segments": 60,
+  "summary": "The meeting reviewed the migration of the payment orchestration layer from the monolith to a distributed architecture, with the constraint of avoiding duplicate charges during gradual traffic movement. Topics covered the Kafka-based event flow keyed by payment_id, PostgreSQL ledger with serializable balance mutations, idempotency constraints, Redis as non-authoritative cache, Kubernetes deployment, gRPC/protobuf internal transport with REST public API, ETCD consensus for the metadata cluster, observability with Prometheus/Grafana/OpenTelemetry, retry and timeout semantics, the payment state machine and refunds, security via OpenID Connect, and proposed (unapproved) rollout policies. The only confirmed decision was that PostgreSQL remains the authoritative ledger store; deployment strategy, final SLO, production canary date, and the 30-day retention change remain open. Confirmed action items are the capture-refund concurrency integration test, the release checklist owned by Priya, the migration script owned by Arjun, and the retry documentation owned by the speaker, with no confirmed deadlines.",
+  "minutes": [
+    {
+      "topic": "Migration context and constraint",
+      "discussion": "Migration of the payment orchestration layer from the monolith to a distributed architecture. Main constraint: no duplicate charges while traffic is moved gradually. Current design has checkout calling the payment gateway adapter synchronously; new design has checkout publishing a PaymentRequested event to Kafka consumed by the orchestration service.",
+      "segment_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "topic": "Kafka ordering and consumer group",
+      "discussion": "Kafka partitions are keyed by payment_id, giving ordering for events with the same key but not global ordering across all payments. The consumer group will run three replicas initially; three replicas does not mean three active leaders, since only one consumer in the group owns a partition at a time.",
+      "segment_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "topic": "Ledger, idempotency and cache",
+      "discussion": "The ledger remains on PostgreSQL, using serializable transactions only around the balance mutation, not the entire request lifecycle. The idempotency table is keyed by merchant_id and idempotency_key (an STT error wrote 'item potency table'; the actual identifier is idempotency_key). A unique constraint exists on merchant_id, idempotency_key, and operation_type; a retry with the same key and a different amount is rejected rather than silently updating the original request. Redis is only an optimization and a Redis hit must not be treated as proof a payment exists in the ledger, because cache eviction or failover can remove the entry.",
+      "segment_ids": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "topic": "Deployment target and service transport",
+      "discussion": "Deployment target is Kubernetes on three availability zones, namespace payments-prod, service account payment-orchestrator. Service-to-service calls standardize on gRPC with protobuf; the public API remains REST under /api/v2/payments so clients do not need to know the internal transport. The gRPC method is ProcessPayment and the protobuf package is payments.v2; the field name payment_id should be preserved because downstream consumers depend on it.",
+      "segment_ids": [
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "topic": "ETCD consensus and metadata cluster",
+      "discussion": "The configuration service uses ETCD for consensus, with a leader election timeout of 1000 milliseconds and heartbeat interval of 100 milliseconds. The rough algorithm is only relevant to the metadata cluster, not the payment ledger; this distinction must be documented because the two consistency mechanisms are often mixed up. The metadata cluster has five nodes; losing two is tolerated, but losing three means the cluster cannot maintain quorum and writes stop.",
+      "segment_ids": [
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "topic": "Observability",
+      "discussion": "Prometheus scrapes application metrics and Grafana renders dashboards, with a scrape interval of 15 seconds. OpenTelemetry tracing is being added; trace IDs must propagate through Kafka headers so checkout, orchestration, and the gateway can be correlated. A proposed alert would fire if payment processing p95 exceeds 800 milliseconds for 10 minutes, but this was not proposed as a final SLO. Current p95 is 420 milliseconds and p99 is 1.8 seconds; optimization should not target only p95 because tail latency causes customer-visible timeouts.",
+      "segment_ids": [
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "topic": "Retries and timeout semantics",
+      "discussion": "The gateway uses exponential backoff with a maximum of 30 seconds, while the Kafka consumer retry policy currently allows 5 attempts. If the gateway times out after sending the authorization request, the authorization cannot be assumed to have failed; the next retry must query the provider or use the idempotency key. A timeout is not a negative acknowledgment, since the provider may have accepted the transaction even though the HTTP client never received the response.",
+      "segment_ids": [
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "topic": "State machine and refunds",
+      "discussion": "The state machine moves CREATED to AUTHORIZING, then AUTHORIZED or DECLINED. An AUTHORIZED payment can move to CAPTURED, but a DECLINED payment cannot move directly to CAPTURED. Refunds are separate from the authorization state machine; the refund endpoint is POST /api/v2/refunds and the request includes original_payment_id and refund_amount. A concurrency edge case exists when a capture and a refund arrive nearly simultaneously; PostgreSQL row locking should serialize the ledger mutation, but an integration test is needed to prove the invariant.",
+      "segment_ids": [
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "topic": "Provider sandbox errors",
+      "discussion": "The provider sandbox returned HTTP 409 twice the previous day, which is different from HTTP 429 (rate limiting). One HTTP 500 was also seen, but it is unknown whether it represents a transient provider failure or a malformed request on our side.",
+      "segment_ids": [
+        25,
+        26
+      ]
+    },
+    {
+      "topic": "Security",
+      "discussion": "OpenID Connect will be used between the admin portal and the identity provider, with access tokens having a 15 minute lifetime. The admin portal must not receive the provider client secret; that secret stays in the backend secret store and is injected only into the authentication service.",
+      "segment_ids": [
+        27,
+        28
+      ]
+    },
+    {
+      "topic": "Proposed deployment and rollout policies (not approved)",
+      "discussion": "A rolling update with maxUnavailable set to 0 and maxSurge set to 1 was proposed, not a final deployment decision. A proposed rollout policy would increase traffic from 5 percent to 25 percent if the canary stays below 0.5 percent error rate for 30 minutes. The final rollout threshold has not been approved. Priya owns the release checklist and Arjun owns the database migration script. The proposed 25 percent traffic step has not been approved despite appearing in the rollout document.",
+      "segment_ids": [
+        29,
+        30,
+        31,
+        48
+      ]
+    },
+    {
+      "topic": "Migration script review and repository details",
+      "discussion": "The speaker will review the migration script after Arjun opens the pull request; if the PR is not open by Thursday, the schedule should be discussed rather than assuming the task moved to the speaker. The repository is payments-platform, the migration directory is db/migrations/2026_10, and the CI workflow is .github/workflows/payment-ci.yml.",
+      "segment_ids": [
+        32,
+        33
+      ]
+    },
+    {
+      "topic": "Terminology and identifier preservation",
+      "discussion": "An STT error 'graf on a dashboards' should be checked; the actual product name is Grafana, but the ordinary English phrase 'graph on a dashboard' should not automatically become Grafana. The quoted string \"cube net ease\" should remain exactly as quoted when discussing the original STT output. The feature flag name enable_new_ledger, environment variable PAYMENT_GATEWAY_URL, and header X-Idempotency-Key must be preserved exactly; these identifiers are case-sensitive.",
+      "segment_ids": [
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "topic": "Kafka retention and migration compatibility",
+      "discussion": "Kafka topic retention is 2 GB in staging and 14 days in production; 30 days for production is being considered but is not approved. The database migration should be backward compatible for at least two application releases; the schema change and application change cannot be deployed as one irreversible step. For rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases; a destructive contract migration should not be rolled back automatically.",
+      "segment_ids": [
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "topic": "Consensus algorithm distinction",
+      "discussion": "The rough consensus algorithm is not used for payment authorization. This sentence should remain unchanged in the final transcript because it specifically distinguishes Raft from the ledger's transaction protocol.",
+      "segment_ids": [
+        40
+      ]
+    },
+    {
+      "topic": "Load and failure-injection testing",
+      "discussion": "Load testing target is 1,240 requests per second with 40 percent reads and 60 percent writes, over a 20-minute test duration. Kafka consumer lag is expected to remain below 500 messages under normal load; if lag exceeds 2,000 for more than 5 minutes, the load test should be considered failed. The failure-injection test will stop one Kafka broker and one application replica; there is no plan to stop two brokers simultaneously in this test.",
+      "segment_ids": [
+        41,
+        42,
+        43
+      ]
+    },
+    {
+      "topic": "Tentative canary date and old path recommendation",
+      "discussion": "The production canary might be scheduled for the 15th, but that date is tentative and the release manager has not approved it. A recommendation was made to keep the old payment path available for 48 hours after the canary to provide a rollback option; this is only a recommendation at this point and should not be turned into a confirmed decision.",
+      "segment_ids": [
+        44,
+        45,
+        53
+      ]
+    },
+    {
+      "topic": "ADR and service mesh",
+      "discussion": "If everyone agrees, the architecture decision record can be documented after the meeting; the final ADR wording has not been agreed. Istio is the service mesh currently in the staging cluster and is not being evaluated for replacement during this migration; Istio is staying for now.",
+      "segment_ids": [
+        46,
+        47
+      ]
+    },
+    {
+      "topic": "Retry documentation task",
+      "discussion": "The speaker will update the retry documentation and add the provider HTTP 409 versus 429 examples. The speaker can finish tomorrow if the sandbox is stable; the tomorrow timing is conditional on sandbox stability and is not a hard deadline. The task is to update the retry documentation.",
+      "segment_ids": [
+        49,
+        50
+      ]
+    },
+    {
+      "topic": "Confirmed decision and open items",
+      "discussion": "The current architecture decision is to keep PostgreSQL as the source of truth for the ledger; Kafka events are transport and workflow coordination, not the authoritative balance store. This was agreed as the decision. The deployment strategy, final SLO, production canary date, and 30-day retention change are still open. The migration review should not be assigned to Swayam; the speaker said they would review it after Arjun opens the pull request, which is a conditional statement, not a transfer of ownership. The final machine-readable record should preserve exact endpoint names, version numbers, percentages, and conditional language; human-readable minutes can be concise but must not change meaning.",
+      "segment_ids": [
+        51,
+        52,
+        54,
+        55
+      ]
+    },
+    {
+      "topic": "Confirmed action items and deadlines",
+      "discussion": "Confirmed action items are the integration test for the capture-refund concurrency case, the release checklist owned by Priya, the migration script owned by Arjun, and the retry documentation owned by the speaker. The integration test has no confirmed deadline. The retry documentation has no hard deadline because tomorrow depends on sandbox stability. The production canary has no confirmed date; the 15th was only discussed as a possibility. The only final decision is that PostgreSQL remains the authoritative ledger store, while the rest of the rollout details remain pending.",
+      "segment_ids": [
+        56,
+        57,
+        58,
+        59
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "PostgreSQL remains the source of truth (authoritative ledger store) for the ledger; Kafka events are transport and workflow coordination, not the authoritative balance store.",
+      "segment_ids": [
+        51,
+        52,
+        59
+      ]
+    }
+  ],
+  "action_items": [
+    {
+      "task": "Write the integration test for the capture-refund concurrency case to prove the ledger invariant.",
+      "owner": null,
+      "deadline": null,
+      "segment_ids": [
+        23,
+        24,
+        56,
+        57
+      ]
+    },
+    {
+      "task": "Own the release checklist.",
+      "owner": "Priya",
+      "deadline": null,
+      "segment_ids": [
+        31,
+        56
+      ]
+    },
+    {
+      "task": "Own the database migration script.",
+      "owner": "Arjun",
+      "deadline": null,
+      "segment_ids": [
+        31,
+        56
+      ]
+    },
+    {
+      "task": "Update the retry documentation and add the provider HTTP 409 versus 429 examples.",
+      "owner": null,
+      "deadline": null,
+      "segment_ids": [
+        49,
+        50,
+        56,
+        57
+      ]
+    }
+  ],
+  "warnings": [
+    "decisions[0]: cited segments mention pending/unapproved status; verify"
+  ]
+}

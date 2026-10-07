@@ -1,0 +1,59 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 7,
+  "label": "chunk_07",
+  "requested_indices": [
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a domain-aware meeting transcript refinement system. Correct only plausible speech-to-text errors while preserving the meaning of what was actually said. If uncertain, preserve the original wording.\n\nYou receive numbered transcript segments (speaker-labelled, from automatic speech recognition). For each segment return the refined text and a list of the exact changes you made.\n\nWHAT YOU MAY FIX (only when the surrounding transcript strongly supports it):\n- misrecognised technical, scientific, engineering and programming terminology\n- acronyms and initialisms (e.g. \"em are\" -> \"MR\" when the discussion is clearly about MRs)\n- product, company and tool names\n- spelling, capitalisation, punctuation\n- obvious speech-recognition errors and obvious STT-caused duplicated words (stutter duplicates like \"the the\")\nUse the whole transcript as context: a term used correctly elsewhere is strong evidence for how a garbled instance should be written.\n\nWHAT YOU MUST PRESERVE EXACTLY (never alter):\n- speaker identity, speaker order, timestamps, chronology (you are not given the means to change them; do not try)\n- names of people, organisations and places unless it is an unambiguous spelling fix of a name used elsewhere in the transcript\n- numbers, dates, times, quantities, units, versions, identifiers, code tokens\n- negation (not, no, never, n't ...)\n- uncertainty and hedging (think, maybe, might, probably, perhaps, I guess ...)\n- questions, commitments, proposals, suggestions and conditional statements\n- the overall meaning and the speaker's register\n\nYOU MUST NOT:\n- summarise, paraphrase, shorten, rewrite for style, or \"improve\" grammar of natural speech\n- add, invent or infer information, owners, deadlines, tasks or context\n- guess ambiguous words; resolve nothing that the context does not clearly resolve\n- turn a suggestion into a decision (\"I think we should probably change this\" must NOT become \"We should change this\"); turn \"might\" into \"will\"; remove negation\n- remove filler words, false starts or disfluencies unless they are an obvious STT duplicate\n- merge, split, drop, reorder or add segments\n- add commentary inside refined_text\n\nIf you are not sure a correction is right, keep the original wording. Returning a segment unchanged is correct and expected for most segments.\n\nOUTPUT FORMAT (strict JSON matching the provided schema):\n{\"segments\":[{\"index\":<int, same as input>,\"refined_text\":\"<full refined segment text>\",\"changes\":[{\"original\":\"<exact original words>\",\"refined\":\"<replacement words>\",\"reason\":\"<short reason>\",\"confidence\":<0..1>}]}]}\n- Return exactly one entry per input segment, with the same index.\n- If nothing changed: refined_text equals the original text exactly and changes is [].\n- Each change's \"original\" must be copied exactly from the segment's original text. Keep each change minimal (only the words that differ). List every difference between original and refined text, including punctuation or capitalisation fixes.\n- confidence is a conservative 0-1 indication of how strongly context supports the correction (not a probability). Use below 0.7 for anything doubtful - such changes will be discarded.\n"
+    },
+    {
+      "role": "user",
+      "content": "Refine the following 5 segments (of 60 in the meeting). Speaker and timing are shown for context only.\n\n### index=35 speaker=SPEAKER_03 [829.5s-849.5s]\nSimilarly, the quoted string \"cube net ease\" should remain exactly as quoted when we discuss the original STT output. It is not a request to rewrite the quote.\n\n### index=36 speaker=SPEAKER_00 [849.8s-871.5s]\nWe need to preserve the feature flag name enable_new_ledger, the environment variable PAYMENT_GATEWAY_URL, and the header X-Idempotency-Key exactly. Those identifiers are case-sensitive.\n\n### index=37 speaker=SPEAKER_01 [871.8s-895.2s]\nThere is a 2 GB Kafka topic retention setting in staging and 14 days in production. We are considering 30 days for production, but that is not approved.\n\n### index=38 speaker=SPEAKER_02 [895.5s-920.6s]\nThe database migration itself should be backward compatible for at least two application releases. We cannot deploy the schema change and application change as one irreversible step.\n\n### index=39 speaker=SPEAKER_03 [920.9s-947.7s]\nFor rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases. We should not roll back a destructive contract migration automatically.\n"
+    }
+  ],
+  "requested_segments": [
+    {
+      "index": 35,
+      "speaker": "SPEAKER_03",
+      "start": 829.5,
+      "end": 849.5,
+      "text": "Similarly, the quoted string \"cube net ease\" should remain exactly as quoted when we discuss the original STT output. It is not a request to rewrite the quote."
+    },
+    {
+      "index": 36,
+      "speaker": "SPEAKER_00",
+      "start": 849.8,
+      "end": 871.5,
+      "text": "We need to preserve the feature flag name enable_new_ledger, the environment variable PAYMENT_GATEWAY_URL, and the header X-Idempotency-Key exactly. Those identifiers are case-sensitive."
+    },
+    {
+      "index": 37,
+      "speaker": "SPEAKER_01",
+      "start": 871.8,
+      "end": 895.2,
+      "text": "There is a 2 GB Kafka topic retention setting in staging and 14 days in production. We are considering 30 days for production, but that is not approved."
+    },
+    {
+      "index": 38,
+      "speaker": "SPEAKER_02",
+      "start": 895.5,
+      "end": 920.6,
+      "text": "The database migration itself should be backward compatible for at least two application releases. We cannot deploy the schema change and application change as one irreversible step."
+    },
+    {
+      "index": 39,
+      "speaker": "SPEAKER_03",
+      "start": 920.9,
+      "end": 947.7,
+      "text": "For rollback, the application image is version v2.14.3 and the migration plan has explicit expand and contract phases. We should not roll back a destructive contract migration automatically."
+    }
+  ]
+}

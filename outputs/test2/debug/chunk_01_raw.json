@@ -1,0 +1,115 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 1,
+  "label": "chunk_01",
+  "requested_indices": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\"segments\":[{\"index\":5,\"refined_text\":\"The idempotency table is keyed by merchant_id and idempotency_key. The STT system wrote this as item potency table in one place, but the actual identifier is idempotency_key.\",\"changes\":[],\"confidence\":0.9},{\"index\":6,\"refined_text\":\"We also have a unique constraint on merchant_id, idempotency_key, and operation_type. If a retry arrives with the same key and a different amount, we reject it instead of silently updating the original request.\",\"changes\":[],\"confidence\":0.9},{\"index\":7,\"refined_text\":\"For the cache, Redis is only an optimization. We must not treat a Redis hit as proof that a payment exists in the ledger, because cache eviction or failover can remove that entry.\",\"changes\":[],\"confidence\":0.9},{\"index\":8,\"refined_text\":\"The deployment target is Kubernetes on three availability zones. The namespace is payments-prod, and the service account is payment-orchestrator.\",\"changes\":[{\"original\":\"cube net ease\",\"refined\":\"Kubernetes\",\"reason\":\"misrecognised product name; context of deployment target, namespace, and service account strongly indicates Kubernetes\",\"confidence\":0.95}]},{\"index\":9,\"refined_text\":\"For service-to-service calls, we are standardizing on gRPC with protobuf. The public API remains REST under /api/v2/payments, so clients do not need to know about the internal transport.\",\"changes\":[{\"original\":\"G R P C\",\"refined\":\"gRPC\",\"reason\":\"acronym spelled out by STT; standard form is gRPC\",\"confidence\":0.95}]}]}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1041,
+      "completion_tokens": 367,
+      "total_tokens": 1408
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 5,
+        "refined_text": "The idempotency table is keyed by merchant_id and idempotency_key. The STT system wrote this as item potency table in one place, but the actual identifier is idempotency_key.",
+        "changes": [],
+        "confidence": 0.9
+      },
+      {
+        "index": 6,
+        "refined_text": "We also have a unique constraint on merchant_id, idempotency_key, and operation_type. If a retry arrives with the same key and a different amount, we reject it instead of silently updating the original request.",
+        "changes": [],
+        "confidence": 0.9
+      },
+      {
+        "index": 7,
+        "refined_text": "For the cache, Redis is only an optimization. We must not treat a Redis hit as proof that a payment exists in the ledger, because cache eviction or failover can remove that entry.",
+        "changes": [],
+        "confidence": 0.9
+      },
+      {
+        "index": 8,
+        "refined_text": "The deployment target is Kubernetes on three availability zones. The namespace is payments-prod, and the service account is payment-orchestrator.",
+        "changes": [
+          {
+            "original": "cube net ease",
+            "refined": "Kubernetes",
+            "reason": "misrecognised product name; context of deployment target, namespace, and service account strongly indicates Kubernetes",
+            "confidence": 0.95
+          }
+        ]
+      },
+      {
+        "index": 9,
+        "refined_text": "For service-to-service calls, we are standardizing on gRPC with protobuf. The public API remains REST under /api/v2/payments, so clients do not need to know about the internal transport.",
+        "changes": [
+          {
+            "original": "G R P C",
+            "refined": "gRPC",
+            "reason": "acronym spelled out by STT; standard form is gRPC",
+            "confidence": 0.95
+          }
+        ]
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 2,
+    "total_itemised_changes": 2,
+    "per_segment": [
+      {
+        "index": 5,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 6,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 7,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 8,
+        "refined_text_differs_from_input": true,
+        "itemised_changes": 1
+      },
+      {
+        "index": 9,
+        "refined_text_differs_from_input": true,
+        "itemised_changes": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "run_id": "20261004T200717",
+  "chunk_number": 11,
+  "label": "chunk_11",
+  "requested_indices": [
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "request_params": {
+    "model": "deepseek-flash",
+    "response_format": {
+      "type": "json_object"
+    },
+    "temperature": 0.0,
+    "max_tokens": 8192,
+    "extra_body": {
+      "thinking": {
+        "type": "disabled"
+      }
+    }
+  },
+  "provider_exposes_raw_content": true,
+  "raw_response": {
+    "content": "{\"segments\":[{\"index\":55,\"refined_text\":\"The final machine-readable record should preserve the exact endpoint names, version numbers, percentages, and conditional language. Human-readable minutes can be concise, but they must not change the meaning.\",\"changes\":[]},{\"index\":56,\"refined_text\":\"Before we close, the confirmed action items are the integration test for the capture-refund concurrency case, the release checklist owned by Priya, the migration script owned by Arjun, and the retry documentation owned by me.\",\"changes\":[]},{\"index\":57,\"refined_text\":\"The integration test does not have a confirmed deadline. The retry documentation also has no hard deadline because tomorrow depends on sandbox stability.\",\"changes\":[]},{\"index\":58,\"refined_text\":\"And the production canary has no confirmed date. The 15th was only discussed as a possibility.\",\"changes\":[]},{\"index\":59,\"refined_text\":\"Okay. We have enough to write the record. The only final decision is PostgreSQL remains the authoritative ledger store, while the rest of the rollout details remain pending.\",\"changes\":[]}]}",
+    "finish_reason": "stop",
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1010,
+      "completion_tokens": 233,
+      "total_tokens": 1243
+    }
+  },
+  "parsed_json": {
+    "segments": [
+      {
+        "index": 55,
+        "refined_text": "The final machine-readable record should preserve the exact endpoint names, version numbers, percentages, and conditional language. Human-readable minutes can be concise, but they must not change the meaning.",
+        "changes": []
+      },
+      {
+        "index": 56,
+        "refined_text": "Before we close, the confirmed action items are the integration test for the capture-refund concurrency case, the release checklist owned by Priya, the migration script owned by Arjun, and the retry documentation owned by me.",
+        "changes": []
+      },
+      {
+        "index": 57,
+        "refined_text": "The integration test does not have a confirmed deadline. The retry documentation also has no hard deadline because tomorrow depends on sandbox stability.",
+        "changes": []
+      },
+      {
+        "index": 58,
+        "refined_text": "And the production canary has no confirmed date. The 15th was only discussed as a possibility.",
+        "changes": []
+      },
+      {
+        "index": 59,
+        "refined_text": "Okay. We have enough to write the record. The only final decision is PostgreSQL remains the authoritative ledger store, while the rest of the rollout details remain pending.",
+        "changes": []
+      }
+    ]
+  },
+  "call_error": null,
+  "analysis": {
+    "segments_returned": 5,
+    "segments_where_model_text_differs": 0,
+    "total_itemised_changes": 0,
+    "per_segment": [
+      {
+        "index": 55,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 56,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 57,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 58,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      },
+      {
+        "index": 59,
+        "refined_text_differs_from_input": false,
+        "itemised_changes": 0
+      }
+    ]
+  }
+}
