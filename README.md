@@ -144,13 +144,14 @@ setup.sh / setup_windows.ps1   reproducible environment setup
 
 ## Contracts (LangGraph-ready, no framework coupling)
 
-- `STTProvider.transcribe(path) -> STTResult` (`stt/base.py`, schemas in `stt/schemas.py`)
-- `PyannoteDiarizer.diarize(path) -> DiarizationResult`
-- `align_transcript(STTResult, DiarizationResult) -> SpeakerLabelledTranscript`
-- `refine_file`, `transform_file`, `document_file`: each reads/writes the JSON files above
+- `STTProvider.transcribe(path)` → `STTResult` (`stt/base.py`, schemas in `stt/schemas.py`)
+- `PyannoteDiarizer.diarize(path)` → `DiarizationResult`
+- `align_transcript(STTResult, DiarizationResult)` → `SpeakerLabelledTranscript`
+- `refine_file`, `transform_file`, `document_file`: each operates on the JSON artifacts produced by the preceding stage
 
-Results are frozen Pydantic models (`.model_dump()` / `.model_dump_json()`). Swap STT via `STT_PROVIDER` (`deepgram` default, `groq` = Whisper large-v3-turbo; the latter also needs `pip install groq`).
+The pipeline uses frozen Pydantic models for its intermediate results, with `.model_dump()` and `.model_dump_json()` available for serialization. The stage boundaries are kept independent of any orchestration framework, making the existing pipeline suitable for integration with frameworks such as LangGraph without requiring changes to the underlying data contracts.
 
+The current STT implementation uses **Deepgram Nova-3**. External model calls are isolated behind their respective pipeline stages, while the raw, refined, and documented outputs are persisted as JSON artifacts for reproducibility and downstream processing.
 ## How it works
 
 - Audio is validated with ffprobe (missing / empty / unreadable / no audio stream / too short -> typed errors), then converted to 16 kHz mono FLAC for upload.
@@ -180,16 +181,33 @@ Results are frozen Pydantic models (`.model_dump()` / `.model_dump_json()`). Swa
 - `tests/test.wav` is a small sample clip used for manual runs.
 
 
-## Multilingual meetings (Sarvam)
+## Multilingual meetings
 
-```
-                    +-> Deepgram Nova-3 --------------------------+
-Audio -> Language --+                                             v
-                    +-> Sarvam STT (original language) -> diarization -> alignment
-                                      -> final_output.json (original text, `language` block)
-                                      -> llm1/translation.py: translate + refine -> refined_output.json (English)
-English or translated -> LLM2 -> documentation + evidence
-```
+The meeting assistant supports both English and Hindi meeting recordings while keeping the downstream processing pipeline unchanged.
+
+```text
+Audio
+  +-> Deepgram Nova-3
+  |      |
+  |      +-> timestamped transcript
+  |
+  +-> PyAnnote Community-1
+         |
+         +-> diarization + alignment
+                |
+                +-> final_output.json
+                       (original transcript + language metadata)
+                |
+                +-> LLM1: translation.py
+                       |
+                       +-> transcript refinement
+                       +-> refined_output.json
+                              |
+                              +-> Transformation + evidence
+                                      |
+                                      +-> LLM2
+                                             |
+                                             +-> documentation
 
 * **Setup:** `pip install -r requirements.txt` (adds `sarvamai`) and set `SARVAM_API_KEY` in `.env` (server-side only; never sent to the browser). No other new variables (optional: `SARVAM_STT_MODEL`, `SARVAM_TIMEOUT_S`).
 * **Choosing the language:** the *Language* dropdown next to *Upload audio* is filled from `GET /api/languages` (English + the languages in `stt/languages.py`, taken from Sarvam's published Saaras list). Anything else is rejected with a clear error; nothing is hard-coded beyond that table.
