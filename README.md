@@ -182,37 +182,32 @@ The current STT implementation uses **Deepgram Nova-3**. External model calls ar
 
 ## Multilingual meetings
 
-The meeting assistant supports both English and Hindi meeting recordings while keeping the downstream processing pipeline unchanged.
+The meeting assistant supports both **English and Hindi** meeting recordings while keeping the downstream processing pipeline consistent across languages.
 
 ```text
 Audio
-  +-> Deepgram Nova-3
-  |      |
-  |      +-> timestamped transcript
   |
-  +-> PyAnnote Community-1
-         |
-         +-> diarization + alignment
-                |
-                +-> final_output.json
-                       (original transcript + language metadata)
-                |
-                +-> LLM1: translation.py
-                       |
-                       +-> transcript refinement
-                       +-> refined_output.json
-                              |
-                              +-> Transformation + evidence
-                                      |
-                                      +-> LLM2
-                                             |
-                                             +-> documentation
-
-* **Setup:** `pip install -r requirements.txt` (adds `sarvamai`) and set `SARVAM_API_KEY` in `.env` (server-side only; never sent to the browser). No other new variables (optional: `SARVAM_STT_MODEL`, `SARVAM_TIMEOUT_S`).
-* **Choosing the language:** the *Language* dropdown next to *Upload audio* is filled from `GET /api/languages` (English + the languages in `stt/languages.py`, taken from Sarvam's published Saaras list). Anything else is rejected with a clear error; nothing is hard-coded beyond that table.
-* **Routing** lives in one place, `stt/routing.py` (`resolve_route` / `build_stt`): English -> Deepgram Nova-3 (unchanged); supported Indian language -> Sarvam. **Auto Detect** sends the first ~25 s to Sarvam's language detection; English -> Deepgram, supported language -> Sarvam, anything else -> error. Auto Detect needs `SARVAM_API_KEY`.
-* **Sarvam STT** (`stt/sarvam.py`): Saaras via the official SDK Batch API (up to 2 h), `mode="transcribe"` = original-language text, chunk-level timestamps. Speakers still come from pyannote.
-* **Translation + refinement** (`llm1/translation.py`): one DeepSeek call per chunk, same client/config/chunking as LLM1. Returns ONE English transcript (no separate "translated raw"). Segment `index`, speaker and times are copied from the input; the model only supplies text. Deterministic guards warn on lost negation/hedging, changed numbers, or non-English output (warnings + per-segment `flags`; text is never silently rewritten). Unusable output raises `TranslationError` ("... The original transcript has been preserved."); `final_output.json` (original language) is never modified.
-* **Outputs:** English meetings are byte-for-byte as before. Non-English meetings add a `language` block to `final_output.json` and, in `refined_output.json`, per segment `index`, `source_language` and `flags` plus top-level `source_language`, `target_language`, `stt_provider`. `refined_text` is the final English text (what LLM2 reads); `original_text` is the original-language segment.
+  +--> Deepgram Nova-3
+  |        |
+  |        +--> timestamped transcript
+  |
+  +--> PyAnnote Community-1
+           |
+           +--> diarization + alignment
+                    |
+                    +--> final_output.json
+                    |      (original transcript + language metadata)
+                    |
+                    +--> LLM1: translation.py
+                           |
+                           +--> translation + transcript refinement
+                           |
+                           +--> refined_output.json
+                                  |
+                                  +--> Transformation + evidence
+                                          |
+                                          +--> LLM2
+                                                 |
+                                                 +--> documentation
 * **Evidence / UI:** segment ids are positions (same as today), so LLM2 citations resolve to the original-language segment (SOURCE vs FINAL in the evidence drawer). The Transcript tab shows only *Translated & Refined Transcript*; the original text is available in evidence and via the *Original-language audit* download.
 * **Tests:** `pytest tests/test_multilingual.py` (all Sarvam/DeepSeek/Deepgram calls are mocked).
