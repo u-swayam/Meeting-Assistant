@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 
 from app.evidence import build_evidence
 from app import pipeline_runner as pr
+from app import ask as ask_mod
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC = Path(__file__).resolve().parent / "static"
@@ -179,6 +180,25 @@ class H(BaseHTTPRequestHandler):
 
         self._json({"error": "not found"}, 404)
 
+    def _ask(self, mid: str):
+        d = meeting_dir(mid)
+        if not d:
+            return self._json({"error": "meeting not found"}, 404)
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            if not 0 < length <= 16384:
+                return self._json({"error": "Request body must be a small JSON object."}, 400)
+            body = json.loads(self.rfile.read(length).decode("utf-8"))
+            if not isinstance(body, dict):
+                raise ValueError
+        except (ValueError, UnicodeDecodeError):
+            return self._json({"error": "Request body must be JSON: {\"question\": \"...\"}"}, 400)
+        try:
+            refined, doc = ask_mod.load_meeting(d)
+            return self._json(ask_mod.ask(body.get("question"), refined, doc))
+        except ask_mod.AskError as e:
+            return self._json({"error": str(e)}, e.status)
+
     def do_POST(self):
         path = urlparse(self.path).path
         
@@ -196,6 +216,11 @@ class H(BaseHTTPRequestHandler):
             job = pr.new_job(mid)
             pr.run_pipeline(job, audio, OUTPUTS / mid)
             return self._json({"job_id": job["id"], "meeting_id": mid})
+
+        # ASK PULSE ENDPOINT (read-only over refined_output.json / documentation_output.json)
+        m = re.fullmatch(r"/api/meetings/([^/]+)/ask", path)
+        if m:
+            return self._ask(m.group(1))
 
         if path != "/api/upload":
             return self._json({"error": "not found"}, 404)

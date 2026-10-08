@@ -53,7 +53,7 @@ python3.12 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env               # Windows: copy .env.example .env
-pytest -q                          # should print: 151 passed
+pytest -q                          # should print: 181 passed
 ```
 
 Optional: for an NVIDIA GPU on Linux/Windows, install the CUDA build of PyTorch **before** `requirements.txt`
@@ -81,6 +81,18 @@ python -m app.server [--port 8000] [--outputs outputs]
 - Lists every `outputs/<name>/` folder and shows raw, refined and documentation views.
 - **Upload audio** runs the whole chain (STT -> diarization -> alignment -> LLM1 -> transformation -> LLM2) with live stage status. Uploaded files are stored in `uploads/`.
 - LLM2 `segment_ids` are resolved to the real transcript segments by `app/evidence.py`; nothing is invented.
+
+### Ask PULSE (questions about a meeting)
+
+Click **Ask PULSE** in the header to open a chat panel for the selected meeting, e.g. *"What did we decide about PostgreSQL?"*, *"What action items were assigned?"*, *"What is still unresolved?"*.
+
+- Answers are built **only** from that meeting's `refined_output.json` + `documentation_output.json` (read-only; nothing is written).
+- Every answer lists **evidence cards** (segment id, speaker, time, exact transcript text). Clicking a card opens and highlights that segment in the Transcript tab (the same navigation used by the Documentation view).
+- If the meeting does not contain the answer you get: *"I couldn't find enough evidence in this meeting to answer that."* (plus any related passages found).
+- It uses the same LLM client and keys as the pipeline (`LLM1_PROVIDER` / `DEEPSEEK_API_KEY` in `.env`). Answers can still be wrong: check the cited evidence.
+- API: `POST /api/meetings/<meeting_id>/ask` with `{"question": "..."}`. The response contains `answer`, `found`, `confidence`, and `evidence[]` (`segment_id`, `speaker`, `start`, `end`, `text`, `original_text`, `changed`). Errors: 400 empty/invalid question, 404 unknown meeting, 409 no refined transcript yet, 502/503 model unavailable.
+- How grounding works: keyword/phrase retrieval picks the relevant segments (plus decision/action segments for those question types) -> the model returns strict JSON with segment ids only -> the backend drops every id that is not in the meeting or was not sent to the model, and fills speaker/time/text itself from the meeting data -> an answer without a valid citation is withheld.
+- Tests: `pytest tests/test_ask.py -q` (offline, uses a scripted fake model).
 
 ### B. Command line, stage by stage
 
@@ -118,7 +130,7 @@ alignment/        merges STT words with diarization into speaker turns
 llm1/             transcript refinement (DeepSeek; Groq/Gemini/Cerebras fallbacks)
 transformation/   evidence-grounded structure (topics, decision/action candidates)
 llm2/             meeting documentation generation
-app/              web UI server (stdlib only) + static frontend
+app/              web UI server (stdlib only) + static frontend; app/ask.py = Ask PULSE service
 common/           audio validation (ffprobe/ffmpeg) and shared errors
 tests/            unit tests (test_*.py) and runnable stage scripts (run_*.py)
 outputs/          one folder per processed meeting (git-ignored except the demo meetings)

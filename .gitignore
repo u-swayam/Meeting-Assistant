@@ -8,6 +8,9 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
+# Runtime data
+# Your own pipeline runs (outputs/<name>/) and uploaded audio stay local.
+# The two bundled demo meetings are kept so the UI works out of the box.
 uploads/*
 !uploads/.gitkeep
 

@@ -73,18 +73,39 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 14p
   .seg{grid-template-columns:1fr;gap:2px}.spk{grid-template-columns:80px 1fr}.spk>:last-child{display:none}.hero img{opacity:.25;width:100%}#search{order:5;max-width:none;width:100%;margin:0}.kv{grid-template-columns:1fr}}
 .reveal{position:relative}.reveal>*{position:relative;z-index:1}
 .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:16px;color:var(--dim);font-size:11px}
+/* ---- Ask PULSE panel ---- */
+#ask{position:fixed;top:var(--hh,64px);right:0;bottom:0;width:min(460px,100vw);background:var(--p1);border-left:1px solid var(--line);box-shadow:-12px 0 40px #0006;transform:translateX(105%);transition:transform .22s;z-index:48;display:flex;flex-direction:column}#ask.open{transform:none}
+.nomotion #ask{transition:none}
+#ask .ah{padding:16px 20px 12px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}#ask .ah h2{margin:0;font-size:18px;letter-spacing:-.02em}
+#ask .ground{font-size:11px;color:var(--acc);margin-top:3px}#ask .ground:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);margin-right:6px}
+#askThread{flex:1;overflow:auto;padding:16px 20px}
+#ask .sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}#ask .chip{border:1px solid var(--line);background:var(--p2);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--ink)}#ask .chip:hover:not([disabled]){border-color:var(--acc);color:var(--acc)}
+#ask .askempty{color:var(--mut);padding:18px 0}#ask .askempty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+.aq{margin:14px 0 8px;font-weight:600;font-size:13.5px}.aq small{display:block;color:var(--dim);font-weight:400;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.aa{background:var(--p2);border:1px solid var(--line);border-left:3px solid var(--acc);padding:12px 14px;border-radius:6px}.aa.nf{border-left-color:var(--amb)}.aa.er{border-left-color:var(--red);color:var(--red)}
+.aa .at{white-space:pre-wrap;font-size:13.5px}.aa .am{margin-top:8px;font-size:11px;color:var(--dim)}
+.ah3{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:12px 0 6px}
+.askev{display:block;width:100%;text-align:left;border:1px solid var(--line);border-left:2px solid var(--acc);background:var(--p1);padding:8px 12px;margin:6px 0;border-radius:4px;transition:background .15s,border-color .15s}
+.askev:hover,.askev:focus-visible{background:var(--accbg);border-color:var(--acc);outline:none}
+.askev .h{font-size:11px;color:var(--acc);font-weight:600;margin-bottom:3px}.askev q{quotes:none;font-style:italic;font-size:12.5px;display:block;color:var(--ink)}.askev .og{font-size:11px;color:var(--dim);margin-top:4px}.askev .go{font-size:10px;color:var(--dim);margin-top:4px}
+.askload{color:var(--mut);padding:10px 0;font-size:13px;display:flex;gap:8px;align-items:center}.askload i{width:8px;height:8px;border-radius:50%;background:var(--acc);animation:askp 1s infinite ease-in-out}.nomotion .askload i{animation:none}@keyframes askp{50%{opacity:.25}}
+#askForm{border-top:1px solid var(--line);padding:12px 20px 14px}#askForm textarea{width:100%;resize:none;font:inherit;background:var(--p2);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 12px;min-height:58px}#askForm textarea:focus{outline:none;border-color:var(--acc)}
+#askForm .row{display:flex;align-items:center;gap:10px;margin-top:8px}#askForm .row small{color:var(--dim);font-size:11px;flex:1}
+@media(min-width:1100px){body.ask-open .wrap{padding-right:496px}}
 </style></head><body>
 <header class="top" id="top">
   <div class="brand" data-tab="overview" role="link" aria-label="PULSE, go to overview"><span class="rollhost" data-t="PULSE" data-c="1"></span><span class="brandsub">MEETING INTELLIGENCE</span></div>
   <select id="meetingSel" aria-label="Meeting"></select>
   <div id="search"><input id="q" type="search" placeholder="Search transcript, minutes, decisions, actions…" autocomplete="off" aria-label="Global search"><div id="results"></div></div>
   <label class="btn" style="display:flex;align-items:center;cursor:pointer">Upload audio<input id="file" type="file" accept="audio/*,.m4a,.wav,.mp3,.mp4" hidden></label>
+  <button class="btn pri" id="askBtn" aria-label="Ask PULSE about this meeting" aria-expanded="false" aria-controls="ask">Ask PULSE</button>
   <button class="btn" id="theme" aria-label="Toggle theme">Theme</button>
 </header>
 <div class="nav" id="nav"></div>
 <main class="wrap" id="main"></main>
 <div class="wrap"><div class="foot">PULSE · interaction patterns (TextRoll) adapted from Skiper UI — skiperui.com</div></div>
 <aside id="drawer" aria-label="Evidence"></aside>
+<aside id="ask" aria-label="Ask PULSE"></aside>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -344,7 +365,7 @@ async function loadList(sel){
 }
 async function openMeeting(id){
   try{B=await api('/api/meetings/'+encodeURIComponent(id))}catch(e){$('#main').innerHTML=`<div class="empty">Failed to load: ${esc(e.message)}</div>`;return}
-  closeDrawer();render();
+  closeDrawer();render();renderAsk();
 }
 async function upload(f){
   const r=await fetch('/api/upload',{method:'POST',headers:{'X-Filename':f.name,'X-Language':'en'},body:f});
@@ -388,6 +409,60 @@ $('#q').oninput=e=>{runSearch(e.target.value)};
 $('#theme').onclick=()=>{S.theme=S.theme==='dark'?'light':'dark';save();applySettings();render()};
 addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();$('#results').style.display='none'}});
 addEventListener('resize',setHH);
+
+/* ---- Ask PULSE (answers come from POST /api/meetings/<id>/ask; evidence reuses the existing data-open -> jumpTo navigation) ---- */
+const AK={open:false,busy:false,hist:{}};
+const ASK_SUGG=['What did we decide?','What are the action items?','What is still unresolved?','What did we discuss about the database?'];
+function askEvCard(e){
+  return `<button class="askev" data-open="${e.segment_id}" aria-label="Open segment ${e.segment_id} in transcript"><div class="h">Segment ${e.segment_id} · ${esc(spk(e.speaker))} · ${ts(e.start)}–${ts(e.end)}</div><q>${esc(e.text)}</q>${e.changed&&e.original_text&&e.original_text!==e.text?`<div class="og">Original STT: “${esc(e.original_text)}”</div>`:''}<div class="go">Open in transcript →</div></button>`;
+}
+function askAnswer(h){
+  if(h.err)return `<div class="aa er" role="alert">${esc(h.err)}</div>`;
+  const r=h.res,ev=r.evidence||[];
+  let o=`<div class="aa ${r.found?'':'nf'}"><div class="at">${esc(r.answer)}</div>`;
+  if(r.found)o+=`<div class="am"><span class="tag ${r.confidence==='high'?'a':''}">confidence: ${esc(r.confidence)}</span> check the evidence below — answers can be wrong</div>`;
+  o+=(r.warnings||[]).map(w=>`<div class="wb">${esc(w)}</div>`).join('');
+  o+='</div>';
+  if(ev.length)o+=`<div class="ah3">${r.found?'Evidence':'Related passages found'} (${ev.length})</div>`+ev.map(askEvCard).join('');
+  return o;
+}
+function askThreadHTML(){
+  const id=B&&B.id,hist=(id&&AK.hist[id])||[],busy=AK.busy&&AK.busyId===id;
+  if(!B)return '<div class="askempty"><b>No meeting loaded.</b>Select a meeting first.</div>';
+  if(!B.refined)return '<div class="askempty"><b>Not available for this meeting yet.</b>Ask PULSE needs the refined transcript (LLM1 output). Run the pipeline first.</div>';
+  let h='';
+  if(!hist.length&&!busy)h=`<div class="askempty"><b>Ask anything about this meeting.</b>Answers are built only from this meeting’s transcript and documentation, with the exact transcript segments cited.<div class="sugg">${ASK_SUGG.map(q=>`<button class="chip" data-ask-q="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>`;
+  h+=hist.map(x=>`<div class="aq"><small>You asked</small>${esc(x.q)}</div>${askAnswer(x)}`).join('');
+  if(busy)h+=`<div class="aq"><small>You asked</small>${esc(AK.pending||'')}</div><div class="askload" role="status"><i></i>Searching this meeting…</div>`;
+  return h;
+}
+function renderAsk(){
+  const el=$('#ask');el.classList.toggle('open',AK.open);document.body.classList.toggle('ask-open',AK.open);
+  $('#askBtn').setAttribute('aria-expanded',AK.open);
+  if(!el.firstChild)el.innerHTML=`<div class="ah"><div style="flex:1"><h2>Ask PULSE</h2><div class="ground">Answers grounded in this meeting · based on transcript &amp; documentation</div></div><button class="btn" data-ask-close aria-label="Close Ask PULSE">Close</button></div><div id="askThread" aria-live="polite"></div><form id="askForm"><textarea id="askIn" maxlength="1000" placeholder="e.g. What did we decide about PostgreSQL?" aria-label="Your question"></textarea><div class="row"><small>Enter to ask · Shift+Enter for a new line</small><button class="btn pri" id="askGo" type="submit">Ask</button></div></form>`;
+  const th=$('#askThread'),atEnd=th.scrollHeight-th.scrollTop-th.clientHeight<60;
+  th.innerHTML=askThreadHTML();
+  const ok=!!(B&&B.refined);$('#askIn').disabled=!ok||AK.busy;$('#askGo').disabled=!ok||AK.busy;
+  if(AK.busy||atEnd)th.scrollTop=th.scrollHeight;
+}
+async function askSubmit(q){
+  q=(q||'').trim();if(!q||AK.busy||!B||!B.refined)return;
+  const id=B.id;AK.busy=true;AK.busyId=id;AK.pending=q;renderAsk();
+  let entry;
+  try{entry={q,res:await api('/api/meetings/'+encodeURIComponent(id)+'/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q})})}}
+  catch(e){entry={q,err:'Ask PULSE could not answer: '+e.message}}
+  (AK.hist[id]??=[]).push(entry);AK.busy=false;AK.pending='';renderAsk();
+  if(B&&B.id===id&&!entry.err)$('#askIn').value='';
+  $('#askIn').focus();
+}
+$('#askBtn').onclick=()=>{AK.open=!AK.open;setHH();renderAsk();if(AK.open)setTimeout(()=>$('#askIn').focus(),230)};
+$('#ask').addEventListener('click',e=>{
+  if(e.target.closest('[data-ask-close]')){AK.open=false;renderAsk();return}
+  const c=e.target.closest('[data-ask-q]');if(c){askSubmit(c.dataset.askQ);return}
+  if(e.target.closest('[data-open]')&&innerWidth<1100){AK.open=false;renderAsk()}   // narrow screens: reveal the highlighted transcript segment
+});
+$('#ask').addEventListener('submit',e=>{e.preventDefault();askSubmit($('#askIn').value)});
+$('#ask').addEventListener('keydown',e=>{if(e.target.id==='askIn'&&e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();askSubmit(e.target.value)}});
 applySettings();
 $('.brand .rollhost').outerHTML=roll('PULSE');
 (async()=>{await loadList().catch(e=>{$('#main').innerHTML=`<div class="empty">Cannot reach the backend: ${esc(e.message)}</div>`});mountRolls();loadMotion()})();
