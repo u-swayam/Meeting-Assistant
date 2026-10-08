@@ -63,16 +63,13 @@ Optional: for an NVIDIA GPU on Linux/Windows, install the CUDA build of PyTorch 
 
 ## API keys
 
-Edit `.env` (it is git-ignored; never commit it). `.env.example` documents every setting.
+Edit `.env` (it is git-ignored; never commit it). `.env.example` documents every required setting.
 
 | Variable | Needed for | Where to get it |
 |---|---|---|
-| `DEEPGRAM_API_KEY` | STT (English) | console.deepgram.com |
-| `SARVAM_API_KEY` | STT for Indian languages / Auto Detect (optional for English-only use) | dashboard.sarvam.ai |
-| `HF_TOKEN` | diarization model download | Hugging Face **read** token. First accept the terms at huggingface.co/pyannote/speaker-diarization-community-1 |
-| `DEEPSEEK_API_KEY` | LLM1 (default provider) | platform.deepseek.com |
-| `GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY` | optional LLM1 fallback / alternative providers | respective consoles |
-
+| `DEEPGRAM_API_KEY` | STT | console.deepgram.com |
+| `HF_TOKEN` | PyAnnote diarization model download | Hugging Face read token. Accept the terms for `pyannote/speaker-diarization-community-1` |
+| `DEEPSEEK_API_KEY` | LLM1 transcript refinement and LLM2 documentation | platform.deepseek.com |
 ## Using it
 
 ### A. Web UI (recommended)
