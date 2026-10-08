@@ -12,9 +12,7 @@ AUDIO
   -> LLM2           meeting documentation                -> documentation_output.json / .txt
 ```
 
-**Multilingual (Indian languages):** pick the meeting language at upload. English still goes
-Deepgram -> LLM1 refinement exactly as before; a supported Indian language goes Sarvam STT -> diarization ->
-alignment -> *translation + refinement* (one DeepSeek step) -> LLM2. See [Multilingual meetings](#multilingual-meetings-sarvam).
+**Multilingual:** The meeting language is selected at upload. The system supports English and Hindi recordings, which pass through Deepgram Nova-3 -> diarization -> alignment -> LLM1 transcript refinement -> transformation and evidence processing -> LLM2 documentation. The raw transcript is preserved separately from the refined transcript, with the final documentation generated from the refined, evidence-linked representation. See [Multilingual meetings](#multilingual-meetings).
 
 ## Quick start (3 steps)
 
@@ -142,12 +140,16 @@ outputs/          one folder per processed meeting (git-ignored except the demo 
 setup.sh / setup_windows.ps1   reproducible environment setup
 ```
 
-## Contracts (LangGraph-ready, no framework coupling)
+## Pipeline Contracts
 
 - `STTProvider.transcribe(path)` → `STTResult` (`stt/base.py`, schemas in `stt/schemas.py`)
 - `PyannoteDiarizer.diarize(path)` → `DiarizationResult`
 - `align_transcript(STTResult, DiarizationResult)` → `SpeakerLabelledTranscript`
 - `refine_file`, `transform_file`, `document_file`: each operates on the JSON artifacts produced by the preceding stage
+
+The pipeline stages communicate through well-defined Pydantic data models and JSON artifacts. This keeps the individual components modular while allowing each stage to be tested and executed independently.
+
+The current STT implementation uses **Deepgram Nova-3**. The pipeline preserves the raw transcript before refinement, with subsequent stages producing separate refined and documented outputs.
 
 The pipeline uses frozen Pydantic models for its intermediate results, with `.model_dump()` and `.model_dump_json()` available for serialization. The stage boundaries are kept independent of any orchestration framework, making the existing pipeline suitable for integration with frameworks such as LangGraph without requiring changes to the underlying data contracts.
 
