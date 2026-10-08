@@ -1,0 +1,233 @@
+Hello everyone. Today our agenda has three things: database architecture, the method of authentication, and the responsibilities for the next sprint.
+
+In my opinion, PostgreSQL would be better for the primary database because our data has quite a lot of relational dependencies.
+
+MongoDB is flexible, but for reporting and complex joins, PostgreSQL would be more predictable.
+
+Have we benchmarked both options on production-like concurrency?
+
+The full benchmark hasn't been done yet. There was a preliminary test in staging, but it wasn't like the production workload.
+
+So can we agree today on keeping PostgreSQL as the source of truth?
+
+Yes, I agree, but performance testing should be completed before deployment.
+
+PostgreSQL is fine for me too.
+
+Okay, it's decided. PostgreSQL will remain our primary database and source of truth.
+
+Can we keep MongoDB for some separate analytics workload?
+
+Not right now. We will not use MongoDB as primary storage in this project.
+
+I will prepare the first draft of the schema. I will try to have it ready by Friday, 16 October.
+
+Don't consider Friday as a formal deadline yet. This is just a target until it is confirmed in the tracker.
+
+Okay, I will start working on the initial schema draft and migration scripts.
+
+It will not be safe to run the migration directly on production.
+
+Right. First, migration and rollback will be tested in the staging environment.
+
+I will handle the staging migration and rollback test.
+
+Its deadline is Monday, 19 October.
+
+Understood. I will give the staging migration and rollback report by 19 October.
+
+For authentication, there are both JWT and OAuth options. OAuth could be useful for external identity providers.
+
+JWT will be simpler for internal services.
+
+It will also be necessary to add role based access control with JWT.
+
+No final decision has been made on authentication yet. Let's keep it as an open item.
+
+I can prepare a comparison note of both options.
+
+Don't make it a formal task right now. Let the requirements be clear first.
+
+Staging API is currently using the /v2/projects/{project_id}/metrics endpoint.
+
+And include_internal=false is very important. It should not be true.
+
+I can add verification of include_internal=false to the deployment checklist.
+
+Yes, add it.
+
+Okay, I will do it.
+
+The definition of Wider MR rate also needs to be clarified. Currently, only external merge requests are counted.
+
+In January, there were 18,420 external MRs and in February, 19,105. These are raw counts, not rates.
+
+In January, there were 1,240 active developers and in February, 1,285.
+
+Can we keep the definition of wider MR rate as external-only?
+
+Yes.
+
+It's fine with me too.
+
+Okay. The Wider MR rate will remain external-only.
+
+The project-name filter and latency chart are potential improvements.
+
+Both ideas are good, but right now these are not confirmed tasks.
+
+In staging, latency was approximately 420 milliseconds p50, 780 milliseconds p95, and 1.9 seconds p99.
+
+Production SLO is currently 1.5 seconds at p95. These two values should not be mixed.
+
+Correct. Staging and production should appear separately in the documentation.
+
+The API client's current timeout is 30 seconds. There was a suggestion to make it 10 seconds.
+
+But we have not approved 10 seconds.
+
+First benchmark, then we will decide on the timeout. For now, the timeout will remain 30 seconds.
+
+I can prepare the benchmark, but I am not formally becoming the owner right now.
+
+If a formal task is needed, the owner will have to be explicitly assigned.
+
+For now, keep the benchmark's owner unspecified.
+
+The staging cluster has three worker nodes and one control-plane node.
+
+Node one has 8 vCPUs and 32 GB RAM. Node two and three have 16 vCPUs and 64 GB RAM.
+
+Is the hardware in production also the same?
+
+No, the production specifications have not been confirmed yet.
+
+So don't write the staging hardware as a production assumption.
+
+There is a proposal to use Kubernetes for deployment.
+
+Kubernetes will be fine, but we shouldn't call it a final decision yet.
+
+Right. The decision on Kubernetes will be made after the load and infrastructure review.
+
+I can prepare a prototype of the Kubernetes deployment configuration.
+
+Let's set the prototype deadline as Wednesday, 21 October.
+
+Okay, I will prepare the prototype by 21 October.
+
+Prometheus and Grafana are being used for monitoring. The versions are Prometheus 3.1 and Grafana 11.2.
+
+Does any other monitoring stack also need to be evaluated?
+
+For now, only evaluate Prometheus and Grafana.
+
+I will set up the metrics dashboard and basic alerts.
+
+For alerts, we want a warning when latency goes above 500 milliseconds.
+
+Okay. I will configure alerts with a 500 milliseconds threshold.
+
+Its deadline is Friday, 23 October.
+
+Understood, the dashboard and alerts will be ready by 23 October.
+
+In yesterday's controlled load test, the queue depth went up to a maximum of 37. This was not a production incident.
+
+Latency had increased, but the root cause is not known yet.
+
+Could cache be a possible cause?
+
+It could be, but this is just a hypothesis. I am not saying that the root cause is only the cache.
+
+Collecting cache metrics could be useful.
+
+This is just a suggestion, not a confirmed action.
+
+In performance testing, at least 500 concurrent requests should be simulated.
+
+500 is a starting point, not a final production capacity commitment.
+
+Okay, we'll consider this the test target.
+
+I will prepare the load test configuration.
+
+The deadline for the load test report is Saturday, 24 October.
+
+Okay, I will give the report by 24 October.
+
+Should we keep the backup retention at 30 days?
+
+In my opinion, 30 days will probably be sufficient.
+
+Keep this as a proposal for now. The final decision on backup retention will be made in the next meeting.
+
+Understood. I will prepare the proposal document for the backup policy.
+
+The deadline for that proposal is Thursday, 22 October.
+
+Okay, I will prepare the proposal by 22 October.
+
+The production deployment date has not been decided yet.
+
+So 30 October is only a possible date, not a confirmed deadline.
+
+Absolutely. This should not be recorded as a final deadline or action item.
+
+The security review is also still pending.
+
+If the security team gives critical findings, then the deployment may be pushed further.
+
+Without security approval, production deployment will not be considered final.
+
+I can review the security checklist this evening.
+
+Okay, share the findings.
+
+Yes, reviewing the security checklist this evening is my task.
+
+For documentation, API endpoints, environment variables, and deployment steps will also need to be written.
+
+I can prepare the API documentation.
+
+Let's set the deadline for the API documentation as Sunday, 25 October.
+
+Okay, I will complete the API documentation by 25 October.
+
+Can secrets be committed to the repository?
+
+No. Secrets will not be committed to the repository. They have to be kept in environment variables or a secret manager.
+
+Will production credentials be used in staging?
+
+No, staging and production credentials will remain separate.
+
+The release date 12 November was proposed, but the release manager did not approve it.
+
+Therefore, 12 November is not a confirmed deadline.
+
+The customer demo is penciled in for 28 October, 3 PM IST. The invite has not been sent yet.
+
+Therefore, the demo is also tentative.
+
+The tentative wording should be kept in the documentation.
+
+For audit logs, the schema also needs an audit_logs table, but the retention policy has not been defined yet.
+
+Do not consider the retention policy as today's decision. Keep it for future discussion.
+
+Recap: PostgreSQL will remain the primary database, the wider MR rate will remain external-only, and include_internal=false will be added to the verification checklist.
+
+Yes, these three things are confirmed.
+
+Authentication, Kubernetes, backup retention, and timeout change are still open.
+
+Both the release date and customer demo are tentative.
+
+In action items, write owner and deadline only where clearly stated. Keep the rest unspecified.
+
+Should we schedule the next meeting on 26 October?
+
+26 October is a suggestion, the date has not been confirmed yet.
+
+Okay, let's end today's meeting here. Thank you.

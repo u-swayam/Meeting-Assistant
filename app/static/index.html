@@ -97,6 +97,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 14p
   <div class="brand" data-tab="overview" role="link" aria-label="PULSE, go to overview"><span class="rollhost" data-t="PULSE" data-c="1"></span><span class="brandsub">MEETING INTELLIGENCE</span></div>
   <select id="meetingSel" aria-label="Meeting"></select>
   <div id="search"><input id="q" type="search" placeholder="Search transcript, minutes, decisions, actions…" autocomplete="off" aria-label="Global search"><div id="results"></div></div>
+  <select id="langSel" aria-label="Meeting language" title="Language spoken in the recording"><option value="en">English</option></select>
   <label class="btn" style="display:flex;align-items:center;cursor:pointer">Upload audio<input id="file" type="file" accept="audio/*,.m4a,.wav,.mp3,.mp4" hidden></label>
   <button class="btn pri" id="askBtn" aria-label="Ask PULSE about this meeting" aria-expanded="false" aria-controls="ask">Ask PULSE</button>
   <button class="btn" id="theme" aria-label="Toggle theme">Theme</button>
@@ -119,6 +120,7 @@ const KIND={minutes:'minute',decisions:'decision',action_items:'action'};
 const NAV=[['overview','Overview'],['transcript','Transcript'],['analytics','Analytics'],['documentation','Documentation'],['settings','Settings']];
 const DOCT=[['summary','Summary'],['minutes','Minutes'],['decisions','Decisions'],['actions','Actions'],['warnings','Warnings']];
 const TV=[['raw','Raw'],['refined','Refined']];
+const isTr=()=>!!B?.translation;const langName=()=>B?.translation?.source_language_name||B?.language?.name||'';
 let B=null,job=null,query='',tab='overview',tview='refined',docTab='summary',spkF='',menuOpen=false;
 const S=Object.assign({theme:'dark',reduce:false,onlyChanged:false},JSON.parse(localStorage.getItem('pulse')||'{}'));
 const save=()=>localStorage.setItem('pulse',JSON.stringify(S));
@@ -162,6 +164,13 @@ async function loadMotion(){
   }catch(e){console.warn('Framer Motion unavailable; using CSS TextRoll fallback:',e.message);document.documentElement.dataset.roll='css'}
 }
 
+function meta(){/* trust aggregate metadata only when meaningful; 0 / [] are valid JSON but not real values -> derive from segments */
+  const r=B?.refined,raw=B?.raw,segs=r?.segments||[],turns=raw?.turns||[];
+  const rows=segs.length?segs:turns,names=[...new Set(rows.map(x=>x.speaker).filter(Boolean))];
+  const pos=v=>typeof v==='number'&&v>0?v:null,cnt=a=>Array.isArray(a)&&a.length?a.length:(typeof a==='number'&&a>0?a:null);
+  const end=rows.reduce((m,x)=>Math.max(m,+x.end||0),0);
+  return {duration:pos(r?.duration)??pos(raw?.duration)??(end>0?end:null),speakers:cnt(r?.speakers)??cnt(raw?.speakers)??(names.length||null)};
+}
 function derive(){
   const r=B.refined,E=B.evidence,segs=r?.segments||[];const total=segs.length;
   const cited=new Set((E?.items||[]).flatMap(i=>i.segment_ids));
@@ -219,7 +228,7 @@ function stagesHTML(j){
 
 function vOverview(){
   const r=B.refined,d=B.documentation,raw=B.raw,D=derive(),E=B.evidence;
-  const dd=r?.duration??raw?.duration,sp=r?.speakers?.length??raw?.speakers;
+  const M=meta(),dd=M.duration,sp=M.speakers;
   let h=`<section class="hero"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=70" alt="" onerror="this.remove()"><div>
     <div class="kick">Meeting · ${esc(B.id)}</div><div class="mega">${roll('PULSE','',true)}</div>
     <p class="lead">Transcribe, refine technical language, document — and trace every decision and action back to the exact words said.</p>
@@ -247,17 +256,21 @@ function subnav(items,cur,attr){return '<div class="sub">'+items.map(([k,l])=>`<
 
 function vTranscript(){
   const D=derive(),raw=B.raw?.turns,ref=B.refined?.segments;
-  let h=`<div class="sh" style="margin-top:6px"><h3>Transcript</h3><span>${tview==='raw'?'raw STT + diarization, untouched':'LLM1 refined — changes highlighted'}</span></div>`+subnav(TV,tview,'data-tv');
+  const L=langName()||'Original';
+  // Translated meetings get the SAME Raw / Refined tabs as English ones: Raw = native-language STT text (final_output.json),
+  // Refined = translated + refined English (refined_output.json). English meetings are unchanged.
+  const tabs=isTr()?[['raw','Raw ('+L+')'],['refined','Refined (English)']]:TV;
+  if(tview!=='raw'&&tview!=='refined')tview='refined';
+  let h=`<div class="sh" style="margin-top:6px"><h3>Transcript</h3><span>${tview==='raw'?(isTr()?`raw ${esc(L)} STT + diarization, untouched`:'raw STT + diarization, untouched'):(isTr()?`${esc(L)} \u2192 English, translated &amp; refined`:'LLM1 refined \u2014 changes highlighted')}</span></div>`+subnav(tabs,tview,'data-tv');
   h += `<div class="tools">` +
-       dlBtn('raw', 'Download Raw (.txt)', !!(B?.raw_text || B?.raw)) +
-       dlBtn('refined', 'Download Refined (.txt)', !!ref) +
-       dlBtn('refined_json', 'Refined Record (.json)', !!ref) +
+       (isTr()?dlBtn('raw','Download Raw ('+L+') (.txt)',!!(B?.raw_text||B?.raw))+dlBtn('refined','Download Refined English (.txt)',!!ref)+dlBtn('refined_json','Record with original text (.json)',!!ref)
+             :dlBtn('raw','Download Raw (.txt)',!!(B?.raw_text||B?.raw))+dlBtn('refined','Download Refined (.txt)',!!ref)+dlBtn('refined_json','Refined Record (.json)',!!ref)) +
        `</div>`;
-  h+=`<div class="tools"><select id="spkF" aria-label="Filter speaker"><option value="">All speakers</option>${D.order.map(s=>`<option value="${esc(s)}" ${spkF===s?'selected':''}>${esc(spk(s))}</option>`).join('')}</select>${tview==='refined'?`<label><input type="checkbox" id="onlyCh" ${S.onlyChanged?'checked':''}> only changed segments</label><span>Click an amber segment to inspect the change.</span>`:'<span>Raw text is preserved exactly as the pipeline produced it.</span>'}</div>`;
+  h+=`<div class="tools"><select id="spkF" aria-label="Filter speaker"><option value="">All speakers</option>${D.order.map(s=>`<option value="${esc(s)}" ${spkF===s?'selected':''}>${esc(spk(s))}</option>`).join('')}</select>${tview==='refined'&&!isTr()?`<label><input type="checkbox" id="onlyCh" ${S.onlyChanged?'checked':''}> only changed segments</label><span>Click an amber segment to inspect the change.</span>`:`<span>${tview==='raw'?'Raw text is preserved exactly as the pipeline produced it.':'English text; open a segment\u2019s evidence to see the original '+esc(L)+' text.'}</span>`}</div>`;
   if(tview==='raw'){if(!raw)return h+'<div class="panel empty">No final_output.json</div>';
-    return h+'<div class="panel">'+raw.map(t=>spkF&&t.speaker!==spkF?'':`<div class="seg" id="raw-${t.index}"><div class="m"><b>${esc(spk(t.speaker))}</b>${ts(t.start)}–${ts(t.end)}<br>#${t.index} · conf ${t.confidence}</div><div class="t">${hlq(t.text)}${t.has_overlap?' <span class="tag w">overlap</span>':''}${(t.flags||[]).map(f=>` <span class="tag w">${esc(f)}</span>`).join('')}</div></div>`).join('')+'</div>'}
+    return h+'<div class="panel">'+raw.map((t,i)=>spkF&&t.speaker!==spkF?'':`<div class="seg" id="raw-${t.index??i}"><div class="m"><b>${esc(spk(t.speaker))}</b>${ts(t.start)}–${ts(t.end)}<br>#${t.index??i}${t.confidence!=null?` · conf ${t.confidence}`:''}</div><div class="t">${hlq(t.text)}${t.has_overlap?' <span class="tag w">overlap</span>':''}${(t.flags||[]).map(f=>` <span class="tag w">${esc(f)}</span>`).join('')}</div></div>`).join('')+'</div>'}
   if(!ref)return h+'<div class="panel empty">No refined_output.json</div>';
-  return h+'<div class="panel">'+ref.map((s,i)=>(spkF&&s.speaker!==spkF)||(S.onlyChanged&&!s.changed)?'':`<div class="seg ${s.changed?'ch':''}" id="ref-${i}" ${s.changed?`data-seg="${i}"`:''}><div class="m"><b>${esc(spk(s.speaker))}</b>${ts(s.start)}–${ts(s.end)}<br>#${i}</div><div class="t">${refinedText(s)}<div id="dif-${i}" hidden>${s.changed?diffHTML(s):''}</div></div></div>`).join('')+'</div>';
+  return h+'<div class="panel">'+ref.map((s,i)=>(spkF&&s.speaker!==spkF)||(S.onlyChanged&&!isTr()&&!s.changed)?'':`<div class="seg ${s.changed?'ch':''}" id="ref-${i}" ${s.changed?`data-seg="${i}"`:''}><div class="m"><b>${esc(spk(s.speaker))}</b>${ts(s.start)}–${ts(s.end)}<br>#${i}</div><div class="t">${refinedText(s)}<div id="dif-${i}" hidden>${s.changed?diffHTML(s):''}</div></div></div>`).join('')+'</div>';
 }
 
 function vAnalytics(){
@@ -307,8 +320,8 @@ function vSettings(){
    ${kv('Refined view',`<span class="seg2"><button data-set="only:0" class="${!S.onlyChanged?'on':''}">All segments</button><button data-set="only:1" class="${S.onlyChanged?'on':''}">Changed only</button></span>`)}
    ${kv('Animation engine',esc(document.documentElement.dataset.roll==='framer'?'Framer Motion':'CSS fallback (Framer Motion CDN not reachable)'))}</dl></div>
   <div class="panel pad"><b>Pipeline for this meeting</b><dl class="kv" style="margin-top:14px">
-   ${kv('Meeting',esc(B.id))}${kv('Language','English (fixed at upload)')}
-   ${kv('Raw / aligned',raw?`${raw.turns.length} turns · ${raw.speakers} speakers`:'<span class="ns">missing</span>')}
+   ${kv('Meeting',esc(B.id))}${kv('Language',isTr()?`${esc(langName())} → English <span style="color:var(--mut)">· STT: ${esc(B.translation.stt_provider||'sarvam')} · Translation: English · Refinement: ${esc(B.translation.refinement)}</span>`:'English (fixed at upload)')}
+   ${kv('Raw / aligned',raw?`${raw.turns.length} turns · ${meta().speakers??'n/a'} speakers`:'<span class="ns">missing</span>')}
    ${kv('LLM1 refinement',r?`${esc(r.provider)} / ${esc(r.model)} · source ${esc(r.source_file)}`:'<span class="ns">missing</span>')}
    ${kv('LLM2 documentation',d?`${esc(d.provider)} / ${esc(d.model)} · source ${esc(d.source_file)}`:'<span class="ns">missing</span>')}
    ${kv('Raw ↔ refined',B.raw_aligned_with_refined?'segment-for-segment match verified':'<span class="ns">not verified</span>')}</dl>
@@ -326,7 +339,7 @@ function openEvidence(key){
     if(c.reconstructed_text)h+=`<p style="margin:8px 0 0"><i>Reconstructed (${esc(c.reconstruction_source||'')}):</i> ${esc(c.reconstructed_text)}</p>`;
     h+=`<div style="margin-top:8px"><b>Why?</b></div>`+G.map(([k,l])=>{const L=c.evidence[k]||[];return L.length?`<div>${l}: ${L.map(s=>`<a href="#" data-open="${s.id}">#${s.id}</a> <q>${esc(s.refined_text)}</q>`).join(' ')}</div>`:(k==='opposition'||k==='explicit_agreement'?`<div style="color:var(--mut)">${l}: none found</div>`:'')}).join('')+(c.notes||[]).map(n=>`<div style="color:var(--mut)">${esc(n)}</div>`).join('')+`</div>`;}
   h+=`<b>Transcript evidence</b>`+(it.segments.length?'':'<div class="wb">No valid segment IDs — this item cannot be traced.</div>');
-  h+=it.segments.map(s=>`<div class="ev"><div class="h">#${s.id} · ${esc(spk(s.speaker))} · ${ts(s.start)}–${ts(s.end)} · <a href="#" data-open="${s.id}">Open in transcript</a></div><q>${esc(s.refined_text)}</q>${s.changed?`<div class="diff">Refined by LLM1. Original STT: “${esc(s.original_text)}”${s.changes.map(c=>`<div class="why">${esc(c.original)} → ${esc(c.refined)} · ${esc(c.reason)} · conf ${c.confidence}</div>`).join('')}</div>`:''}</div>`).join('');
+  h+=it.segments.map(s=>`<div class="ev"><div class="h">#${s.id} · ${esc(spk(s.speaker))} · ${ts(s.start)}–${ts(s.end)} · <a href="#" data-open="${s.id}">Open in transcript</a></div>${s.translated?`<div class="diff"><div style="color:var(--mut);font-size:11px">SOURCE · ${esc(langName()||s.source_language)}</div><q lang="${esc(s.source_language)}">${esc(s.original_text)}</q></div><div style="color:var(--mut);font-size:11px;margin-top:6px">FINAL · English</div>`:''}<q>${esc(s.refined_text)}</q>${s.changed?`<div class="diff">Refined by LLM1. Original STT: “${esc(s.original_text)}”${s.changes.map(c=>`<div class="why">${esc(c.original)} → ${esc(c.refined)} · ${esc(c.reason)} · conf ${c.confidence}</div>`).join('')}</div>`:''}</div>`).join('');
   if(it.segments.length)h+=`<button class="btn pri" data-open="${it.segments[0].id}">Open first segment in transcript</button>`;
   $('#drawer').innerHTML=h;$('#drawer').classList.add('open');
 }
@@ -342,8 +355,8 @@ function runSearch(q){
   query=q.trim();const R=$('#results');if(query.length<2||!B){R.style.display='none';return}
   const ql=query.toLowerCase(),hits=[];
   const add=(src,label,text,act)=>{const i=text.toLowerCase().indexOf(ql);if(i<0)return;const a=Math.max(0,i-40);hits.push({src,label,snip:(a?'…':'')+text.slice(a,i+query.length+60),act})};
-  (B.raw?.turns||[]).forEach(t=>add('raw','Raw #'+t.index+' · '+spk(t.speaker),t.text,{raw:t.index}));
-  (B.refined?.segments||[]).forEach((s,i)=>add('refined','Refined #'+i+' · '+spk(s.speaker),s.refined_text,{ref:i}));
+  if(!isTr())(B.raw?.turns||[]).forEach(t=>add('raw','Raw #'+t.index+' · '+spk(t.speaker),t.text,{raw:t.index}));
+  (B.refined?.segments||[]).forEach((s,i)=>{add('refined',(isTr()?'Transcript #':'Refined #')+i+' · '+spk(s.speaker),s.refined_text,{ref:i});if(isTr())add('refined','Source #'+i+' · '+spk(s.speaker),s.original_text,{ref:i})});
   (B.evidence?.items||[]).forEach(it=>{const k=KIND[it.kind];add(k,k+' '+(it.index+1),it.title+(it.body?' — '+it.body:''),{ev:it.key})});
   R.innerHTML=hits.slice(0,40).map((h,i)=>`<div class="r" data-hit="${i}"><span class="tag a">${h.src}</span><b>${esc(h.label)}</b><div style="color:var(--mut);font-size:12px">${hlq(h.snip)}</div></div>`).join('')||'<div class="r">No results</div>';
   R.style.display='block';R._hits=hits.slice(0,40);
@@ -365,10 +378,17 @@ async function loadList(sel){
 }
 async function openMeeting(id){
   try{B=await api('/api/meetings/'+encodeURIComponent(id))}catch(e){$('#main').innerHTML=`<div class="empty">Failed to load: ${esc(e.message)}</div>`;return}
+  spkF='';  // a speaker filter from another meeting would hide every segment here
+  {const o=[...$('#meetingSel').options].find(x=>x.value===id);   // keep the dropdown label truthful (list may predate the run)
+   if(o)o.textContent=id+(B.documentation?'':B.refined?' (no documentation)':' (raw only)')}
   closeDrawer();render();renderAsk();
 }
+async function loadLanguages(){
+  try{const L=await api('/api/languages');$('#langSel').innerHTML=L.map(l=>`<option value="${esc(l.code)}" ${l.code==='en'?'selected':''}>${esc(l.name)}</option>`).join('')}catch(e){}
+}
+loadLanguages();
 async function upload(f){
-  const r=await fetch('/api/upload',{method:'POST',headers:{'X-Filename':f.name,'X-Language':'en'},body:f});
+  const r=await fetch('/api/upload',{method:'POST',headers:{'X-Filename':f.name,'X-Language':($('#langSel')?.value||'en')},body:f});
   const j=await r.json();
   if(!r.ok){ $('#main').innerHTML = `<div class="panel pad empty" style="color:var(--red)">Upload Failed: ${esc(j.error||'Unknown error')}</div>`; return; }
   B=null;tab='overview';job={id:j.job_id,meeting_id:j.meeting_id,stages:STAGES.map(n=>({name:n,status:'pending'}))};showJob();poll();
@@ -414,7 +434,7 @@ addEventListener('resize',setHH);
 const AK={open:false,busy:false,hist:{}};
 const ASK_SUGG=['What did we decide?','What are the action items?','What is still unresolved?','What did we discuss about the database?'];
 function askEvCard(e){
-  return `<button class="askev" data-open="${e.segment_id}" aria-label="Open segment ${e.segment_id} in transcript"><div class="h">Segment ${e.segment_id} · ${esc(spk(e.speaker))} · ${ts(e.start)}–${ts(e.end)}</div><q>${esc(e.text)}</q>${e.changed&&e.original_text&&e.original_text!==e.text?`<div class="og">Original STT: “${esc(e.original_text)}”</div>`:''}<div class="go">Open in transcript →</div></button>`;
+  return `<button class="askev" data-open="${e.segment_id}" aria-label="Open segment ${e.segment_id} in transcript"><div class="h">Segment ${e.segment_id} · ${esc(spk(e.speaker))} · ${ts(e.start)}–${ts(e.end)}</div><q>${esc(e.text)}</q>${e.source_language?`<div class="og">Source (${esc(e.source_language)}): “${esc(e.original_text)}”</div>`:''}${!e.source_language&&e.changed&&e.original_text&&e.original_text!==e.text?`<div class="og">Original STT: “${esc(e.original_text)}”</div>`:''}<div class="go">Open in transcript →</div></button>`;
 }
 function askAnswer(h){
   if(h.err)return `<div class="aa er" role="alert">${esc(h.err)}</div>`;

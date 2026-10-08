@@ -11,9 +11,13 @@ _WARN = re.compile(r"^(minutes|decisions|action_items)\[(\d+)\]:\s*(.*)$", re.S)
 
 def _seg(segs, i):
     s = segs[i]
-    return {"id": i, "speaker": s["speaker"], "start": s["start"], "end": s["end"],
-            "original_text": s["original_text"], "refined_text": s["refined_text"],
-            "changed": s["changed"], "changes": s.get("changes", [])}
+    d = {"id": i, "speaker": s["speaker"], "start": s["start"], "end": s["end"],
+         "original_text": s["original_text"], "refined_text": s["refined_text"],
+         "changed": s["changed"], "changes": s.get("changes", [])}
+    if s.get("source_language"):          # non-English meeting: original_text IS the source-language segment `id`
+        d["source_language"] = s["source_language"]
+        d["translated"] = True
+    return d
 
 
 def build_evidence(refined: dict, doc: dict, transformation: dict | None = None) -> dict:

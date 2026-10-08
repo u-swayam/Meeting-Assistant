@@ -9,6 +9,9 @@ python-dotenv>=1.0
 numpy
 soundfile>=0.12
 
+# --- Indian-language STT (Sarvam) ---
+sarvamai>=0.1.20
+
 # --- LLM1 default provider (DeepSeek uses the OpenAI-compatible SDK) ---
 openai>=1.40
 

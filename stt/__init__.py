@@ -11,4 +11,7 @@ def get_stt_provider(name: str | None = None, **kwargs) -> STTProvider:
     if name == "groq":
         from .whisper_cloud import GroqWhisperSTT
         return GroqWhisperSTT(**kwargs)
+    if name == "sarvam":
+        from .sarvam import SarvamSTT
+        return SarvamSTT(**kwargs)
     raise STTConfigError(f"Unknown STT provider: {name}")

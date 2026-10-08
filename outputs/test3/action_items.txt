@@ -1,0 +1,37 @@
+ACTION ITEMS
+
+1. Prepare the first draft of the schema and migration scripts.
+   Owner: not stated
+   Deadline: not stated
+
+2. Handle the staging migration and rollback test and give the report.
+   Owner: not stated
+   Deadline: 19 October
+
+3. Add verification of include_internal=false to the deployment checklist.
+   Owner: not stated
+   Deadline: not stated
+
+4. Prepare a prototype of the Kubernetes deployment configuration.
+   Owner: not stated
+   Deadline: 21 October
+
+5. Set up the metrics dashboard and configure alerts with a 500 milliseconds threshold.
+   Owner: not stated
+   Deadline: 23 October
+
+6. Prepare the load test configuration and give the load test report.
+   Owner: not stated
+   Deadline: 24 October
+
+7. Prepare the proposal document for the backup policy.
+   Owner: not stated
+   Deadline: 22 October
+
+8. Review the security checklist this evening and share the findings.
+   Owner: not stated
+   Deadline: not stated
+
+9. Prepare the API documentation.
+   Owner: not stated
+   Deadline: 25 October

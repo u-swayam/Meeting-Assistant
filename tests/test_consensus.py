@@ -300,3 +300,46 @@ def test_C_agreed_that_is_the_decision_other_items_open_still_confirms_named_dec
     S = segs(("A", "We should use PostgreSQL for the ledger."), ("B", "Agreed. That is the decision. Other items remain open."))
     d, w = run(S, [0, 1], text="Use PostgreSQL for the ledger.")
     assert d.consensus.classification == "confirmed" and d.consensus.evidence.explicit_agreement == [1] and d.consensus.level == "high"
+
+# ---------------------------------------------------------------- regression: a bare "No." answering a question is not opposition
+SECRETS = segs(("Speaker 04", "Can secrets be committed to the repository?"), ("Speaker 01", "No."),
+               ("Speaker 01", "Secrets must not be committed to the repository."))
+
+
+def test_no_answer_to_question_supports_negative_decision():
+    from transformation.consensus import apply_answer_polarity
+    topic = "Secrets must not be committed to the repository."
+    cu = apply_answer_polarity({i: cues(s["text"], topic) for i, s in enumerate(SECRETS)}, SECRETS, topic)
+    assert not cu[1]["oppose"] and cu[1]["agree"]
+    d, _ = run(SECRETS, [0, 1, 2], text=topic)
+    assert d.consensus.classification != "contested"
+    assert d.consensus.evidence.opposition == []
+
+
+def test_no_still_opposes_a_positive_decision_and_real_opposition_is_kept():
+    d, _ = run(SECRETS, [0, 1], text="Secrets can be committed to the repository.")
+    assert d.consensus.classification == "contested"                            # polarity does not weaken contested detection
+    S = segs(("A", "Secrets must not be committed to the repository."), ("B", "I disagree."))
+    assert run(S, [0, 1], text="Secrets must not be committed to the repository.")[0].consensus.classification == "contested"
+
+
+# ---------------------------------------------------------------- regression: deferred / proposed / tentative is never "confirmed"
+@pytest.mark.parametrize("t", ["The decision will be made later.", "We will decide this in the next meeting.", "This is only a proposal.",
+                               "This is not a final decision.", "The decision has not been made yet.",
+                               "The meeting is tentatively on 26 October."])
+def test_deferred_or_tentative_wording_is_not_finalization(t):
+    c = cues(t)
+    assert not c["final"] and not c["agree"] and c["unresolved"]
+
+
+@pytest.mark.parametrize("t", ["We will use PostgreSQL.", "The decision is final.", "We've decided to use Kubernetes."])
+def test_genuine_finalization_still_detected(t):
+    assert cues(t)["final"]
+
+
+@pytest.mark.parametrize("topic,stmt", [("Adopt Kubernetes for deployment.", "We will decide this in the next meeting."),
+                                        ("Set the backup retention period.", "The decision has not been made yet."),
+                                        ("Hold the meeting on 26 October.", "The meeting is tentatively on 26 October.")])
+def test_deferred_decisions_are_not_classified_confirmed(topic, stmt):
+    S = segs(("A", topic), ("B", stmt))
+    assert run(S, [0, 1], status="proposed", text=topic)[0].consensus.classification in ("unresolved", "proposed", "contested")

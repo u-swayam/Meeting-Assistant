@@ -9,8 +9,11 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from app.evidence import build_evidence
+from app.downloads import ArtifactError, availability, read_artifact
+from common.errors import UnsupportedLanguageError
 from app import pipeline_runner as pr
 from app import ask as ask_mod
+from stt.languages import supported_languages
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC = Path(__file__).resolve().parent / "static"
@@ -56,7 +59,12 @@ def bundle(mid: str):
     # Grab the most recent job for this meeting to show live status/errors
     job = next((j for j in reversed(list(pr.JOBS.values())) if j["meeting_id"] == mid), None)
     
-    return {"id": mid, "raw": raw, "refined": refined, "documentation": doc, "evidence": ev,
+    lang = (raw or {}).get("language")           # present only for non-English meetings
+    translation = ({"source_language": refined.get("source_language"), "source_language_name": refined.get("source_language_name"),
+                    "target_language": refined.get("target_language", "en"), "stt_provider": refined.get("stt_provider"),
+                    "refinement": f"{refined.get('provider')}/{refined.get('model')}"}
+                   if refined and refined.get("source_language") else None)
+    return {"id": mid, "language": lang, "translation": translation, "downloads": availability(d), "raw": raw, "refined": refined, "documentation": doc, "evidence": ev,
             "transformation": trans,
             "raw_text": (d / "raw_transcript.txt").read_text(encoding="utf-8") if (d / "raw_transcript.txt").is_file() else None,
             "raw_aligned_with_refined": aligned,
@@ -86,6 +94,8 @@ class H(BaseHTTPRequestHandler):
             return self._send(200, (STATIC / "index.html").read_bytes(), "text/html; charset=utf-8")
         if path == "/api/meetings":
             return self._json(list_meetings())
+        if path == "/api/languages":
+            return self._json(supported_languages())
         
         m = re.fullmatch(r"/api/meetings/([^/]+)", path)
         if m:
@@ -105,78 +115,14 @@ class H(BaseHTTPRequestHandler):
             if not d:
                 return self._json({"error": "meeting not found"}, 404)
 
-            content = None
-            ctype = "text/plain; charset=utf-8"
-            filename = f"{mid}_{artifact}.txt"
-
-            if artifact == "raw":
-                f = d / "raw_transcript.txt"
-                if f.is_file(): 
-                    content = f.read_text(encoding="utf-8")
-                else:
-                    raw_json = _load(d / "final_output.json")
-                    if raw_json and "raw_transcript" in raw_json:
-                        content = raw_json["raw_transcript"]
-            elif artifact == "refined":
-                f = d / "refined_transcript.txt"
-                if f.is_file(): content = f.read_text(encoding="utf-8")
-                else:
-                    ref = _load(d / "refined_output.json")
-                    if ref and "segments" in ref:
-                        content = "\n".join(f"{s.get('speaker', 'Unknown')}: {s.get('refined_text', '')}" for s in ref["segments"])
-            elif artifact == "minutes":
-                f = d / "documentation_output.txt"
-                if f.is_file(): content = f.read_text(encoding="utf-8")
-                else:
-                    doc = _load(d / "documentation_output.json")
-                    if doc and "minutes" in doc:
-                        content = "\n\n".join(f"Minute {m.get('index', i)+1}: {m.get('title', '')}\n{m.get('body', '')}" for i, m in enumerate(doc["minutes"]))
-            elif artifact == "summary":
-                doc = _load(d / "documentation_output.json")
-                if doc and "summary" in doc: content = doc["summary"]
-            elif artifact == "decisions":
-                doc = _load(d / "documentation_output.json")
-                if doc and "decisions" in doc:
-                    lines = []
-                    for dec in doc["decisions"]:
-                        lines.append(f"DECISION: {dec.get('title', '')}")
-                        if "description" in dec and dec["description"]:
-                            lines.append(f"DETAILS: {dec['description']}")
-                    content = "\n\n".join(lines)
-            elif artifact == "actions":
-                doc = _load(d / "documentation_output.json")
-                if doc and "action_items" in doc:
-                    lines = []
-                    for a in doc["action_items"]:
-                        owner = a.get('owner') or 'Not stated'
-                        deadline = a.get('deadline') or 'Not stated'
-                        cond = f" (Condition: {a['condition']})" if a.get('condition') else ""
-                        lines.append(f"TASK: {a.get('title')}{cond}\nOWNER: {owner}\nDEADLINE: {deadline}")
-                    content = "\n\n".join(lines)
-            elif artifact == "json":
-                f = d / "documentation_output.json"
-                if f.is_file():
-                    content = f.read_text(encoding="utf-8")
-                    ctype = "application/json"
-                    filename = f"{mid}_documentation.json"
-            elif artifact == "refined_json":
-                f = d / "refined_output.json"
-                if f.is_file():
-                    content = f.read_text(encoding="utf-8")
-                    ctype = "application/json"
-                    filename = f"{mid}_refined.json"
-            elif artifact == "transformation":
-                f = d / "transformation_output.json"
-                if f.is_file():
-                    content = f.read_text(encoding="utf-8")
-                    ctype = "application/json"
-                    filename = f"{mid}_transformation.json"
-            else:
-                return self._json({"error": "invalid artifact"}, 400)
-
-            if content is not None:
-                return self._send(200, content.encode("utf-8"), ctype, {"Content-Disposition": f'attachment; filename="{filename}"'})
-            return self._json({"error": f"{artifact} not available"}, 404)
+            # legacy UI keys -> downloads.ARTIFACTS keys
+            key = {"raw": "raw_transcript", "refined": "refined_transcript", "actions": "action_items",
+                   "json": "documentation_json", "transformation": "transformation_json"}.get(artifact, artifact)
+            try:
+                body, ctype, fname = read_artifact(d, key)
+            except ArtifactError as e:
+                return self._json({"error": e.message}, e.status)
+            return self._send(200, body, ctype, {"Content-Disposition": f'attachment; filename="{mid}_{fname}"'})
 
         self._json({"error": "not found"}, 404)
 
@@ -213,8 +159,9 @@ class H(BaseHTTPRequestHandler):
             if not audio:
                 return self._json({"error": "Original audio file not found. Cannot retry."}, 404)
             
+            meta = _load(OUTPUTS / mid / "pipeline_meta.json") or {}
             job = pr.new_job(mid)
-            pr.run_pipeline(job, audio, OUTPUTS / mid)
+            pr.run_pipeline(job, audio, OUTPUTS / mid, language=meta.get("language_choice", "en"))
             return self._json({"job_id": job["id"], "meeting_id": mid})
 
         # ASK PULSE ENDPOINT (read-only over refined_output.json / documentation_output.json)
@@ -232,6 +179,13 @@ class H(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         if length <= 0:
             return self._json({"error": "empty upload"}, 400)
+        language = self.headers.get("X-Language", "en")
+        try:
+            from stt.languages import is_auto, route_for_language
+            if not is_auto(language):
+                route_for_language(language)
+        except UnsupportedLanguageError as e:
+            return self._json({"error": str(e)}, 400)
         stem = re.sub(r"[^\w.\- ]", "_", Path(name).stem)
         mid, n = stem, 1
         while (OUTPUTS / mid).exists():
@@ -246,7 +200,7 @@ class H(BaseHTTPRequestHandler):
                     break
                 f.write(chunk); remaining -= len(chunk)
         job = pr.new_job(mid)
-        pr.run_pipeline(job, audio, OUTPUTS / mid, language=self.headers.get("X-Language", "en"))
+        pr.run_pipeline(job, audio, OUTPUTS / mid, language=language)
         self._json({"job_id": job["id"], "meeting_id": mid})
 
 

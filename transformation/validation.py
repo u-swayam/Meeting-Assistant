@@ -8,7 +8,7 @@ import typing
 
 from pydantic import ValidationError
 
-from transformation.consensus import analyze_consensus, cues, pick_trigger, select_context
+from transformation.consensus import analyze_consensus, apply_answer_polarity, cues, pick_trigger, select_context
 from transformation.errors import TransformationError
 from transformation.reconstruction import reconstruct
 from transformation.schemas import (ActionCandidate, ActionStatus, DecisionCandidate, DecisionStatus,
@@ -110,6 +110,7 @@ def validate_response(raw, segments: list[dict]):
             warns.append(f"{w}: no valid segment_ids (unsupported by evidence); dropped"); continue
         # --- consensus + context reconstruction (deterministic; status is never modified) ---
         cue_map = {i: cues(segments[i]["text"], d["text"]) for i in range(n)}      # candidate-specific cues
+        cue_map = apply_answer_polarity(cue_map, segments, d["text"])               # "No." to a question != opposition
         ctx = select_context(ids, segments, cue_map)
         cons = analyze_consensus(ids, ctx, segments, cue_map)
         stmt = cons["evidence"]["decision_statement"][0]

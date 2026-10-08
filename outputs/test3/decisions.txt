@@ -1,0 +1,11 @@
+KEY DECISIONS
+
+1. PostgreSQL will remain the primary database and source of truth, with performance testing to be completed before deployment.
+2. MongoDB will not be used as primary storage in this project.
+3. Migration and rollback will first be tested in the staging environment.
+4. Verification of include_internal=false will be added to the deployment checklist.
+5. The Wider MR rate will remain external-only.
+6. Only Prometheus and Grafana will be evaluated for monitoring for now.
+7. At least 500 concurrent requests will be considered the test target for performance testing.
+8. Secrets will not be committed to the repository; they have to be kept in environment variables or a secret manager.
+9. Staging and production credentials will remain separate.

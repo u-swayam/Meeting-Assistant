@@ -1,0 +1,43 @@
+MINUTES
+
+1. Database architecture: PostgreSQL vs MongoDB
+   PostgreSQL was favored for the primary database due to relational dependencies and more predictable reporting and complex joins; MongoDB was noted as flexible. A full production-like concurrency benchmark has not been done, only a preliminary staging test. The team agreed to keep PostgreSQL as the source of truth, with performance testing to be completed before deployment, and decided not to use MongoDB as primary storage in this project.
+
+2. Schema draft and migration testing
+   A first draft of the schema and migration scripts is to be prepared, with Friday 16 October as a target only, not a formal deadline until confirmed in the tracker. Running the migration directly on production was deemed unsafe; migration and rollback will first be tested in staging, with a report due 19 October.
+
+3. Authentication method (JWT vs OAuth)
+   JWT and OAuth were both considered; OAuth could be useful for external identity providers while JWT would be simpler for internal services, and role based access control with JWT would also be necessary. No final decision has been made and authentication remains an open item. A comparison note was suggested but not made a formal task until requirements are clear.
+
+4. Staging API endpoint and include_internal verification
+   The staging API currently uses the /v2/projects/{project_id}/metrics endpoint, and include_internal=false is important and should not be true. Verification of include_internal=false will be added to the deployment checklist.
+
+5. Wider MR rate definition
+   The definition of the Wider MR rate needs clarification; currently only external merge requests are counted. Raw counts were noted: 18,420 external MRs in January and 19,105 in February, with 1,240 and 1,285 active developers respectively. The team agreed the Wider MR rate will remain external-only.
+
+6. Latency metrics, SLO and API client timeout
+   Staging latency was approximately 420 ms p50, 780 ms p95, and 1.9 seconds p99, while the production SLO is 1.5 seconds at p95; these values should not be mixed and staging and production should appear separately in documentation. The API client timeout is currently 30 seconds and a suggestion to make it 10 seconds has not been approved; a benchmark is needed before deciding, and the timeout will remain 30 seconds for now. The benchmark owner is currently unspecified. The project-name filter and latency chart are potential improvements but are not confirmed tasks.
+
+7. Staging cluster hardware and Kubernetes deployment
+   The staging cluster has three worker nodes and one control-plane node; node one has 8 vCPUs and 32 GB RAM, while nodes two and three have 16 vCPUs and 64 GB RAM. Production specifications have not been confirmed and staging hardware should not be written as a production assumption. Kubernetes is proposed for deployment but is not a final decision; the decision will be made after the load and infrastructure review, and a prototype of the Kubernetes deployment configuration is to be prepared by 21 October.
+
+8. Monitoring stack, dashboard and alerts
+   Prometheus 3.1 and Grafana 11.2 are being used for monitoring, and only these two will be evaluated for now. A metrics dashboard and basic alerts are to be set up, with a warning when latency goes above 500 milliseconds, by 23 October.
+
+9. Load test incident and performance testing target
+   In yesterday's controlled load test the queue depth reached a maximum of 37; this was not a production incident. Latency increased but the root cause is not known; cache is only a hypothesis, and collecting cache metrics is a suggestion, not a confirmed action. At least 500 concurrent requests should be simulated in performance testing, considered a starting test target rather than a final production capacity commitment. A load test configuration and report are to be prepared by 24 October.
+
+10. Backup retention policy
+   Keeping backup retention at 30 days was discussed and 30 days will probably be sufficient, but this remains a proposal; the final decision will be made in the next meeting. A proposal document for the backup policy is to be prepared by 22 October.
+
+11. Production deployment date and security review
+   The production deployment date has not been decided; 30 October is only a possible date and should not be recorded as a final deadline or action item. The security review is still pending, and if the security team gives critical findings the deployment may be pushed further; without security approval production deployment will not be considered final. The security checklist is to be reviewed this evening and findings shared.
+
+12. Documentation, secrets and credentials
+   API endpoints, environment variables, and deployment steps will need to be written, and API documentation is to be completed by 25 October. Secrets will not be committed to the repository and must be kept in environment variables or a secret manager. Staging and production credentials will remain separate.
+
+13. Release date, customer demo and audit logs
+   The release date 12 November was proposed but the release manager did not approve it, so it is not a confirmed deadline. The customer demo is penciled in for 28 October, 3 PM IST, but the invite has not been sent and the demo is tentative; the tentative wording should be kept in the documentation. The schema needs an audit_logs table, but the retention policy has not been defined and is not today's decision, kept for future discussion.
+
+14. Open items and next meeting
+   Authentication, Kubernetes, backup retention, and the timeout change remain open, and both the release date and customer demo are tentative. Scheduling the next meeting on 26 October is a suggestion and the date has not been confirmed.

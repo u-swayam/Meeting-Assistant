@@ -9,7 +9,7 @@ from llm1.debug import DebugRecorder
 from llm1.providers import build_client
 from llm1.outputs import write_outputs
 from llm1.prompts import SYSTEM_PROMPT, build_user_prompt
-from llm1.schemas import ModelResponse, RefinedSegment, RefinementResult
+from llm1.schemas import ModelResponse, RefinedSegment, RefinementResult, derive_meta
 from llm1.validation import reconcile
 
 _META_KEYS = ("confidence", "has_overlap", "flags", "source_segment_ids")
@@ -92,7 +92,8 @@ def refine_transcript(data: dict, cfg: LLM1Config | None = None, client=None,
         provider=cfg.provider, model=cfg.model, source_file=source_file,
         total_segments=len(segs), changed_segments=sum(s.changed for s in segs),
         total_changes=sum(len(s.changes) for s in segs), rejected_changes=rejected,
-        speakers=list(data.get("speakers", [])), duration=float(data.get("duration", 0.0)),
+        speakers=derive_meta(segs, data.get("speakers"), data.get("duration"))[0],
+        duration=derive_meta(segs, data.get("speakers"), data.get("duration"))[1],
         warnings=warnings + list(data.get("warnings", [])), segments=segs)
 
 

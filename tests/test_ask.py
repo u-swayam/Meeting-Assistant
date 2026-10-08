@@ -266,7 +266,7 @@ def test_transcript_prompt_injection_is_marked_as_data():
 
 # 10. existing evidence navigation still works --------------------------------------------------------------------------
 def test_segment_ids_match_existing_evidence_resolver_on_demo_meeting():
-    d = Path(__file__).resolve().parent.parent / "outputs" / "test2.wav"
+    d = Path(__file__).resolve().parent.parent / "outputs" / "test2"
     refined, doc = A.load_meeting(d)
     ev = build_evidence(refined, doc)
     item = next(i for i in ev["items"] if i["segments"])

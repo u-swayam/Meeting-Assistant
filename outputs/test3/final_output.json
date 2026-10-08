@@ -1,0 +1,830 @@
+{
+  "turns": [
+    {
+      "index": 0,
+      "speaker": "Speaker 01",
+      "start": 0.0,
+      "end": 12.1,
+      "text": "सभी को नमस्ते। आज हमारे एजेंडा में तीन चीज़ें हैं: database architecture, authentication का तरीका और अगले sprint की responsibilities।"
+    },
+    {
+      "index": 1,
+      "speaker": "Speaker 02",
+      "start": 12.6,
+      "end": 24.4,
+      "text": "मेरे हिसाब से primary database के लिए PostgreSQL बेहतर रहेगा क्योंकि हमारे data में relational dependencies काफी ज़्यादा हैं।"
+    },
+    {
+      "index": 2,
+      "speaker": "Speaker 03",
+      "start": 24.9,
+      "end": 34.3,
+      "text": "MongoDB flexible है, लेकिन reporting और complex joins के लिए PostgreSQL ज़्यादा predictable रहेगा।"
+    },
+    {
+      "index": 3,
+      "speaker": "Speaker 04",
+      "start": 35.0,
+      "end": 41.8,
+      "text": "क्या हमने production जैसी concurrency पर दोनों options benchmark किए हैं?"
+    },
+    {
+      "index": 4,
+      "speaker": "Speaker 02",
+      "start": 42.6,
+      "end": 52.8,
+      "text": "अभी पूरा benchmark नहीं हुआ है। Staging में एक preliminary test हुआ था, लेकिन वह production workload जैसा नहीं था।"
+    },
+    {
+      "index": 5,
+      "speaker": "Speaker 01",
+      "start": 53.5,
+      "end": 59.9,
+      "text": "तो क्या हम आज PostgreSQL को source of truth रखने पर सहमत हो सकते हैं?"
+    },
+    {
+      "index": 6,
+      "speaker": "Speaker 03",
+      "start": 60.4,
+      "end": 68.1,
+      "text": "हाँ, मैं सहमत हूँ, लेकिन deployment से पहले performance testing पूरी होनी चाहिए।"
+    },
+    {
+      "index": 7,
+      "speaker": "Speaker 04",
+      "start": 69.2,
+      "end": 72.4,
+      "text": "मेरे लिए भी PostgreSQL ठीक है।"
+    },
+    {
+      "index": 8,
+      "speaker": "Speaker 01",
+      "start": 73.0,
+      "end": 80.5,
+      "text": "ठीक है, तय हुआ। PostgreSQL हमारा primary database और source of truth रहेगा।"
+    },
+    {
+      "index": 9,
+      "speaker": "Speaker 03",
+      "start": 81.7,
+      "end": 88.1,
+      "text": "क्या MongoDB को किसी अलग analytics workload के लिए रख सकते हैं?"
+    },
+    {
+      "index": 10,
+      "speaker": "Speaker 01",
+      "start": 88.8,
+      "end": 97.6,
+      "text": "अभी नहीं। इस प्रोजेक्ट में MongoDB को primary storage के रूप में इस्तेमाल नहीं करेंगे।"
+    },
+    {
+      "index": 11,
+      "speaker": "Speaker 02",
+      "start": 98.0,
+      "end": 107.2,
+      "text": "Schema का पहला draft मैं तैयार करूँगा। कोशिश करूँगा कि शुक्रवार, 16 अक्टूबर तक ready हो जाए।"
+    },
+    {
+      "index": 12,
+      "speaker": "Speaker 01",
+      "start": 107.8,
+      "end": 116.8,
+      "text": "शुक्रवार को अभी formal deadline मत समझना। यह सिर्फ़ target है जब तक tracker में confirm नहीं होता।"
+    },
+    {
+      "index": 13,
+      "speaker": "Speaker 02",
+      "start": 117.3,
+      "end": 124.7,
+      "text": "ठीक है, मैं initial schema draft और migration scripts पर काम शुरू कर देता हूँ।"
+    },
+    {
+      "index": 14,
+      "speaker": "Speaker 03",
+      "start": 125.8,
+      "end": 131.3,
+      "text": "Migration को सीधे production पर चलाना सुरक्षित नहीं होगा।"
+    },
+    {
+      "index": 15,
+      "speaker": "Speaker 01",
+      "start": 132.2,
+      "end": 139.7,
+      "text": "सही है। पहले staging environment में migration और rollback test किया जाएगा।"
+    },
+    {
+      "index": 16,
+      "speaker": "Speaker 03",
+      "start": 140.4,
+      "end": 145.8,
+      "text": "Staging migration और rollback test मैं संभाल लूँगा।"
+    },
+    {
+      "index": 17,
+      "speaker": "Speaker 01",
+      "start": 146.3,
+      "end": 149.9,
+      "text": "इसकी deadline सोमवार, 19 अक्टूबर है।"
+    },
+    {
+      "index": 18,
+      "speaker": "Speaker 03",
+      "start": 150.5,
+      "end": 157.5,
+      "text": "समझ गया। 19 अक्टूबर तक staging migration और rollback report दे दूँगा।"
+    },
+    {
+      "index": 19,
+      "speaker": "Speaker 04",
+      "start": 158.2,
+      "end": 168.6,
+      "text": "Authentication के लिए JWT और OAuth दोनों options हैं। OAuth external identity providers के लिए useful हो सकता है।"
+    },
+    {
+      "index": 20,
+      "speaker": "Speaker 02",
+      "start": 169.5,
+      "end": 174.7,
+      "text": "Internal services के लिए JWT ज़्यादा simple रहेगा।"
+    },
+    {
+      "index": 21,
+      "speaker": "Speaker 03",
+      "start": 175.3,
+      "end": 181.6,
+      "text": "JWT के साथ role based access control भी जोड़ना ज़रूरी होगा।"
+    },
+    {
+      "index": 22,
+      "speaker": "Speaker 01",
+      "start": 182.6,
+      "end": 189.5,
+      "text": "Authentication पर अभी final decision नहीं हुआ है। इसे open item रखते हैं।"
+    },
+    {
+      "index": 23,
+      "speaker": "Speaker 04",
+      "start": 190.4,
+      "end": 196.1,
+      "text": "मैं दोनों options की comparison note तैयार कर सकता हूँ।"
+    },
+    {
+      "index": 24,
+      "speaker": "Speaker 01",
+      "start": 197.2,
+      "end": 203.5,
+      "text": "अभी इसे formal task मत बनाओ। पहले requirements साफ़ होने दो।"
+    },
+    {
+      "index": 25,
+      "speaker": "Speaker 02",
+      "start": 204.1,
+      "end": 212.2,
+      "text": "Staging API अभी /v2/projects/{project_id}/metrics endpoint इस्तेमाल कर रही है।"
+    },
+    {
+      "index": 26,
+      "speaker": "Speaker 03",
+      "start": 212.7,
+      "end": 219.6,
+      "text": "और include_internal=false बहुत important है। इसे true नहीं होना चाहिए।"
+    },
+    {
+      "index": 27,
+      "speaker": "Speaker 04",
+      "start": 220.6,
+      "end": 228.2,
+      "text": "मैं deployment checklist में include_internal=false की verification जोड़ सकता हूँ।"
+    },
+    {
+      "index": 28,
+      "speaker": "Speaker 01",
+      "start": 229.0,
+      "end": 231.5,
+      "text": "हाँ, इसे add कर दो।"
+    },
+    {
+      "index": 29,
+      "speaker": "Speaker 04",
+      "start": 232.4,
+      "end": 235.5,
+      "text": "ठीक है, मैं यह करूँगा।"
+    },
+    {
+      "index": 30,
+      "speaker": "Speaker 02",
+      "start": 236.4,
+      "end": 246.0,
+      "text": "Wider MR rate की definition भी clarify करनी है। अभी सिर्फ़ external merge requests गिने जाते हैं।"
+    },
+    {
+      "index": 31,
+      "speaker": "Speaker 03",
+      "start": 246.7,
+      "end": 255.5,
+      "text": "January में 18,420 external MRs थे और February में 19,105। ये raw counts हैं, rates नहीं।"
+    },
+    {
+      "index": 32,
+      "speaker": "Speaker 02",
+      "start": 256.4,
+      "end": 262.7,
+      "text": "January में 1,240 active developers थे और February में 1,285।"
+    },
+    {
+      "index": 33,
+      "speaker": "Speaker 01",
+      "start": 263.5,
+      "end": 270.1,
+      "text": "क्या हम wider MR rate की definition external-only रख सकते हैं?"
+    },
+    {
+      "index": 34,
+      "speaker": "Speaker 03",
+      "start": 271.3,
+      "end": 273.8,
+      "text": "हाँ।"
+    },
+    {
+      "index": 35,
+      "speaker": "Speaker 04",
+      "start": 274.7,
+      "end": 277.2,
+      "text": "मेरे लिए भी ठीक है।"
+    },
+    {
+      "index": 36,
+      "speaker": "Speaker 01",
+      "start": 278.2,
+      "end": 282.9,
+      "text": "ठीक है। Wider MR rate external-only रहेगी।"
+    },
+    {
+      "index": 37,
+      "speaker": "Speaker 02",
+      "start": 284.1,
+      "end": 290.7,
+      "text": "Project-name filter और latency chart संभावित improvements हैं।"
+    },
+    {
+      "index": 38,
+      "speaker": "Speaker 01",
+      "start": 291.3,
+      "end": 297.4,
+      "text": "दोनों ideas अच्छे हैं, लेकिन अभी ये confirmed tasks नहीं हैं।"
+    },
+    {
+      "index": 39,
+      "speaker": "Speaker 03",
+      "start": 298.3,
+      "end": 306.5,
+      "text": "Staging में latency लगभग 420 milliseconds p50, 780 milliseconds p95 और 1.9 seconds p99 थी।"
+    },
+    {
+      "index": 40,
+      "speaker": "Speaker 04",
+      "start": 307.3,
+      "end": 314.9,
+      "text": "Production SLO अभी 1.5 seconds at p95 है। इन दोनों values को mix नहीं करना चाहिए।"
+    },
+    {
+      "index": 41,
+      "speaker": "Speaker 01",
+      "start": 315.4,
+      "end": 321.4,
+      "text": "सही है। Documentation में staging और production अलग दिखने चाहिए।"
+    },
+    {
+      "index": 42,
+      "speaker": "Speaker 02",
+      "start": 322.4,
+      "end": 330.3,
+      "text": "API client का current timeout 30 seconds है। इसे 10 seconds करने का suggestion आया था।"
+    },
+    {
+      "index": 43,
+      "speaker": "Speaker 03",
+      "start": 330.9,
+      "end": 335.4,
+      "text": "लेकिन हमने 10 seconds approve नहीं किया है।"
+    },
+    {
+      "index": 44,
+      "speaker": "Speaker 01",
+      "start": 336.5,
+      "end": 344.2,
+      "text": "पहले benchmark करें, फिर timeout पर decision लेंगे। अभी timeout 30 seconds ही रहेगा।"
+    },
+    {
+      "index": 45,
+      "speaker": "Speaker 02",
+      "start": 345.0,
+      "end": 352.5,
+      "text": "मैं benchmark prepare कर सकता हूँ, लेकिन अभी formally owner नहीं बन रहा हूँ।"
+    },
+    {
+      "index": 46,
+      "speaker": "Speaker 04",
+      "start": 353.6,
+      "end": 360.2,
+      "text": "अगर formal task चाहिए तो owner को explicitly assign करना होगा।"
+    },
+    {
+      "index": 47,
+      "speaker": "Speaker 01",
+      "start": 361.3,
+      "end": 365.4,
+      "text": "अभी benchmark का owner unspecified रखो।"
+    },
+    {
+      "index": 48,
+      "speaker": "Speaker 03",
+      "start": 366.1,
+      "end": 372.5,
+      "text": "Staging cluster में तीन worker nodes और एक control-plane node है।"
+    },
+    {
+      "index": 49,
+      "speaker": "Speaker 04",
+      "start": 373.6,
+      "end": 382.3,
+      "text": "Node one में 8 vCPUs और 32 GB RAM है। Node two और three में 16 vCPUs और 64 GB RAM है।"
+    },
+    {
+      "index": 50,
+      "speaker": "Speaker 02",
+      "start": 382.8,
+      "end": 386.8,
+      "text": "क्या production में भी यही hardware है?"
+    },
+    {
+      "index": 51,
+      "speaker": "Speaker 03",
+      "start": 387.4,
+      "end": 393.0,
+      "text": "नहीं, production specifications अभी confirm नहीं हुई हैं।"
+    },
+    {
+      "index": 52,
+      "speaker": "Speaker 01",
+      "start": 393.8,
+      "end": 400.1,
+      "text": "तो staging hardware को production assumption की तरह मत लिखना।"
+    },
+    {
+      "index": 53,
+      "speaker": "Speaker 04",
+      "start": 400.7,
+      "end": 406.1,
+      "text": "Deployment के लिए Kubernetes इस्तेमाल करने का प्रस्ताव है।"
+    },
+    {
+      "index": 54,
+      "speaker": "Speaker 02",
+      "start": 406.8,
+      "end": 413.4,
+      "text": "Kubernetes ठीक रहेगा, लेकिन अभी इसे final decision नहीं कहना चाहिए।"
+    },
+    {
+      "index": 55,
+      "speaker": "Speaker 01",
+      "start": 414.3,
+      "end": 421.8,
+      "text": "सही है। Kubernetes पर फ़ैसला load और infrastructure review के बाद होगा।"
+    },
+    {
+      "index": 56,
+      "speaker": "Speaker 04",
+      "start": 422.8,
+      "end": 429.9,
+      "text": "मैं Kubernetes deployment configuration का prototype तैयार कर सकता हूँ।"
+    },
+    {
+      "index": 57,
+      "speaker": "Speaker 01",
+      "start": 430.8,
+      "end": 436.5,
+      "text": "Prototype की deadline बुधवार, 21 अक्टूबर रख देते हैं।"
+    },
+    {
+      "index": 58,
+      "speaker": "Speaker 04",
+      "start": 436.9,
+      "end": 442.5,
+      "text": "ठीक है, मैं 21 अक्टूबर तक prototype तैयार करूँगा।"
+    },
+    {
+      "index": 59,
+      "speaker": "Speaker 03",
+      "start": 443.5,
+      "end": 453.8,
+      "text": "Monitoring के लिए Prometheus और Grafana इस्तेमाल हो रहे हैं। Versions हैं Prometheus 3.1 और Grafana 11.2।"
+    },
+    {
+      "index": 60,
+      "speaker": "Speaker 02",
+      "start": 454.8,
+      "end": 460.1,
+      "text": "क्या कोई दूसरा monitoring stack भी evaluate करना है?"
+    },
+    {
+      "index": 61,
+      "speaker": "Speaker 01",
+      "start": 460.8,
+      "end": 465.8,
+      "text": "अभी सिर्फ़ Prometheus और Grafana का evaluation करें।"
+    },
+    {
+      "index": 62,
+      "speaker": "Speaker 03",
+      "start": 466.7,
+      "end": 471.4,
+      "text": "मैं metrics dashboard और basic alerts set करूँगा।"
+    },
+    {
+      "index": 63,
+      "speaker": "Speaker 01",
+      "start": 471.9,
+      "end": 478.4,
+      "text": "Alerts के लिए latency 500 milliseconds से ऊपर जाने पर warning चाहिए।"
+    },
+    {
+      "index": 64,
+      "speaker": "Speaker 03",
+      "start": 478.9,
+      "end": 485.7,
+      "text": "ठीक है। मैं 500 milliseconds threshold के साथ alerts configure करूँगा।"
+    },
+    {
+      "index": 65,
+      "speaker": "Speaker 01",
+      "start": 486.1,
+      "end": 489.8,
+      "text": "इसकी deadline शुक्रवार, 23 अक्टूबर है।"
+    },
+    {
+      "index": 66,
+      "speaker": "Speaker 03",
+      "start": 490.3,
+      "end": 495.9,
+      "text": "समझ गया, 23 अक्टूबर तक dashboard और alerts तैयार हो जाएँगे।"
+    },
+    {
+      "index": 67,
+      "speaker": "Speaker 04",
+      "start": 496.6,
+      "end": 504.9,
+      "text": "कल controlled load test में queue depth maximum 37 तक गई थी। यह production incident नहीं था।"
+    },
+    {
+      "index": 68,
+      "speaker": "Speaker 02",
+      "start": 506.0,
+      "end": 511.4,
+      "text": "Latency बढ़ी थी, लेकिन root cause अभी पता नहीं है।"
+    },
+    {
+      "index": 69,
+      "speaker": "Speaker 01",
+      "start": 511.9,
+      "end": 516.1,
+      "text": "क्या cache एक possible cause हो सकता है?"
+    },
+    {
+      "index": 70,
+      "speaker": "Speaker 02",
+      "start": 516.8,
+      "end": 525.1,
+      "text": "हो सकता है, लेकिन यह सिर्फ़ hypothesis है। मैं यह नहीं कह रहा कि root cause cache ही है।"
+    },
+    {
+      "index": 71,
+      "speaker": "Speaker 04",
+      "start": 525.6,
+      "end": 530.8,
+      "text": "Cache metrics collect करना useful हो सकता है।"
+    },
+    {
+      "index": 72,
+      "speaker": "Speaker 01",
+      "start": 532.0,
+      "end": 537.0,
+      "text": "यह सिर्फ़ suggestion है, confirmed action नहीं।"
+    },
+    {
+      "index": 73,
+      "speaker": "Speaker 02",
+      "start": 537.8,
+      "end": 544.9,
+      "text": "Performance testing में कम से कम 500 concurrent requests simulate करनी चाहिए।"
+    },
+    {
+      "index": 74,
+      "speaker": "Speaker 03",
+      "start": 545.4,
+      "end": 552.0,
+      "text": "500 एक starting point है, final production capacity commitment नहीं।"
+    },
+    {
+      "index": 75,
+      "speaker": "Speaker 01",
+      "start": 552.6,
+      "end": 556.6,
+      "text": "ठीक है, इसे test target मानेंगे।"
+    },
+    {
+      "index": 76,
+      "speaker": "Speaker 03",
+      "start": 557.1,
+      "end": 561.4,
+      "text": "Load test की configuration मैं तैयार करूँगा।"
+    },
+    {
+      "index": 77,
+      "speaker": "Speaker 01",
+      "start": 562.6,
+      "end": 568.0,
+      "text": "Load test report की deadline शनिवार, 24 अक्टूबर है।"
+    },
+    {
+      "index": 78,
+      "speaker": "Speaker 03",
+      "start": 568.5,
+      "end": 572.8,
+      "text": "ठीक है, 24 अक्टूबर तक report दे दूँगा।"
+    },
+    {
+      "index": 79,
+      "speaker": "Speaker 04",
+      "start": 573.2,
+      "end": 578.1,
+      "text": "क्या हमें backup retention 30 दिन रखना चाहिए?"
+    },
+    {
+      "index": 80,
+      "speaker": "Speaker 02",
+      "start": 579.3,
+      "end": 584.1,
+      "text": "मेरे हिसाब से 30 दिन शायद पर्याप्त होंगे।"
+    },
+    {
+      "index": 81,
+      "speaker": "Speaker 01",
+      "start": 585.1,
+      "end": 593.3,
+      "text": "इसे अभी proposal के रूप में रखें। Backup retention पर final decision अगली बैठक में होगा।"
+    },
+    {
+      "index": 82,
+      "speaker": "Speaker 04",
+      "start": 594.0,
+      "end": 599.9,
+      "text": "समझ गया। मैं backup policy का proposal document तैयार करूँगा।"
+    },
+    {
+      "index": 83,
+      "speaker": "Speaker 01",
+      "start": 600.9,
+      "end": 605.9,
+      "text": "उस proposal की deadline गुरुवार, 22 अक्टूबर है।"
+    },
+    {
+      "index": 84,
+      "speaker": "Speaker 04",
+      "start": 606.9,
+      "end": 611.6,
+      "text": "ठीक है, 22 अक्टूबर तक proposal तैयार कर दूँगा।"
+    },
+    {
+      "index": 85,
+      "speaker": "Speaker 01",
+      "start": 612.2,
+      "end": 617.8,
+      "text": "Production deployment की तारीख अभी तय नहीं हुई है।"
+    },
+    {
+      "index": 86,
+      "speaker": "Speaker 04",
+      "start": 619.0,
+      "end": 626.0,
+      "text": "तो 30 अक्टूबर सिर्फ़ एक संभावित तारीख है, confirmed deadline नहीं।"
+    },
+    {
+      "index": 87,
+      "speaker": "Speaker 01",
+      "start": 627.0,
+      "end": 634.1,
+      "text": "बिल्कुल। इसे final deadline या action item की तरह दर्ज नहीं करना है।"
+    },
+    {
+      "index": 88,
+      "speaker": "Speaker 02",
+      "start": 635.1,
+      "end": 638.7,
+      "text": "Security review भी अभी pending है।"
+    },
+    {
+      "index": 89,
+      "speaker": "Speaker 03",
+      "start": 639.5,
+      "end": 646.6,
+      "text": "अगर security team critical findings देती है तो deployment आगे बढ़ सकता है।"
+    },
+    {
+      "index": 90,
+      "speaker": "Speaker 01",
+      "start": 647.0,
+      "end": 653.7,
+      "text": "Security approval के बिना production deployment को final नहीं माना जाएगा।"
+    },
+    {
+      "index": 91,
+      "speaker": "Speaker 04",
+      "start": 654.3,
+      "end": 659.2,
+      "text": "मैं security checklist आज शाम review कर सकता हूँ।"
+    },
+    {
+      "index": 92,
+      "speaker": "Speaker 01",
+      "start": 660.2,
+      "end": 664.3,
+      "text": "ठीक है, findings share कर देना।"
+    },
+    {
+      "index": 93,
+      "speaker": "Speaker 04",
+      "start": 665.1,
+      "end": 671.0,
+      "text": "जी, आज शाम को security checklist review मेरा task है।"
+    },
+    {
+      "index": 94,
+      "speaker": "Speaker 02",
+      "start": 672.2,
+      "end": 681.6,
+      "text": "Documentation के लिए API endpoints, environment variables और deployment steps भी लिखने होंगे।"
+    },
+    {
+      "index": 95,
+      "speaker": "Speaker 03",
+      "start": 682.3,
+      "end": 686.4,
+      "text": "API documentation मैं तैयार कर सकता हूँ।"
+    },
+    {
+      "index": 96,
+      "speaker": "Speaker 01",
+      "start": 687.0,
+      "end": 692.6,
+      "text": "API documentation की deadline रविवार, 25 अक्टूबर रखते हैं।"
+    },
+    {
+      "index": 97,
+      "speaker": "Speaker 03",
+      "start": 693.2,
+      "end": 698.9,
+      "text": "ठीक है, 25 अक्टूबर तक API documentation पूरी कर दूँगा।"
+    },
+    {
+      "index": 98,
+      "speaker": "Speaker 04",
+      "start": 700.0,
+      "end": 705.9,
+      "text": "क्या secrets को repository में commit किया जा सकता है?"
+    },
+    {
+      "index": 99,
+      "speaker": "Speaker 01",
+      "start": 706.7,
+      "end": 717.4,
+      "text": "नहीं। Secrets repository में commit नहीं किए जाएँगे। उन्हें environment variables या secret manager में रखना है।"
+    },
+    {
+      "index": 100,
+      "speaker": "Speaker 02",
+      "start": 718.4,
+      "end": 723.7,
+      "text": "क्या staging में production credentials इस्तेमाल होंगे?"
+    },
+    {
+      "index": 101,
+      "speaker": "Speaker 01",
+      "start": 724.6,
+      "end": 730.3,
+      "text": "नहीं, staging और production credentials अलग रहेंगे।"
+    },
+    {
+      "index": 102,
+      "speaker": "Speaker 03",
+      "start": 731.3,
+      "end": 739.7,
+      "text": "Release date 12 November propose हुई थी, लेकिन release manager ने approve नहीं किया।"
+    },
+    {
+      "index": 103,
+      "speaker": "Speaker 01",
+      "start": 740.5,
+      "end": 745.0,
+      "text": "इसलिए 12 November confirmed deadline नहीं है।"
+    },
+    {
+      "index": 104,
+      "speaker": "Speaker 02",
+      "start": 746.0,
+      "end": 754.1,
+      "text": "Customer demo 28 October, 3 PM IST के लिए penciled in है। Invite अभी भेजा नहीं गया है।"
+    },
+    {
+      "index": 105,
+      "speaker": "Speaker 03",
+      "start": 755.1,
+      "end": 758.9,
+      "text": "इसलिए demo भी tentative है।"
+    },
+    {
+      "index": 106,
+      "speaker": "Speaker 01",
+      "start": 759.6,
+      "end": 764.7,
+      "text": "Documentation में tentative wording बनाए रखनी है।"
+    },
+    {
+      "index": 107,
+      "speaker": "Speaker 02",
+      "start": 765.9,
+      "end": 775.8,
+      "text": "Audit logs के लिए schema में audit_logs table भी चाहिए, लेकिन retention policy अभी define नहीं हुई है।"
+    },
+    {
+      "index": 108,
+      "speaker": "Speaker 01",
+      "start": 776.3,
+      "end": 783.4,
+      "text": "Retention policy को आज का decision मत मानना। इसे future discussion में रखें।"
+    },
+    {
+      "index": 109,
+      "speaker": "Speaker 04",
+      "start": 783.9,
+      "end": 796.9,
+      "text": "Recap: PostgreSQL primary database रहेगा, wider MR rate external-only रहेगी और include_internal=false verification checklist में जुड़ेगा।"
+    },
+    {
+      "index": 110,
+      "speaker": "Speaker 01",
+      "start": 797.9,
+      "end": 801.4,
+      "text": "हाँ, ये तीन चीज़ें confirmed हैं।"
+    },
+    {
+      "index": 111,
+      "speaker": "Speaker 02",
+      "start": 802.5,
+      "end": 810.4,
+      "text": "Authentication, Kubernetes, backup retention और timeout change अभी open हैं।"
+    },
+    {
+      "index": 112,
+      "speaker": "Speaker 03",
+      "start": 811.3,
+      "end": 816.4,
+      "text": "Release date और customer demo दोनों tentative हैं।"
+    },
+    {
+      "index": 113,
+      "speaker": "Speaker 01",
+      "start": 817.2,
+      "end": 826.2,
+      "text": "Action items में owner और deadline सिर्फ़ वहीं लिखना जहाँ साफ़ बताए गए हैं। बाकी unspecified रखना।"
+    },
+    {
+      "index": 114,
+      "speaker": "Speaker 02",
+      "start": 826.6,
+      "end": 831.2,
+      "text": "क्या अगली meeting 26 अक्टूबर को रखें?"
+    },
+    {
+      "index": 115,
+      "speaker": "Speaker 01",
+      "start": 832.1,
+      "end": 837.7,
+      "text": "26 अक्टूबर एक सुझाव है, तारीख अभी confirm नहीं हुई है।"
+    },
+    {
+      "index": 116,
+      "speaker": "Speaker 01",
+      "start": 838.8,
+      "end": 843.9,
+      "text": "ठीक है, आज की बैठक यहीं समाप्त करते हैं। धन्यवाद।"
+    }
+  ],
+  "language": {
+    "code": "hi-IN",
+    "name": "Hindi",
+    "stt_provider": "sarvam",
+    "detected": false,
+    "translated_to": "en"
+  }
+}

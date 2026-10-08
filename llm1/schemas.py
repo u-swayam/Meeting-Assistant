@@ -91,3 +91,16 @@ class RefinementResult(BaseModel):
         "log documents the model's interventions, not that each one is correct."
     )
     segments: list[RefinedSegment]
+
+
+def derive_meta(segments, speakers=None, duration=None) -> tuple[list[str], float]:
+    """Aggregate metadata from the ACTUAL segments (never from the LLM): speakers = unique non-empty speaker labels in
+    order of first appearance, duration = max segment end. Non-empty/positive values supplied by the caller win."""
+    segs = [s if isinstance(s, dict) else s.model_dump() for s in segments]
+    spk = [str(x) for x in (speakers or []) if x]
+    if not spk:
+        spk = list(dict.fromkeys(str(s["speaker"]) for s in segs if s.get("speaker")))
+    dur = float(duration or 0.0)
+    if dur <= 0:
+        dur = max([float(s.get("end") or 0.0) for s in segs] or [0.0])
+    return spk, dur

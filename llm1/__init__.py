@@ -3,3 +3,4 @@
 Public API:  refine_file(structured_json_path, outdir=None) -> RefinementResult
 """
 from llm1.refiner import refine_file, refine_transcript  # noqa: F401
+from llm1.translation import translate_file, translate_transcript  # noqa: F401  (non-English meetings)

@@ -32,7 +32,14 @@ _UNRES = _rx(r"\b(not|n't|never|hasn'?t|haven'?t)\b[^.?!]{0,20}\b(yet )?(been )?
              r"\bstill (open|undecided|to be decided)\b", r"\b(open|outstanding) (question|issue|item)\b",
              r"\b(discuss|revisit|decide|come back to) (it |this |that )?(later|next (week|time|meeting)|again)\b",
              r"\blet'?s (discuss|revisit|table|park|defer)\b", r"\b(table|defer|postpone)(d)? (this|it|that)\b",
-             r"\bto be decided\b", r"\bnot approved\b", r"\bleave (it|this) open\b", r"^maybe\b[.,]?\s*$", r"^maybe[.,]")
+             r"\bto be decided\b", r"\bnot approved\b",
+             # deferred / tentative / not-yet-made decisions (the bare word "decision" must not read as finalization)
+             r"\b(will|to|can|shall) be (made|decided|taken|finali[sz]ed|confirmed|discussed)\b[^.?!]{0,30}\b(later|next|soon|afterwards|tomorrow|after|once)\b",
+             r"\bwe(?:'ll| will| shall) (decide|discuss|revisit|finali[sz]e|confirm)\b[^.?!]{0,25}\b(later|next|tomorrow|soon|afterwards|after|once|in the next|at the next)\b",
+             r"\bnot (a |an |the )?(final|confirmed|firm|definite|approved) (decision|plan|choice|call)\b",
+             r"\bdecision\b[^.?!]{0,25}(?:\bnot|n't|\byet to)\b[^.?!]{0,15}\b(made|taken|finali[sz]ed)\b",
+             r"(?:\bnot|n't|\byet to)\b[^.?!]{0,15}\b(made|taken|make|take) (a |the |any )?(final )?decision\b",
+             r"\btentative(ly)?\b", r"\bleave (it|this) open\b", r"^maybe\b[.,]?\s*$", r"^maybe[.,]")
 _HEDGE = _rx(r"\bi think\b", r"\bmaybe\b", r"\bperhaps\b", r"\bwhat if\b", r"\bwe (could|might|may)\b", r"\bcould we\b",
              r"\bshould we\b", r"\bhow about\b", r"\bi (suggest|propose|recommend)\b", r"\bprobably\b", r"\bwe should\b",
              r"\bwe ought to\b", r"\bit might\b", r"\bpossibly\b", r"\bi'?d (suggest|propose|go with)\b", r"\bwould it make sense\b")
@@ -85,6 +92,25 @@ def relevant(clause: str, topic: str | None) -> bool:
     if not c:                      # no content words: only a pronoun/demonstrative ("That is still open") points back at the candidate
         return bool(re.search(r"\b(that|this|it|they|those|these|the (decision|proposal|plan|choice))\b", _norm(clause)))
     return bool(c & _content(_norm(topic)))
+
+
+_BARE_NO = re.compile(r"^(no|nope|nah)[.!]?$")
+_NEG_TOPIC = re.compile(r"\b(not|never|cannot|without|avoid|forbid(den)?|prohibit(ed)?)\b|n't\b")
+
+
+def apply_answer_polarity(cu: dict, segments: list[dict], topic: str | None) -> dict:
+    """A bare "No." answering a question is an ANSWER, not opposition to the decision. When the candidate decision is itself
+    negative ("Secrets must not be committed") and the preceding question is about that proposition ("Can secrets be committed?"),
+    the "No." SUPPORTS the negative decision, so it is counted as agreement instead of opposition. Positive decisions keep
+    treating "No." as opposition, and opposition worded as a statement ("I disagree") is untouched. Returns a new dict."""
+    if not topic or not _NEG_TOPIC.search(_norm(topic)):
+        return cu
+    out = dict(cu)
+    for i, seg in enumerate(segments):
+        if i and i in cu and cu[i]["oppose"] and _BARE_NO.match(_norm(seg["text"])) and cu[i - 1]["question"] \
+                and relevant(segments[i - 1]["text"], topic) and _content(_norm(segments[i - 1]["text"])):
+            out[i] = dict(cu[i], oppose=False, agree=True)
+    return out
 
 
 def _clause_cues(t: str) -> dict:

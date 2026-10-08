@@ -247,9 +247,12 @@ def _as_id(x):
 
 def _evidence_item(refined: dict, i: int) -> dict:
     s = refined["segments"][i]
-    return {"segment_id": i, "speaker": s.get("speaker"), "start": s.get("start"), "end": s.get("end"),
-            "text": s.get("refined_text", ""), "original_text": s.get("original_text", ""),
-            "changed": bool(s.get("changed"))}
+    d = {"segment_id": i, "speaker": s.get("speaker"), "start": s.get("start"), "end": s.get("end"),
+         "text": s.get("refined_text", ""), "original_text": s.get("original_text", ""),
+         "changed": bool(s.get("changed"))}
+    if s.get("source_language"):
+        d["source_language"] = s["source_language"]
+    return d
 
 
 def validate_answer(raw: dict, refined: dict, allowed: set[int]) -> dict:
